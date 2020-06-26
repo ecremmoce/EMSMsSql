@@ -1,0 +1,546 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3A872EC1-64FA-41E0-BF6E-159BBD7605D7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ShopeeManagement</RootNamespace>
+    <AssemblyName>ShopeeManagement</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>ftp://www.ecremmoce.io/deploy/EMSL/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://www.ecremmoce.io/deploy/EMSL/</InstallUrl>
+    <ProductName>EMS</ProductName>
+    <PublisherName>ECREMMOCE</PublisherName>
+    <SuiteName>EMS</SuiteName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>147</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>1A08E162733049EBF849AF93E1658533CECB20DA</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>ShopeeManagement_1_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>SM.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v19.2, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v19.2.Core, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v19.2.Core, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v19.2, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v19.2, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v19.2, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AllAttributeList.cs" />
+    <Compile Include="APIShopeeCategory.cs" />
+    <Compile Include="AppDbContext.cs" />
+    <Compile Include="AtiveCategory.cs" />
+    <Compile Include="AttributeNameMap.cs" />
+    <Compile Include="CategoryVariationMandatoryCount.cs" />
+    <Compile Include="ClsShopee.cs" />
+    <Compile Include="cls_currency.cs" />
+    <Compile Include="CollectionRandomPicker.cs" />
+    <Compile Include="ConfigVar.cs" />
+    <Compile Include="CookieAwareWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CoupangHttpClientProvider.cs" />
+    <Compile Include="CurrencyRate.cs" />
+    <Compile Include="CustomCategoryData.cs" />
+    <Compile Include="DesignStyle.cs" />
+    <Compile Include="ExtBitmap.cs" />
+    <Compile Include="FavKeyword.cs" />
+    <Compile Include="FavKeywordOther.cs" />
+    <Compile Include="FavoriteCategoryData.cs" />
+    <Compile Include="FooterSeparator.cs" />
+    <Compile Include="FormAddDiscountEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddDiscountEvent.Designer.cs">
+      <DependentUpon>FormAddDiscountEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAttributeManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAttributeManage.designer.cs">
+      <DependentUpon>FormAttributeManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCategoryMapper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCategoryMapper.designer.cs">
+      <DependentUpon>FormCategoryMapper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormConfig.designer.cs">
+      <DependentUpon>FormConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCustomCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCustomCategory.designer.cs">
+      <DependentUpon>FormCustomCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDeleteDiscountEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDeleteDiscountEvent.Designer.cs">
+      <DependentUpon>FormDeleteDiscountEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDescription.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDescription.designer.cs">
+      <DependentUpon>FormDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDescriptionDraft.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDescriptionDraft.designer.cs">
+      <DependentUpon>FormDescriptionDraft.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDownloadData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDownloadData.Designer.cs">
+      <DependentUpon>FormDownloadData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormImageTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormImageTool.designer.cs">
+      <DependentUpon>FormImageTool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormImageView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormImageView.designer.cs">
+      <DependentUpon>FormImageView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPreviewHF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPreviewHF.designer.cs">
+      <DependentUpon>FormPreviewHF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormProductManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormProductManage.designer.cs">
+      <DependentUpon>FormProductManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormProductMapper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormProductMapper.designer.cs">
+      <DependentUpon>FormProductMapper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormProductMapper2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormProductMapper2.designer.cs">
+      <DependentUpon>FormProductMapper2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSetAttribute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSetAttribute.designer.cs">
+      <DependentUpon>FormSetAttribute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSetAttributeClone.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSetAttributeClone.designer.cs">
+      <DependentUpon>FormSetAttributeClone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSetCategoryAndAttribute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSetCategoryAndAttribute.designer.cs">
+      <DependentUpon>FormSetCategoryAndAttribute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSetCategoryAndAttributeDraft.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSetCategoryAndAttributeDraft.designer.cs">
+      <DependentUpon>FormSetCategoryAndAttributeDraft.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSetVariation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSetVariation.Designer.cs">
+      <DependentUpon>FormSetVariation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSetVariationClone.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSetVariationClone.designer.cs">
+      <DependentUpon>FormSetVariationClone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSetVariationDraft.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSetVariationDraft.designer.cs">
+      <DependentUpon>FormSetVariationDraft.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormShippingSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormShippingSetting.designer.cs">
+      <DependentUpon>FormShippingSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStart.designer.cs">
+      <DependentUpon>FormStart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUploader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUploader.designer.cs">
+      <DependentUpon>FormUploader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUploadExcelPrice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUploadExcelPrice.designer.cs">
+      <DependentUpon>FormUploadExcelPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUploadViewMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUploadViewMessage.designer.cs">
+      <DependentUpon>FormUploadViewMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FromAddProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FromAddProduct.designer.cs">
+      <DependentUpon>FromAddProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="global_var.cs" />
+    <Compile Include="HeaderSeparator.cs" />
+    <Compile Include="HFList.cs" />
+    <Compile Include="HFType.cs" />
+    <Compile Include="Item2TierVariation.cs" />
+    <Compile Include="Item2TierVariationInit.cs" />
+    <Compile Include="ItemAttribute.cs" />
+    <Compile Include="ItemAttributeDraft.cs" />
+    <Compile Include="ItemAttributeDraftTar.cs" />
+    <Compile Include="ItemDiscountPrice.cs" />
+    <Compile Include="ItemInfo.cs" />
+    <Compile Include="ItemInfoDraft.cs" />
+    <Compile Include="ItemLogistic.cs" />
+    <Compile Include="ItemVariation.cs" />
+    <Compile Include="ItemVariationDraft.cs" />
+    <Compile Include="ItemWholesale.cs" />
+    <Compile Include="ItemWholesaleDraft.cs" />
+    <Compile Include="kt_auth_req.cs" />
+    <Compile Include="Logistic.cs" />
+    <Compile Include="Matrix.cs" />
+    <Compile Include="Migrations\202006260140272_Initial.cs" />
+    <Compile Include="Migrations\202006260140272_Initial.designer.cs">
+      <DependentUpon>202006260140272_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="NAO.cs" />
+    <Compile Include="Option2D.cs" />
+    <Compile Include="PriceCalculator.cs" />
+    <Compile Include="ProductAttribute.cs" />
+    <Compile Include="ProductLink.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Promotion.cs" />
+    <Compile Include="PromotionItem.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="req_image.cs" />
+    <Compile Include="SetFooter.cs" />
+    <Compile Include="SetHeader.cs" />
+    <Compile Include="ShippingRateDRTh.cs" />
+    <Compile Include="ShippingRateDRVn.cs" />
+    <Compile Include="ShippingRateSlsId.cs" />
+    <Compile Include="ShippingRateSlsMy.cs" />
+    <Compile Include="ShippingRateSlsPh.cs" />
+    <Compile Include="ShippingRateSlsSg.cs" />
+    <Compile Include="ShippingRateYSMy.cs" />
+    <Compile Include="ShippingRateYTOTw.cs" />
+    <Compile Include="ShopeeAccount.cs" />
+    <Compile Include="ShopeeApi.cs" />
+    <Compile Include="ShopeeCategory.cs" />
+    <Compile Include="ShopeeCategoryOnly.cs" />
+    <Compile Include="ShopeeDiscountItem.cs" />
+    <Compile Include="ShopeeItemVariation.cs" />
+    <Compile Include="ShopeeVariationBatch.cs" />
+    <Compile Include="ShopeeVariationPrice.cs" />
+    <Compile Include="shopee_attribute.cs" />
+    <Compile Include="shopee_image.cs" />
+    <Compile Include="shopee_logi.cs" />
+    <Compile Include="shopee_variations.cs" />
+    <Compile Include="ShopHttpClientProvider.cs" />
+    <Compile Include="TemplateFooter.cs" />
+    <Compile Include="TemplateHeader.cs" />
+    <Compile Include="TemplateVersion.cs" />
+    <Compile Include="TitleBrand.cs" />
+    <Compile Include="TitleFeature.cs" />
+    <Compile Include="TitleGroup.cs" />
+    <Compile Include="TitleModel.cs" />
+    <Compile Include="TitleOption.cs" />
+    <Compile Include="TitleRelat.cs" />
+    <Compile Include="TitleType.cs" />
+    <EmbeddedResource Include="FormAddDiscountEvent.resx">
+      <DependentUpon>FormAddDiscountEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAttributeManage.resx">
+      <DependentUpon>FormAttributeManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCategoryMapper.resx">
+      <DependentUpon>FormCategoryMapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormConfig.resx">
+      <DependentUpon>FormConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCustomCategory.resx">
+      <DependentUpon>FormCustomCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDeleteDiscountEvent.resx">
+      <DependentUpon>FormDeleteDiscountEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDescription.resx">
+      <DependentUpon>FormDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDescriptionDraft.resx">
+      <DependentUpon>FormDescriptionDraft.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDownloadData.resx">
+      <DependentUpon>FormDownloadData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormImageTool.resx">
+      <DependentUpon>FormImageTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormImageView.resx">
+      <DependentUpon>FormImageView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPreviewHF.resx">
+      <DependentUpon>FormPreviewHF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormProductManage.resx">
+      <DependentUpon>FormProductManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormProductMapper.resx">
+      <DependentUpon>FormProductMapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormProductMapper2.resx">
+      <DependentUpon>FormProductMapper2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSetAttribute.resx">
+      <DependentUpon>FormSetAttribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSetAttributeClone.resx">
+      <DependentUpon>FormSetAttributeClone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSetCategoryAndAttribute.resx">
+      <DependentUpon>FormSetCategoryAndAttribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSetCategoryAndAttributeDraft.resx">
+      <DependentUpon>FormSetCategoryAndAttributeDraft.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSetVariation.resx">
+      <DependentUpon>FormSetVariation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSetVariationClone.resx">
+      <DependentUpon>FormSetVariationClone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSetVariationDraft.resx">
+      <DependentUpon>FormSetVariationDraft.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormShippingSetting.resx">
+      <DependentUpon>FormShippingSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStart.resx">
+      <DependentUpon>FormStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUploader.resx">
+      <DependentUpon>FormUploader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUploadExcelPrice.resx">
+      <DependentUpon>FormUploadExcelPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUploadViewMessage.resx">
+      <DependentUpon>FormUploadViewMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FromAddProduct.resx">
+      <DependentUpon>FromAddProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006260140272_Initial.resx">
+      <DependentUpon>202006260140272_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="ShopeeManagement_1_TemporaryKey.pfx" />
+    <None Include="ShopeeManagement_TemporaryKey.pfx" />
+    <None Include="인증서백업\ShopeeManagement_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="iconfinder_shopify_3069736.ico" />
+    <None Include="images\add-icon.png" />
+    <Content Include="SM.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.1%28x86 및 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AngleSharp">
+      <Version>0.14.0</Version>
+    </PackageReference>
+    <PackageReference Include="Auth0.OidcClient.WinForms">
+      <Version>3.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="EntityFramework">
+      <Version>6.4.4</Version>
+    </PackageReference>
+    <PackageReference Include="EPPlus">
+      <Version>4.5.3.3</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.11.24</Version>
+    </PackageReference>
+    <PackageReference Include="MetroModernUI">
+      <Version>1.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Forms.UI.Controls.WebView">
+      <Version>6.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.SDK.Contracts">
+      <Version>10.0.19041.1</Version>
+    </PackageReference>
+    <PackageReference Include="morelinq">
+      <Version>3.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="RestSharp">
+      <Version>106.11.4</Version>
+    </PackageReference>
+    <PackageReference Include="StackExchange.Redis">
+      <Version>2.1.58</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
