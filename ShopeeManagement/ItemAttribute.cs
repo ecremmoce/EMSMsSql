@@ -16,14 +16,16 @@ namespace ShopeeManagement
         public long attribute_id { get; set; }
         [Key]
         [Column(Order = 1)]
-        [InverseProperty("ItemAttributes")]
+        [ForeignKey("ItemInfo")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long item_id { get; set; }
         [Key]
         [Column(Order = 2)]
-        [InverseProperty("ItemAttributes")]
+        [ForeignKey("ItemInfo")]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
+
         public string attribute_name { get; set; }
         public bool is_mandatory { get; set; }
         public string attribute_type { get; set; }

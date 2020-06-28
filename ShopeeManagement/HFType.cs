@@ -17,12 +17,13 @@ namespace ShopeeManagement
 
         [Key]
         [Column(Order = 1)]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
 
         public string HFTypeName { get; set; }
         
-        [ForeignKey("HFTypeID, UserId")]
+        [InverseProperty("HFType")]
         public ICollection<HFList> HFLists { get; set; }
     }
 }

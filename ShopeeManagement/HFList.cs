@@ -17,13 +17,14 @@ namespace ShopeeManagement
 
         [Key]
         [Column(Order = 1)]
-        [InverseProperty("HFLists")]
+        [ForeignKey("HFType")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int HFTypeID { get; set; }
 
         [Key]
         [Column(Order = 2)]
-        [InverseProperty("HFLists")]
+        [ForeignKey("HFType")]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
 

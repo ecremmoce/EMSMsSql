@@ -16,12 +16,13 @@ namespace ShopeeManagement
         public long attribute_id { get; set; }
         [Key]
         [Column(Order = 1)]
-        [InverseProperty("ItemAttributeDrafts")]
+        [ForeignKey("ItemInfoDraft")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ItemInfoDraftId { get; set; }
         [Key]
         [Column(Order = 2)]
-        [InverseProperty("ItemAttributeDrafts")]
+        [ForeignKey("ItemInfoDraft")]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
         public string attribute_name { get; set; }

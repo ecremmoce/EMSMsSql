@@ -16,12 +16,13 @@ namespace ShopeeManagement
         public long logistic_id { get; set; }
         [Key]
         [Column(Order = 1)]
-        [InverseProperty("ItemLogistics")]
+        [ForeignKey("ItemInfo")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long item_id { get; set; }
         [Key]
         [Column(Order = 2)]
-        [InverseProperty("ItemLogistics")]
+        [ForeignKey("ItemInfo")]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
         public string logistic_name { get; set; }

@@ -101,7 +101,7 @@ namespace ShopeeManagement
             }
             else
             {
-                Label_version.Text = "V" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                Label_version.Text = "V" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
             }
 
             CheckForShortcut();

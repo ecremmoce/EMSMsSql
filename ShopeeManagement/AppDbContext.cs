@@ -22,7 +22,7 @@ namespace ShopeeManagement
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+            /*
             modelBuilder.Entity<HFType>().HasKey(o => new { o.HFTypeID, o.UserId });
             modelBuilder.Entity<HFType>().Property(o => o.HFTypeID)
                 .HasColumnOrder(0)
@@ -193,7 +193,7 @@ namespace ShopeeManagement
                 .HasRequired<ItemInfoDraft>(o => o.ItemInfoDraft)
                 .WithMany(o => o.ItemWholesaleDrafts)
                 .HasForeignKey(o => new { o.ItemInfoDraftId, o.UserId });
-            
+            */
         }
 
         public DbSet<DesignStyle> DesignStyles { get; set; }

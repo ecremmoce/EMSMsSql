@@ -16,12 +16,13 @@ namespace ShopeeManagement
         public int Idx { get; set; }
         [Key]
         [Column(Order = 1)]
-        [InverseProperty("ItemWholesaleDrafts")]
+        [ForeignKey("ItemInfoDraft")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ItemInfoDraftId { get; set; }
         [Key]
         [Column(Order = 2)]
-        [InverseProperty("ItemWholesaleDrafts")]
+        [ForeignKey("ItemInfoDraft")]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
         public int min { get; set; }

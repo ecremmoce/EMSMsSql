@@ -16,8 +16,10 @@ namespace ShopeeManagement
         public int Id { get; set; }
         [Key]
         [Column(Order = 1)]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
+
         public long src_item_id { get; set; }
         public string src_shopeeAccount { get; set; }
         public string tar_shopeeAccount { get; set; }
@@ -65,13 +67,14 @@ namespace ShopeeManagement
         public decimal currencyRate { get; set; }
         public DateTime currencyDate { get; set; }
         public decimal pgFee { get; set; }
-        [ForeignKey("ItemInfoDraftId, UserId")]
+
+        [InverseProperty("ItemInfoDraft")]
         public ICollection<ItemAttributeDraft> ItemAttributeDrafts { get; set; }
-        [ForeignKey("ItemInfoDraftId, UserId")]
+        [InverseProperty("ItemInfoDraft")]
         public ICollection<ItemAttributeDraftTar> ItemAttributeDraftTars { get; set; }
-        [ForeignKey("ItemInfoDraftId, UserId")]
+        [InverseProperty("ItemInfoDraft")]
         public ICollection<ItemVariationDraft> ItemVariationDrafts { get; set; }
-        [ForeignKey("ItemInfoDraftId, UserId")]
+        [InverseProperty("ItemInfoDraft")]
         public ICollection<ItemWholesaleDraft> ItemWholesaleDrafts { get; set; }
     }
 }

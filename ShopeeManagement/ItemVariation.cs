@@ -16,12 +16,13 @@ namespace ShopeeManagement
         public long variation_id { get; set; }
         [Key]
         [Column(Order = 1)]
-        [InverseProperty("ItemVariations")]
+        [ForeignKey("ItemInfo")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long item_id { get; set; }
         [Key]
         [Column(Order = 2)]
-        [InverseProperty("ItemVariations")]
+        [ForeignKey("ItemInfo")]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
         public string variation_sku { get; set; }

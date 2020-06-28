@@ -17,6 +17,7 @@ namespace ShopeeManagement
 
         [Key]
         [Column(Order = 1)]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
 
@@ -66,14 +67,14 @@ namespace ShopeeManagement
         public DateTime currencyDate { get; set; }
         public DateTime savedDate { get; set; }
 
-        [ForeignKey("item_id, UserId")]
+        [InverseProperty("ItemInfo")]
         public ICollection<ItemAttribute> ItemAttributes { get; set; }
-        [ForeignKey("item_id, UserId")]
+        [InverseProperty("ItemInfo")]
         //public ICollection<ItemImage> ItemImages { get; set; }
         public ICollection<ItemLogistic> ItemLogistics { get; set; }
-        [ForeignKey("item_id, UserId")]
+        [InverseProperty("ItemInfo")]
         public ICollection<ItemVariation> ItemVariations { get; set; }
-        [ForeignKey("item_id, UserId")]
+        [InverseProperty("ItemInfo")]
         public ICollection<ItemWholesale> ItemWholesales { get; set; }
     }
 }
