@@ -10,10 +10,13 @@ namespace ShopeeManagement
 {
     class FavKeywordOther
     {
-        [Key, Column(Order = 0)] 
+        [Key]
+        [Column(Order = 0)] 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Keyword { get; set; }
-        [Key, Column(Order = 1)]
+        [Key]
+        [Column(Order = 1)]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
     }

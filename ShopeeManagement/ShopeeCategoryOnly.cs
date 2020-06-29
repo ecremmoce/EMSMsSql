@@ -10,11 +10,14 @@ namespace ShopeeManagement
 {
     class ShopeeCategoryOnly
     {
-        [Key, Column(Order = 0)]
+        [Key]
+        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        [Key, Column(Order = 1)]
+        [Key]
+        [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [StringLength(150)]
         public string UserId { get; set; }
         public string CatLevel1 { get; set; }
         public string CatLevel2 { get; set; }

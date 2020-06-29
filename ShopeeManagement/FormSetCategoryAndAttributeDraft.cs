@@ -1402,17 +1402,20 @@ namespace ShopeeManagement
 
                                 for (int j = 0; j < DgTarAttribute.Rows.Count; j++)
                                 {
-                                    if (DgTarAttribute.Rows[j].Cells["DgTarAttribute_attribute_name_src"].Value.ToString() == tarAttrName)
+                                    if(DgTarAttribute.Rows[j].Cells["DgTarAttribute_attribute_name_src"].Value != null)
                                     {
-                                        if (DgTarAttribute.Rows[j].Cells["DgTarAttribute_attribute_value"].Value.ToString().Trim() == string.Empty)
+                                        if (DgTarAttribute.Rows[j].Cells["DgTarAttribute_attribute_name_src"].Value.ToString() == tarAttrName)
                                         {
-                                            //이미 설정된 경우는 바꾸면 안됨
-                                            //비어 있는 경우만 바꿀 수 있음
-                                            DgTarAttribute.Rows[j].Cells["DgTarAttribute_attribute_value"].Value =
-                                            DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_value"].Value.ToString().Trim();
-                                            break;
-                                        }
+                                            if (DgTarAttribute.Rows[j].Cells["DgTarAttribute_attribute_value"].Value.ToString().Trim() == string.Empty)
+                                            {
+                                                //이미 설정된 경우는 바꾸면 안됨
+                                                //비어 있는 경우만 바꿀 수 있음
+                                                DgTarAttribute.Rows[j].Cells["DgTarAttribute_attribute_value"].Value =
+                                                DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_value"].Value.ToString().Trim();
+                                                break;
+                                            }
 
+                                        }
                                     }
                                 }
                             }
@@ -1507,12 +1510,16 @@ namespace ShopeeManagement
 
                             for (int j = 0; j < DgTarAttribute.Rows.Count; j++)
                             {
-                                if (DgTarAttribute.Rows[j].Cells["DgTarAttribute_attribute_name_src"].Value.ToString() == tarData)
+                                if(DgTarAttribute.Rows[j].Cells["DgTarAttribute_attribute_name_src"].Value != null)
                                 {
-                                    DgTarAttribute.Rows[j].Cells["DgTarAttribute_attribute_value"].Value =
-                                    DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_value"].Value.ToString();
-                                    break;
+                                    if (DgTarAttribute.Rows[j].Cells["DgTarAttribute_attribute_name_src"].Value.ToString() == tarData)
+                                    {
+                                        DgTarAttribute.Rows[j].Cells["DgTarAttribute_attribute_value"].Value =
+                                        DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_value"].Value.ToString();
+                                        break;
+                                    }
                                 }
+                                
                             }
                         }
                     }

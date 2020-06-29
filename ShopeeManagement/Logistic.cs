@@ -10,12 +10,20 @@ namespace ShopeeManagement
 {
     class Logistic
     {
-        [Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string shopeeAccount { get; set; }
 
-        [Key, Column(Order = 1), DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long logistic_id { get; set; }
-        [Key, Column(Order = 2), DatabaseGenerated(DatabaseGeneratedOption.None)]
+
+        [Key]
+        [Column(Order = 2)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [StringLength(150)]
         public string UserId { get; set; }
         public string logistic_name { get; set; }
         public bool has_cod { get; set; }

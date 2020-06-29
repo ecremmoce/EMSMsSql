@@ -32,7 +32,7 @@
     <SuiteName>EMS</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>148</ApplicationRevision>
+    <ApplicationRevision>152</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -326,6 +326,10 @@
     <Compile Include="Migrations\202006260140272_Initial.designer.cs">
       <DependentUpon>202006260140272_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006290611327_sdf.cs" />
+    <Compile Include="Migrations\202006290611327_sdf.designer.cs">
+      <DependentUpon>202006290611327_sdf.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NAO.cs" />
     <Compile Include="Option2D.cs" />
@@ -459,6 +463,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006260140272_Initial.resx">
       <DependentUpon>202006260140272_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006290611327_sdf.resx">
+      <DependentUpon>202006290611327_sdf.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

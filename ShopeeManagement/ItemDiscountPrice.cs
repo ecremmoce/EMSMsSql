@@ -10,7 +10,10 @@ namespace ShopeeManagement
 {
     class ItemDiscountPrice
     {
-        [Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [StringLength(150)]
         public string UserId { get; set; }
         public decimal discountPrice { get; set; }
         public string variationName { get; set; }

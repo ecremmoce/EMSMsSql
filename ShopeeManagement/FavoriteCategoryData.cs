@@ -10,19 +10,24 @@ namespace ShopeeManagement
 {
     class FavoriteCategoryData
     {
-        [Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string shopeeId { get; set; }
 
-        [Key, Column(Order = 1), DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string category3_id { get; set; }
 
-        [Key, Column(Order = 2)]
+        [Key]
+        [Column(Order = 2)]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
 
         public string category1_name { get; set; }
         public string category2_name { get; set; }
         public string category3_name { get; set; }
-        
     }
 }

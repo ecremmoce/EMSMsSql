@@ -10,12 +10,16 @@ namespace ShopeeManagement
 {
     class DesignStyle
     {
-        [Key, Column(Order = 0)]
+        [Key]
+        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Idx { get; set; }
-        [Key, Column(Order = 1)]
+        [Key]
+        [Column(Order = 1)]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
+
         public int styleNo { get; set; }
         public string themeName { get; set; }
         

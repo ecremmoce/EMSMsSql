@@ -17,6 +17,7 @@ namespace ShopeeManagement
 
         [Key]
         [Column(Order = 1)]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
 

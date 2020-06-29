@@ -19,6 +19,17 @@ namespace ShopeeManagement
     public partial class FormStart : MetroForm
     {
         string lang = "";
+
+        Auth0Client client = new Auth0Client(new Auth0ClientOptions
+        {
+            Domain = "gov1-ecremmoce.auth0.com",
+            ClientId = "mDlzQg67jgRqnYMPdjirezyNLzJrA2Fh",
+            LoadProfile = true,
+            EnableTelemetry = true,
+            //PostLogoutRedirectUri = "https://gov1-ecremmoce.auth0.com/mobile"
+            //PostLogoutRedirectUri = "https://gov1-ecremmoce.auth0.com/mobile"
+        });
+
         public FormStart()
         {
             InitializeComponent();
@@ -36,7 +47,8 @@ namespace ShopeeManagement
                 }
             }
         }
-        static System.Windows.Forms.Control[] GetAllControlsUsingRecursive(System.Windows.Forms.Control containerControl)
+
+        static Control[] GetAllControlsUsingRecursive(Control containerControl)
         {
             List<System.Windows.Forms.Control> allControls = new List<System.Windows.Forms.Control>();
             Queue<System.Windows.Forms.Control.ControlCollection> queue = new Queue<System.Windows.Forms.Control.ControlCollection>();
@@ -94,6 +106,9 @@ namespace ShopeeManagement
         private void FormStart_Load(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
+
+            client.LogoutAsync();
+
             set_double_buffer();
             if (ApplicationDeployment.IsNetworkDeployed)
             {
@@ -109,6 +124,7 @@ namespace ShopeeManagement
             using (AppDbContext context = new AppDbContext())
             {
                 DesignStyle result = context.DesignStyles.SingleOrDefault(b => b.UserId == global_var.userId);
+
                 if (result != null)
                 {
                     metroStyleManager.Style = (MetroColorStyle)result.styleNo;
@@ -145,15 +161,7 @@ namespace ShopeeManagement
             }
             Cursor.Current = Cursors.Default;
         }
-        Auth0Client client = new Auth0Client(new Auth0ClientOptions
-        {
-            Domain = "gov1-ecremmoce.auth0.com",
-            ClientId = "mDlzQg67jgRqnYMPdjirezyNLzJrA2Fh",
-            LoadProfile = true,
-            EnableTelemetry = true,
-            //PostLogoutRedirectUri = "https://gov1-ecremmoce.auth0.com/mobile"
-            //PostLogoutRedirectUri = "https://gov1-ecremmoce.auth0.com/mobile"
-        });
+
         private async void btn_login_Click(object sender, EventArgs e)
         {
             //인증창 길게 나올때 해결 방법
@@ -161,6 +169,7 @@ namespace ShopeeManagement
             //src="https://cdn.auth0.com/js/lock/11.15/lock.min.js">  ->길게 나옴
             //src="https://cdn.auth0.com/js/lock/11.3/lock.min.js" -> 알맞게 나옴
             Cursor.Current = Cursors.WaitCursor;
+
             LoginResult loginResult = await client.LoginAsync();
 
             if (!loginResult.IsError)
@@ -170,25 +179,23 @@ namespace ShopeeManagement
                     global_var.auth0_accessToken = loginResult.IdentityToken;
                     global_var.auth0_expire_date = loginResult.AccessTokenExpiration;
                     FormMain fm = new FormMain(lang);
-                    fm.StyleManager = this.StyleManager;
-                    fm.Theme = this.Theme;
+                    fm.StyleManager = StyleManager;
+                    fm.Theme = Theme;
                     var userInfo = loginResult.User.Claims.ToList();
                     fm.txt_loginId.Text = userInfo[1].Value.ToString();
                     global_var.userId = userInfo[1].Value.ToString();
-                    this.Hide();
+                    Hide();
                     fm.Show();
-                    
                 }
             }
             else
             {
                 //MessageBox.Show("인증에 실패하였습니다.", "인증실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //this.Dispose();
+                //Dispose();
                 //Application.Exit();
             }
 
             Cursor.Current = Cursors.Default;
-
         }
 
         private void txt_password_KeyDown(object sender, KeyEventArgs e)

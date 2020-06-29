@@ -16,8 +16,10 @@ namespace ShopeeManagement
         public int Idx { get; set; }
         [Key]
         [Column(Order = 1)]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
+
         public string SrcShopeeCountry { get; set; }
         public string TarShopeeCountry { get; set; }
         public string SrcCategoryId { get; set; }

@@ -10,10 +10,15 @@ namespace ShopeeManagement
 {
     class ProductLink
     {
-        [Key, Column(Order = 0)]
+        [Key]
+        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Idx { get; set; }
-        [Key, Column(Order = 1), DatabaseGenerated(DatabaseGeneratedOption.None)]
+        
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [StringLength(150)]
         public string UserId { get; set; }
         public string SourceCountry { get; set; }
         public long SourceProductId { get; set; }

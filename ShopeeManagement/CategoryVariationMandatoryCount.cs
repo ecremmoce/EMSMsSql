@@ -10,13 +10,19 @@ namespace ShopeeManagement
 {
     class CategoryVariationMandatoryCount
     {
-        [Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string tarCountry { get; set; }
 
-        [Key, Column(Order = 1), DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long tarCategoryId { get; set; }
 
-        [Key, Column(Order = 2)]
+        [Key]
+        [Column(Order = 2)]
+        [StringLength(150)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string UserId { get; set; }
 
