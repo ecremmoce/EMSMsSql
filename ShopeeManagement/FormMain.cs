@@ -1,4 +1,5 @@
 ﻿using Auth0.OidcClient;
+using DevExpress.Utils.Extensions;
 using MetroFramework;
 using MetroFramework.Forms;
 using Newtonsoft.Json;
@@ -25,6 +26,8 @@ namespace ShopeeManagement
         public FormMain(string lang)
         {
             InitializeComponent();
+            //AutoSize = true;
+            //AutoSizeMode = AutoSizeMode.GrowAndShrink;
         }
         private string Lang = "";        
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -86,17 +89,12 @@ namespace ShopeeManagement
             update_timer.Enabled = true;
             FormProductManage child_diff = new FormProductManage(Lang);
             child_diff.MdiParent = this;
-            child_diff.WindowState = FormWindowState.Maximized;
             child_diff.StyleManager = this.StyleManager;
             child_diff.Theme = this.Theme;
             child_diff.Show();
 
-            
-
             Cursor.Current = Cursors.Default;
         }
-
-        
 
         private void set_double_buffer()
         {
@@ -137,8 +135,8 @@ namespace ShopeeManagement
             if (Search_frm("FormConfig"))
             {
                 FormConfig child_diff = new FormConfig(Lang);
+                child_diff.Location = new Point(0, 0);
                 child_diff.MdiParent = this;
-                //child_diff.WindowState = FormWindowState.Maximized;
                 //child_diff.StyleManager = this.StyleManager;
                 //child_diff.Theme = this.Theme;
                 child_diff.Show();
@@ -147,13 +145,19 @@ namespace ShopeeManagement
 
         bool Search_frm(string formname)
         {
+            HorizontalScroll.Value = 0;
+            HorizontalScroll.Value = 0;
+            AutoScrollPosition = new Point(0, 0);
+            PerformLayout();
             bool rtn = true;
+
             foreach (Form openForm in MdiChildren)
             {
                 if (formname.Equals(openForm.Name))
                 {
+                    openForm.Location = new Point(0, 0);
                     //openForm.Focus();
-                    openForm.WindowState = FormWindowState.Maximized;
+                    //openForm.WindowState = FormWindowState.Maximized;
                     //openForm.Activate();
                     openForm.BringToFront();
                     openForm.FormBorderStyle = FormBorderStyle.None;
@@ -172,8 +176,8 @@ namespace ShopeeManagement
             if (Search_frm("FormProductMapper"))
             {
                 FormProductMapper child_diff = new FormProductMapper(Lang);
+                child_diff.Location = new Point(0, 0);
                 child_diff.MdiParent = this;
-                child_diff.WindowState = FormWindowState.Maximized;
                 child_diff.StyleManager = this.StyleManager;
                 child_diff.Theme = this.Theme;
                 child_diff.Show();
@@ -186,8 +190,8 @@ namespace ShopeeManagement
             if (Search_frm("FormCategoryMapper"))
             {
                 FormCategoryMapper child_diff = new FormCategoryMapper(Lang);
+                child_diff.Location = new Point(0, 0);
                 child_diff.MdiParent = this;
-                child_diff.WindowState = FormWindowState.Maximized;
                 child_diff.StyleManager = this.StyleManager;
                 child_diff.Theme = this.Theme;
                 child_diff.Show();
@@ -201,8 +205,8 @@ namespace ShopeeManagement
             if (Search_frm("FormShippingSetting"))
             {
                 FormShippingSetting child_diff = new FormShippingSetting(Lang);
+                child_diff.Location = new Point(0, 0);
                 child_diff.MdiParent = this;
-                child_diff.WindowState = FormWindowState.Maximized;
                 child_diff.StyleManager = this.StyleManager;
                 child_diff.Theme = this.Theme;
                 child_diff.Show();
@@ -216,8 +220,8 @@ namespace ShopeeManagement
             {
                 Tile_current_display.Text = "상품 정보 관리";
                 FormProductManage child_diff = new FormProductManage(Lang);
+                child_diff.Location = new Point(0, 0);
                 child_diff.MdiParent = this;
-                child_diff.WindowState = FormWindowState.Maximized;
                 child_diff.StyleManager = this.StyleManager;
                 child_diff.Theme = this.Theme;
                 child_diff.Show();
@@ -230,8 +234,8 @@ namespace ShopeeManagement
             if (Search_frm("FormUploader"))
             {
                 FormUploader child_diff = new FormUploader(Lang);
+                child_diff.Location = new Point(0, 0);
                 child_diff.MdiParent = this;
-                child_diff.WindowState = FormWindowState.Maximized;
                 child_diff.StyleManager = this.StyleManager;
                 child_diff.Theme = this.Theme;
                 child_diff.Show();
@@ -357,8 +361,8 @@ namespace ShopeeManagement
             if (Search_frm("FromAddProduct"))
             {
                 FromAddProduct child_diff = new FromAddProduct();
+                child_diff.Location = new Point(0, 0);
                 child_diff.MdiParent = this;
-                child_diff.WindowState = FormWindowState.Maximized;
                 child_diff.StyleManager = this.StyleManager;
                 child_diff.Theme = this.Theme;
                 child_diff.Show();

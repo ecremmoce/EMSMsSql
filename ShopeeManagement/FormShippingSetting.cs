@@ -18,6 +18,11 @@ namespace ShopeeManagement
         public FormShippingSetting(string lang)
         {
             InitializeComponent();
+            MinimizeBox = false;
+            MaximizeBox = false;
+            AutoSize = true;
+            AutoScroll = true;
+            WindowState = FormWindowState.Normal;
         }
         private void set_double_buffer()
         {

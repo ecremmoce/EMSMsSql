@@ -32,6 +32,11 @@ namespace ShopeeManagement
         public FromAddProduct()
         {
             InitializeComponent();
+            MinimizeBox = false;
+            MaximizeBox = false;
+            AutoSize = true;
+            AutoScroll = true;
+            WindowState = FormWindowState.Normal;
         }
         private Guid pGuid;
         private string ImagePath;

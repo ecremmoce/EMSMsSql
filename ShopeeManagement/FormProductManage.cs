@@ -31,6 +31,11 @@ namespace ShopeeManagement
         public FormProductManage(string Lang)
         {
             InitializeComponent();
+            MinimizeBox = false;
+            MaximizeBox = false;
+            AutoSize = true;
+            AutoScroll = true;
+            WindowState = FormWindowState.Normal;
             toolTipDownLoadData.SetToolTip(btnGetSrcItemList, "상품정보를 셀러센터로부터 현재 컴퓨터로 내려받습니다.\r\n기존 내려받은 상품정보는 업데이트 하지 않습니다. \r\n새로운 정보로 내려 받기를 원할 경우 해당 상품 정보를 삭제한 후 내려받아주세요");
             //toolTipAccountRefresh.SetToolTip(btnGetAccount, "쇼피 계정 정보를 새로 가져옵니다.");
             toolTipUpdate.SetToolTip(BtnUpdateProduct, "체크한 상품의 정보를 셀러센터로 전송하여 업데이트 합니다.");

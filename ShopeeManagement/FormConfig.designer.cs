@@ -1089,7 +1089,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1877, 931);
+            this.ClientSize = new System.Drawing.Size(2065, 1080);
             this.Controls.Add(this.tabMain);
             this.DisplayHeader = false;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1097,7 +1097,6 @@
             this.MinimizeBox = false;
             this.Name = "FormConfig";
             this.Padding = new System.Windows.Forms.Padding(20, 30, 20, 20);
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FormConfig_Load);
             this.tabMain.ResumeLayout(false);
             this.tabMain_Account.ResumeLayout(false);

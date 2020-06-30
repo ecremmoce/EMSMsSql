@@ -463,7 +463,7 @@
             this.Controls.Add(this.btnLoadCategory);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormCategoryMapper";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.WindowState = System.Windows.Forms.FormWindowState.Normal;
             this.Load += new System.EventHandler(this.FormCategoryMapper_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridCategory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();

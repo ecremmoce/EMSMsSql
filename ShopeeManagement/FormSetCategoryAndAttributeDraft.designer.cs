@@ -896,7 +896,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1920, 1080);
+            this.ClientSize = new System.Drawing.Size(2065, 1080);
             this.Controls.Add(this.BtnSaveAttributeData);
             this.Controls.Add(this.BtnManageAttribute2);
             this.Controls.Add(this.metroLabel9);

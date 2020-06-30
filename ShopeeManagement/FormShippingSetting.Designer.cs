@@ -209,7 +209,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1867, 1011);
+            this.ClientSize = new System.Drawing.Size(2065, 1080);
             this.Controls.Add(this.btnAutoUpdate);
             this.Controls.Add(this.BtnDelLogisticRate);
             this.Controls.Add(this.CboShopeeCountry2);

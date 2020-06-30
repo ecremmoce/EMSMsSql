@@ -19,6 +19,11 @@ namespace ShopeeManagement
         public FormConfig(string lang)
         {
             InitializeComponent();
+            MinimizeBox = false;
+            MaximizeBox = false;
+            AutoSize = true;
+            AutoScroll = true;
+            WindowState = FormWindowState.Normal;
         }
 
         private void FormConfig_Load(object sender, EventArgs e)

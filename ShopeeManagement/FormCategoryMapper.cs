@@ -18,6 +18,11 @@ namespace ShopeeManagement
         public FormCategoryMapper(string lang)
         {
             InitializeComponent();
+            MinimizeBox = false;
+            MaximizeBox = false;
+            AutoSize = true;
+            AutoScroll = true;
+            WindowState = FormWindowState.Normal;
             this.StyleManager = metroStyleManager;
         }
 

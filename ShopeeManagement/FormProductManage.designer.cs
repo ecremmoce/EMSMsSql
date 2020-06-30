@@ -30,6 +30,40 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle77 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle81 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle82 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -77,43 +111,48 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle67 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle68 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle69 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProductManage));
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
             this.dgItemList = new System.Windows.Forms.DataGridView();
+            this.dgItemList_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_Chk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dgItemList_Image = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dgItemList_item_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_shopid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_item_sku = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_currency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_has_variation = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dgItemList_supply_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_margin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_shipping_fee = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_pg_fee = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_price_won = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_original_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_create_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_update_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_saved_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_category_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_rating_star = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_cmt_count = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_sales = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_views = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_likes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_package_length = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_package_width = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_package_height = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_days_to_ship = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_size_chart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_condition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_discount_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_discount_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_is_2tier_item = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dgItemList_images = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgItemList_Result = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MainMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.MainMenu_View_Product_Page = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -242,45 +281,6 @@
             this.dgItemList2_is_2tier_item = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dgItemList2_images = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgItemList2_Result = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_Chk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dgItemList_Image = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dgItemList_item_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_shopid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_item_sku = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_currency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_has_variation = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dgItemList_supply_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_margin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_shipping_fee = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_pg_fee = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_price_won = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_original_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_create_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_update_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_saved_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_category_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_rating_star = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_cmt_count = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_sales = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_views = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_likes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_package_length = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_package_width = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_package_height = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_days_to_ship = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_size_chart = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_condition = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_discount_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_discount_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_is_2tier_item = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dgItemList_images = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgItemList_Result = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgItemList)).BeginInit();
             this.MainMenu.SuspendLayout();
@@ -388,6 +388,460 @@
             this.dgItemList.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgSrcItemList_CellValueChanged);
             this.dgItemList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.DgSrcItemList_EditingControlShowing);
             this.dgItemList.SelectionChanged += new System.EventHandler(this.dgSrcItemList_SelectionChanged);
+            // 
+            // dgItemList_No
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgItemList_No.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgItemList_No.HeaderText = "번호";
+            this.dgItemList_No.MinimumWidth = 6;
+            this.dgItemList_No.Name = "dgItemList_No";
+            this.dgItemList_No.ReadOnly = true;
+            this.dgItemList_No.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_No.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgItemList_No.Width = 38;
+            // 
+            // dgItemList_Chk
+            // 
+            this.dgItemList_Chk.HeaderText = "V";
+            this.dgItemList_Chk.MinimumWidth = 6;
+            this.dgItemList_Chk.Name = "dgItemList_Chk";
+            this.dgItemList_Chk.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_Chk.Width = 25;
+            // 
+            // dgItemList_Image
+            // 
+            this.dgItemList_Image.HeaderText = "이미지";
+            this.dgItemList_Image.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.dgItemList_Image.MinimumWidth = 6;
+            this.dgItemList_Image.Name = "dgItemList_Image";
+            this.dgItemList_Image.ReadOnly = true;
+            this.dgItemList_Image.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_Image.ToolTipText = "상품의 대표이미지입니다.";
+            this.dgItemList_Image.Width = 87;
+            // 
+            // dgItemList_item_id
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgItemList_item_id.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgItemList_item_id.HeaderText = "상품ID";
+            this.dgItemList_item_id.MinimumWidth = 6;
+            this.dgItemList_item_id.Name = "dgItemList_item_id";
+            this.dgItemList_item_id.ReadOnly = true;
+            this.dgItemList_item_id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_item_id.ToolTipText = "해당 상품의 자료가 수정되었을 경우 하늘색으로 표시됩니다.";
+            this.dgItemList_item_id.Width = 110;
+            // 
+            // dgItemList_shopid
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgItemList_shopid.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dgItemList_shopid.HeaderText = "Shop ID";
+            this.dgItemList_shopid.MinimumWidth = 6;
+            this.dgItemList_shopid.Name = "dgItemList_shopid";
+            this.dgItemList_shopid.ReadOnly = true;
+            this.dgItemList_shopid.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_shopid.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgItemList_shopid.Visible = false;
+            this.dgItemList_shopid.Width = 125;
+            // 
+            // dgItemList_item_sku
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgItemList_item_sku.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgItemList_item_sku.HeaderText = "Parent SKU";
+            this.dgItemList_item_sku.MinimumWidth = 6;
+            this.dgItemList_item_sku.Name = "dgItemList_item_sku";
+            this.dgItemList_item_sku.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_item_sku.ToolTipText = "상품을 대표하는 SKU입니다. 상품별 식별을 위하여 반드시 입력해 주세요. 옵션이 있을 경우 옵션SKU를 입력하여 옵션별로 상품을 식별할 수 있습" +
+    "니다.";
+            this.dgItemList_item_sku.Width = 130;
+            // 
+            // dgItemList_status
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgItemList_status.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgItemList_status.HeaderText = "상태";
+            this.dgItemList_status.MinimumWidth = 6;
+            this.dgItemList_status.Name = "dgItemList_status";
+            this.dgItemList_status.ReadOnly = true;
+            this.dgItemList_status.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_status.ToolTipText = "상품의 등록 상태를 표시합니다.";
+            this.dgItemList_status.Width = 90;
+            // 
+            // dgItemList_name
+            // 
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgItemList_name.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dgItemList_name.HeaderText = "상품명";
+            this.dgItemList_name.MinimumWidth = 6;
+            this.dgItemList_name.Name = "dgItemList_name";
+            this.dgItemList_name.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_name.ToolTipText = "등록된 상품명입니다. 수정된 경우 하늘색으로 표시됩니다.";
+            this.dgItemList_name.Width = 160;
+            // 
+            // dgItemList_currency
+            // 
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgItemList_currency.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dgItemList_currency.HeaderText = "통화";
+            this.dgItemList_currency.MinimumWidth = 6;
+            this.dgItemList_currency.Name = "dgItemList_currency";
+            this.dgItemList_currency.ReadOnly = true;
+            this.dgItemList_currency.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_currency.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgItemList_currency.Width = 35;
+            // 
+            // dgItemList_has_variation
+            // 
+            this.dgItemList_has_variation.HeaderText = "옵션";
+            this.dgItemList_has_variation.MinimumWidth = 6;
+            this.dgItemList_has_variation.Name = "dgItemList_has_variation";
+            this.dgItemList_has_variation.ReadOnly = true;
+            this.dgItemList_has_variation.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_has_variation.ToolTipText = "상품의 옵션 존재 여부를 표시합니다.";
+            this.dgItemList_has_variation.Width = 35;
+            // 
+            // dgItemList_supply_price
+            // 
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgItemList_supply_price.DefaultCellStyle = dataGridViewCellStyle9;
+            this.dgItemList_supply_price.HeaderText = "공급가(원)";
+            this.dgItemList_supply_price.MinimumWidth = 6;
+            this.dgItemList_supply_price.Name = "dgItemList_supply_price";
+            this.dgItemList_supply_price.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_supply_price.Width = 69;
+            // 
+            // dgItemList_margin
+            // 
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgItemList_margin.DefaultCellStyle = dataGridViewCellStyle10;
+            this.dgItemList_margin.HeaderText = "마진(원)";
+            this.dgItemList_margin.MinimumWidth = 6;
+            this.dgItemList_margin.Name = "dgItemList_margin";
+            this.dgItemList_margin.Width = 68;
+            // 
+            // dgItemList_shipping_fee
+            // 
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgItemList_shipping_fee.DefaultCellStyle = dataGridViewCellStyle11;
+            this.dgItemList_shipping_fee.HeaderText = "배송비";
+            this.dgItemList_shipping_fee.MinimumWidth = 6;
+            this.dgItemList_shipping_fee.Name = "dgItemList_shipping_fee";
+            this.dgItemList_shipping_fee.Visible = false;
+            this.dgItemList_shipping_fee.Width = 60;
+            // 
+            // dgItemList_pg_fee
+            // 
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgItemList_pg_fee.DefaultCellStyle = dataGridViewCellStyle12;
+            this.dgItemList_pg_fee.HeaderText = "PG수수료";
+            this.dgItemList_pg_fee.MinimumWidth = 6;
+            this.dgItemList_pg_fee.Name = "dgItemList_pg_fee";
+            this.dgItemList_pg_fee.ReadOnly = true;
+            this.dgItemList_pg_fee.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgItemList_pg_fee.ToolTipText = "PG수수료는 쇼피 플랫폼에서 구매자가 결제시 발생되는 수수료이며, 현재는 2%가 발생됩니다.";
+            this.dgItemList_pg_fee.Width = 64;
+            // 
+            // dgItemList_price_won
+            // 
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgItemList_price_won.DefaultCellStyle = dataGridViewCellStyle13;
+            this.dgItemList_price_won.HeaderText = "판매가(원)";
+            this.dgItemList_price_won.MinimumWidth = 6;
+            this.dgItemList_price_won.Name = "dgItemList_price_won";
+            this.dgItemList_price_won.ReadOnly = true;
+            this.dgItemList_price_won.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_price_won.Width = 69;
+            // 
+            // dgItemList_price
+            // 
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgItemList_price.DefaultCellStyle = dataGridViewCellStyle14;
+            this.dgItemList_price.HeaderText = "판매가";
+            this.dgItemList_price.MinimumWidth = 6;
+            this.dgItemList_price.Name = "dgItemList_price";
+            this.dgItemList_price.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_price.ToolTipText = "쇼피에서 실제 판매되는 상품의 가격이며, 할인이벤트의 가격으로 적용이 됩니다.";
+            this.dgItemList_price.Width = 80;
+            // 
+            // dgItemList_original_price
+            // 
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "N2";
+            dataGridViewCellStyle15.NullValue = null;
+            this.dgItemList_original_price.DefaultCellStyle = dataGridViewCellStyle15;
+            this.dgItemList_original_price.HeaderText = "소비자가";
+            this.dgItemList_original_price.MinimumWidth = 6;
+            this.dgItemList_original_price.Name = "dgItemList_original_price";
+            this.dgItemList_original_price.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_original_price.ToolTipText = "상품정보에서 소비자가로 표시되는 가격이며 최초 등록후 10% 이상 가격 수정 시 패널티가 부과됩니다.";
+            this.dgItemList_original_price.Width = 80;
+            // 
+            // dgItemList_stock
+            // 
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgItemList_stock.DefaultCellStyle = dataGridViewCellStyle16;
+            this.dgItemList_stock.HeaderText = "수량";
+            this.dgItemList_stock.MinimumWidth = 6;
+            this.dgItemList_stock.Name = "dgItemList_stock";
+            this.dgItemList_stock.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_stock.ToolTipText = "상품의 재고수량을 나타냅니다. 0으로 설정 후 상품정보를 업데이트 할 경우 상품이 품절 상태로 변경됩니다.";
+            this.dgItemList_stock.Width = 40;
+            // 
+            // dgItemList_create_time
+            // 
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgItemList_create_time.DefaultCellStyle = dataGridViewCellStyle17;
+            this.dgItemList_create_time.HeaderText = "생성일시";
+            this.dgItemList_create_time.MinimumWidth = 6;
+            this.dgItemList_create_time.Name = "dgItemList_create_time";
+            this.dgItemList_create_time.ReadOnly = true;
+            this.dgItemList_create_time.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_create_time.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgItemList_create_time.ToolTipText = "상품을 최초 등록한 일시 입니다.";
+            this.dgItemList_create_time.Width = 80;
+            // 
+            // dgItemList_update_time
+            // 
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgItemList_update_time.DefaultCellStyle = dataGridViewCellStyle18;
+            this.dgItemList_update_time.HeaderText = "수정일시";
+            this.dgItemList_update_time.MinimumWidth = 6;
+            this.dgItemList_update_time.Name = "dgItemList_update_time";
+            this.dgItemList_update_time.ReadOnly = true;
+            this.dgItemList_update_time.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_update_time.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgItemList_update_time.ToolTipText = "상품정보를 수정한 일시입니다";
+            this.dgItemList_update_time.Width = 80;
+            // 
+            // dgItemList_saved_time
+            // 
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgItemList_saved_time.DefaultCellStyle = dataGridViewCellStyle19;
+            this.dgItemList_saved_time.HeaderText = "수집일시";
+            this.dgItemList_saved_time.MinimumWidth = 6;
+            this.dgItemList_saved_time.Name = "dgItemList_saved_time";
+            this.dgItemList_saved_time.ReadOnly = true;
+            this.dgItemList_saved_time.ToolTipText = "상품정보를 내려받은 일시입니다.";
+            this.dgItemList_saved_time.Width = 80;
+            // 
+            // dgItemList_weight
+            // 
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgItemList_weight.DefaultCellStyle = dataGridViewCellStyle20;
+            this.dgItemList_weight.HeaderText = "무게(Kg)";
+            this.dgItemList_weight.MinimumWidth = 6;
+            this.dgItemList_weight.Name = "dgItemList_weight";
+            this.dgItemList_weight.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_weight.ToolTipText = "상품의 무게를 나타냅니다. 단위는 킬로그램(Kg)입니다.";
+            this.dgItemList_weight.Width = 62;
+            // 
+            // dgItemList_category_id
+            // 
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgItemList_category_id.DefaultCellStyle = dataGridViewCellStyle21;
+            this.dgItemList_category_id.HeaderText = "카테고리";
+            this.dgItemList_category_id.MinimumWidth = 6;
+            this.dgItemList_category_id.Name = "dgItemList_category_id";
+            this.dgItemList_category_id.ReadOnly = true;
+            this.dgItemList_category_id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_category_id.ToolTipText = "상품의 카테고리 번호입니다.";
+            this.dgItemList_category_id.Width = 60;
+            // 
+            // dgItemList_rating_star
+            // 
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgItemList_rating_star.DefaultCellStyle = dataGridViewCellStyle22;
+            this.dgItemList_rating_star.HeaderText = "별점";
+            this.dgItemList_rating_star.MinimumWidth = 6;
+            this.dgItemList_rating_star.Name = "dgItemList_rating_star";
+            this.dgItemList_rating_star.ReadOnly = true;
+            this.dgItemList_rating_star.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_rating_star.Visible = false;
+            this.dgItemList_rating_star.Width = 40;
+            // 
+            // dgItemList_cmt_count
+            // 
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgItemList_cmt_count.DefaultCellStyle = dataGridViewCellStyle23;
+            this.dgItemList_cmt_count.HeaderText = "리뷰";
+            this.dgItemList_cmt_count.MinimumWidth = 6;
+            this.dgItemList_cmt_count.Name = "dgItemList_cmt_count";
+            this.dgItemList_cmt_count.ReadOnly = true;
+            this.dgItemList_cmt_count.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_cmt_count.Visible = false;
+            this.dgItemList_cmt_count.Width = 40;
+            // 
+            // dgItemList_sales
+            // 
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgItemList_sales.DefaultCellStyle = dataGridViewCellStyle24;
+            this.dgItemList_sales.HeaderText = "판매";
+            this.dgItemList_sales.MinimumWidth = 6;
+            this.dgItemList_sales.Name = "dgItemList_sales";
+            this.dgItemList_sales.ReadOnly = true;
+            this.dgItemList_sales.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_sales.Visible = false;
+            this.dgItemList_sales.Width = 40;
+            // 
+            // dgItemList_views
+            // 
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle25.Format = "N0";
+            dataGridViewCellStyle25.NullValue = null;
+            this.dgItemList_views.DefaultCellStyle = dataGridViewCellStyle25;
+            this.dgItemList_views.HeaderText = "조회";
+            this.dgItemList_views.MinimumWidth = 6;
+            this.dgItemList_views.Name = "dgItemList_views";
+            this.dgItemList_views.ReadOnly = true;
+            this.dgItemList_views.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_views.Width = 40;
+            // 
+            // dgItemList_likes
+            // 
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgItemList_likes.DefaultCellStyle = dataGridViewCellStyle26;
+            this.dgItemList_likes.HeaderText = "좋아요";
+            this.dgItemList_likes.MinimumWidth = 6;
+            this.dgItemList_likes.Name = "dgItemList_likes";
+            this.dgItemList_likes.ReadOnly = true;
+            this.dgItemList_likes.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_likes.Visible = false;
+            this.dgItemList_likes.Width = 50;
+            // 
+            // dgItemList_package_length
+            // 
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgItemList_package_length.DefaultCellStyle = dataGridViewCellStyle27;
+            this.dgItemList_package_length.HeaderText = "길이";
+            this.dgItemList_package_length.MinimumWidth = 6;
+            this.dgItemList_package_length.Name = "dgItemList_package_length";
+            this.dgItemList_package_length.ReadOnly = true;
+            this.dgItemList_package_length.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_package_length.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgItemList_package_length.Visible = false;
+            this.dgItemList_package_length.Width = 40;
+            // 
+            // dgItemList_package_width
+            // 
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgItemList_package_width.DefaultCellStyle = dataGridViewCellStyle28;
+            this.dgItemList_package_width.HeaderText = "폭";
+            this.dgItemList_package_width.MinimumWidth = 6;
+            this.dgItemList_package_width.Name = "dgItemList_package_width";
+            this.dgItemList_package_width.ReadOnly = true;
+            this.dgItemList_package_width.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_package_width.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgItemList_package_width.Visible = false;
+            this.dgItemList_package_width.Width = 40;
+            // 
+            // dgItemList_package_height
+            // 
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgItemList_package_height.DefaultCellStyle = dataGridViewCellStyle29;
+            this.dgItemList_package_height.HeaderText = "높이";
+            this.dgItemList_package_height.MinimumWidth = 6;
+            this.dgItemList_package_height.Name = "dgItemList_package_height";
+            this.dgItemList_package_height.ReadOnly = true;
+            this.dgItemList_package_height.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_package_height.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgItemList_package_height.Visible = false;
+            this.dgItemList_package_height.Width = 40;
+            // 
+            // dgItemList_days_to_ship
+            // 
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgItemList_days_to_ship.DefaultCellStyle = dataGridViewCellStyle30;
+            this.dgItemList_days_to_ship.HeaderText = "DTS";
+            this.dgItemList_days_to_ship.MinimumWidth = 6;
+            this.dgItemList_days_to_ship.Name = "dgItemList_days_to_ship";
+            this.dgItemList_days_to_ship.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_days_to_ship.ToolTipText = "상품의 Pre-Order기간으로 예약 발송 기능입니다. 쇼피의 경우 기본2일이내 집하센터로 배송하여야 하며, 설정 시 5-10일까지 설정이 가능합" +
+    "니다.";
+            this.dgItemList_days_to_ship.Width = 30;
+            // 
+            // dgItemList_size_chart
+            // 
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgItemList_size_chart.DefaultCellStyle = dataGridViewCellStyle31;
+            this.dgItemList_size_chart.HeaderText = "Size Chart";
+            this.dgItemList_size_chart.MinimumWidth = 6;
+            this.dgItemList_size_chart.Name = "dgItemList_size_chart";
+            this.dgItemList_size_chart.ReadOnly = true;
+            this.dgItemList_size_chart.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_size_chart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgItemList_size_chart.Visible = false;
+            this.dgItemList_size_chart.Width = 125;
+            // 
+            // dgItemList_condition
+            // 
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgItemList_condition.DefaultCellStyle = dataGridViewCellStyle32;
+            this.dgItemList_condition.HeaderText = "Condition";
+            this.dgItemList_condition.MinimumWidth = 6;
+            this.dgItemList_condition.Name = "dgItemList_condition";
+            this.dgItemList_condition.ReadOnly = true;
+            this.dgItemList_condition.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_condition.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgItemList_condition.Visible = false;
+            this.dgItemList_condition.Width = 70;
+            // 
+            // dgItemList_discount_id
+            // 
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgItemList_discount_id.DefaultCellStyle = dataGridViewCellStyle33;
+            this.dgItemList_discount_id.HeaderText = "할인ID";
+            this.dgItemList_discount_id.MinimumWidth = 6;
+            this.dgItemList_discount_id.Name = "dgItemList_discount_id";
+            this.dgItemList_discount_id.ReadOnly = true;
+            this.dgItemList_discount_id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_discount_id.Visible = false;
+            this.dgItemList_discount_id.Width = 77;
+            // 
+            // dgItemList_discount_name
+            // 
+            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgItemList_discount_name.DefaultCellStyle = dataGridViewCellStyle34;
+            this.dgItemList_discount_name.HeaderText = "할인명";
+            this.dgItemList_discount_name.MinimumWidth = 6;
+            this.dgItemList_discount_name.Name = "dgItemList_discount_name";
+            this.dgItemList_discount_name.ToolTipText = "해당 상품의 할인 이벤트 명을 나타냅니다. 상품정보에서 할인금액을 설정할 수 없으며, 할인 이벤트 생성후 이벤트에 추가하여 할인을 설정할 수 있습" +
+    "니다.";
+            this.dgItemList_discount_name.Width = 125;
+            // 
+            // dgItemList_is_2tier_item
+            // 
+            this.dgItemList_is_2tier_item.HeaderText = "2Tier";
+            this.dgItemList_is_2tier_item.MinimumWidth = 6;
+            this.dgItemList_is_2tier_item.Name = "dgItemList_is_2tier_item";
+            this.dgItemList_is_2tier_item.ReadOnly = true;
+            this.dgItemList_is_2tier_item.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgItemList_is_2tier_item.Visible = false;
+            this.dgItemList_is_2tier_item.Width = 40;
+            // 
+            // dgItemList_images
+            // 
+            this.dgItemList_images.HeaderText = "images";
+            this.dgItemList_images.MinimumWidth = 6;
+            this.dgItemList_images.Name = "dgItemList_images";
+            this.dgItemList_images.ReadOnly = true;
+            this.dgItemList_images.Visible = false;
+            this.dgItemList_images.Width = 125;
+            // 
+            // dgItemList_Result
+            // 
+            dataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgItemList_Result.DefaultCellStyle = dataGridViewCellStyle35;
+            this.dgItemList_Result.HeaderText = "업데이트 결과";
+            this.dgItemList_Result.MinimumWidth = 6;
+            this.dgItemList_Result.Name = "dgItemList_Result";
+            this.dgItemList_Result.Width = 125;
             // 
             // MainMenu
             // 
@@ -2014,466 +2468,11 @@
             this.dgItemList2_Result.ReadOnly = true;
             this.dgItemList2_Result.Width = 125;
             // 
-            // dgItemList_No
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgItemList_No.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgItemList_No.HeaderText = "번호";
-            this.dgItemList_No.MinimumWidth = 6;
-            this.dgItemList_No.Name = "dgItemList_No";
-            this.dgItemList_No.ReadOnly = true;
-            this.dgItemList_No.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_No.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgItemList_No.Width = 38;
-            // 
-            // dgItemList_Chk
-            // 
-            this.dgItemList_Chk.HeaderText = "V";
-            this.dgItemList_Chk.MinimumWidth = 6;
-            this.dgItemList_Chk.Name = "dgItemList_Chk";
-            this.dgItemList_Chk.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_Chk.Width = 25;
-            // 
-            // dgItemList_Image
-            // 
-            this.dgItemList_Image.HeaderText = "이미지";
-            this.dgItemList_Image.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.dgItemList_Image.MinimumWidth = 6;
-            this.dgItemList_Image.Name = "dgItemList_Image";
-            this.dgItemList_Image.ReadOnly = true;
-            this.dgItemList_Image.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_Image.ToolTipText = "상품의 대표이미지입니다.";
-            this.dgItemList_Image.Width = 87;
-            // 
-            // dgItemList_item_id
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgItemList_item_id.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgItemList_item_id.HeaderText = "상품ID";
-            this.dgItemList_item_id.MinimumWidth = 6;
-            this.dgItemList_item_id.Name = "dgItemList_item_id";
-            this.dgItemList_item_id.ReadOnly = true;
-            this.dgItemList_item_id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_item_id.ToolTipText = "해당 상품의 자료가 수정되었을 경우 하늘색으로 표시됩니다.";
-            this.dgItemList_item_id.Width = 110;
-            // 
-            // dgItemList_shopid
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgItemList_shopid.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dgItemList_shopid.HeaderText = "Shop ID";
-            this.dgItemList_shopid.MinimumWidth = 6;
-            this.dgItemList_shopid.Name = "dgItemList_shopid";
-            this.dgItemList_shopid.ReadOnly = true;
-            this.dgItemList_shopid.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_shopid.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgItemList_shopid.Visible = false;
-            this.dgItemList_shopid.Width = 125;
-            // 
-            // dgItemList_item_sku
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgItemList_item_sku.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dgItemList_item_sku.HeaderText = "Parent SKU";
-            this.dgItemList_item_sku.MinimumWidth = 6;
-            this.dgItemList_item_sku.Name = "dgItemList_item_sku";
-            this.dgItemList_item_sku.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_item_sku.ToolTipText = "상품을 대표하는 SKU입니다. 상품별 식별을 위하여 반드시 입력해 주세요. 옵션이 있을 경우 옵션SKU를 입력하여 옵션별로 상품을 식별할 수 있습" +
-    "니다.";
-            this.dgItemList_item_sku.Width = 130;
-            // 
-            // dgItemList_status
-            // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgItemList_status.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dgItemList_status.HeaderText = "상태";
-            this.dgItemList_status.MinimumWidth = 6;
-            this.dgItemList_status.Name = "dgItemList_status";
-            this.dgItemList_status.ReadOnly = true;
-            this.dgItemList_status.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_status.ToolTipText = "상품의 등록 상태를 표시합니다.";
-            this.dgItemList_status.Width = 90;
-            // 
-            // dgItemList_name
-            // 
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgItemList_name.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dgItemList_name.HeaderText = "상품명";
-            this.dgItemList_name.MinimumWidth = 6;
-            this.dgItemList_name.Name = "dgItemList_name";
-            this.dgItemList_name.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_name.ToolTipText = "등록된 상품명입니다. 수정된 경우 하늘색으로 표시됩니다.";
-            this.dgItemList_name.Width = 160;
-            // 
-            // dgItemList_currency
-            // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgItemList_currency.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dgItemList_currency.HeaderText = "통화";
-            this.dgItemList_currency.MinimumWidth = 6;
-            this.dgItemList_currency.Name = "dgItemList_currency";
-            this.dgItemList_currency.ReadOnly = true;
-            this.dgItemList_currency.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_currency.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgItemList_currency.Width = 35;
-            // 
-            // dgItemList_has_variation
-            // 
-            this.dgItemList_has_variation.HeaderText = "옵션";
-            this.dgItemList_has_variation.MinimumWidth = 6;
-            this.dgItemList_has_variation.Name = "dgItemList_has_variation";
-            this.dgItemList_has_variation.ReadOnly = true;
-            this.dgItemList_has_variation.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_has_variation.ToolTipText = "상품의 옵션 존재 여부를 표시합니다.";
-            this.dgItemList_has_variation.Width = 35;
-            // 
-            // dgItemList_supply_price
-            // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgItemList_supply_price.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dgItemList_supply_price.HeaderText = "공급가(원)";
-            this.dgItemList_supply_price.MinimumWidth = 6;
-            this.dgItemList_supply_price.Name = "dgItemList_supply_price";
-            this.dgItemList_supply_price.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_supply_price.Width = 69;
-            // 
-            // dgItemList_margin
-            // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgItemList_margin.DefaultCellStyle = dataGridViewCellStyle10;
-            this.dgItemList_margin.HeaderText = "마진(원)";
-            this.dgItemList_margin.MinimumWidth = 6;
-            this.dgItemList_margin.Name = "dgItemList_margin";
-            this.dgItemList_margin.Width = 68;
-            // 
-            // dgItemList_shipping_fee
-            // 
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgItemList_shipping_fee.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dgItemList_shipping_fee.HeaderText = "배송비";
-            this.dgItemList_shipping_fee.MinimumWidth = 6;
-            this.dgItemList_shipping_fee.Name = "dgItemList_shipping_fee";
-            this.dgItemList_shipping_fee.Visible = false;
-            this.dgItemList_shipping_fee.Width = 60;
-            // 
-            // dgItemList_pg_fee
-            // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgItemList_pg_fee.DefaultCellStyle = dataGridViewCellStyle12;
-            this.dgItemList_pg_fee.HeaderText = "PG수수료";
-            this.dgItemList_pg_fee.MinimumWidth = 6;
-            this.dgItemList_pg_fee.Name = "dgItemList_pg_fee";
-            this.dgItemList_pg_fee.ReadOnly = true;
-            this.dgItemList_pg_fee.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgItemList_pg_fee.ToolTipText = "PG수수료는 쇼피 플랫폼에서 구매자가 결제시 발생되는 수수료이며, 현재는 2%가 발생됩니다.";
-            this.dgItemList_pg_fee.Width = 64;
-            // 
-            // dgItemList_price_won
-            // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgItemList_price_won.DefaultCellStyle = dataGridViewCellStyle13;
-            this.dgItemList_price_won.HeaderText = "판매가(원)";
-            this.dgItemList_price_won.MinimumWidth = 6;
-            this.dgItemList_price_won.Name = "dgItemList_price_won";
-            this.dgItemList_price_won.ReadOnly = true;
-            this.dgItemList_price_won.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_price_won.Width = 69;
-            // 
-            // dgItemList_price
-            // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgItemList_price.DefaultCellStyle = dataGridViewCellStyle14;
-            this.dgItemList_price.HeaderText = "판매가";
-            this.dgItemList_price.MinimumWidth = 6;
-            this.dgItemList_price.Name = "dgItemList_price";
-            this.dgItemList_price.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_price.ToolTipText = "쇼피에서 실제 판매되는 상품의 가격이며, 할인이벤트의 가격으로 적용이 됩니다.";
-            this.dgItemList_price.Width = 80;
-            // 
-            // dgItemList_original_price
-            // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle15.Format = "N2";
-            dataGridViewCellStyle15.NullValue = null;
-            this.dgItemList_original_price.DefaultCellStyle = dataGridViewCellStyle15;
-            this.dgItemList_original_price.HeaderText = "소비자가";
-            this.dgItemList_original_price.MinimumWidth = 6;
-            this.dgItemList_original_price.Name = "dgItemList_original_price";
-            this.dgItemList_original_price.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_original_price.ToolTipText = "상품정보에서 소비자가로 표시되는 가격이며 최초 등록후 10% 이상 가격 수정 시 패널티가 부과됩니다.";
-            this.dgItemList_original_price.Width = 80;
-            // 
-            // dgItemList_stock
-            // 
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgItemList_stock.DefaultCellStyle = dataGridViewCellStyle16;
-            this.dgItemList_stock.HeaderText = "수량";
-            this.dgItemList_stock.MinimumWidth = 6;
-            this.dgItemList_stock.Name = "dgItemList_stock";
-            this.dgItemList_stock.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_stock.ToolTipText = "상품의 재고수량을 나타냅니다. 0으로 설정 후 상품정보를 업데이트 할 경우 상품이 품절 상태로 변경됩니다.";
-            this.dgItemList_stock.Width = 40;
-            // 
-            // dgItemList_create_time
-            // 
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgItemList_create_time.DefaultCellStyle = dataGridViewCellStyle17;
-            this.dgItemList_create_time.HeaderText = "생성일시";
-            this.dgItemList_create_time.MinimumWidth = 6;
-            this.dgItemList_create_time.Name = "dgItemList_create_time";
-            this.dgItemList_create_time.ReadOnly = true;
-            this.dgItemList_create_time.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_create_time.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgItemList_create_time.ToolTipText = "상품을 최초 등록한 일시 입니다.";
-            this.dgItemList_create_time.Width = 80;
-            // 
-            // dgItemList_update_time
-            // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgItemList_update_time.DefaultCellStyle = dataGridViewCellStyle18;
-            this.dgItemList_update_time.HeaderText = "수정일시";
-            this.dgItemList_update_time.MinimumWidth = 6;
-            this.dgItemList_update_time.Name = "dgItemList_update_time";
-            this.dgItemList_update_time.ReadOnly = true;
-            this.dgItemList_update_time.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_update_time.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgItemList_update_time.ToolTipText = "상품정보를 수정한 일시입니다";
-            this.dgItemList_update_time.Width = 80;
-            // 
-            // dgItemList_saved_time
-            // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgItemList_saved_time.DefaultCellStyle = dataGridViewCellStyle19;
-            this.dgItemList_saved_time.HeaderText = "수집일시";
-            this.dgItemList_saved_time.MinimumWidth = 6;
-            this.dgItemList_saved_time.Name = "dgItemList_saved_time";
-            this.dgItemList_saved_time.ReadOnly = true;
-            this.dgItemList_saved_time.ToolTipText = "상품정보를 내려받은 일시입니다.";
-            this.dgItemList_saved_time.Width = 80;
-            // 
-            // dgItemList_weight
-            // 
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgItemList_weight.DefaultCellStyle = dataGridViewCellStyle20;
-            this.dgItemList_weight.HeaderText = "무게(Kg)";
-            this.dgItemList_weight.MinimumWidth = 6;
-            this.dgItemList_weight.Name = "dgItemList_weight";
-            this.dgItemList_weight.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_weight.ToolTipText = "상품의 무게를 나타냅니다. 단위는 킬로그램(Kg)입니다.";
-            this.dgItemList_weight.Width = 62;
-            // 
-            // dgItemList_category_id
-            // 
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgItemList_category_id.DefaultCellStyle = dataGridViewCellStyle21;
-            this.dgItemList_category_id.HeaderText = "카테고리";
-            this.dgItemList_category_id.MinimumWidth = 6;
-            this.dgItemList_category_id.Name = "dgItemList_category_id";
-            this.dgItemList_category_id.ReadOnly = true;
-            this.dgItemList_category_id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_category_id.ToolTipText = "상품의 카테고리 번호입니다.";
-            this.dgItemList_category_id.Width = 60;
-            // 
-            // dgItemList_rating_star
-            // 
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgItemList_rating_star.DefaultCellStyle = dataGridViewCellStyle22;
-            this.dgItemList_rating_star.HeaderText = "별점";
-            this.dgItemList_rating_star.MinimumWidth = 6;
-            this.dgItemList_rating_star.Name = "dgItemList_rating_star";
-            this.dgItemList_rating_star.ReadOnly = true;
-            this.dgItemList_rating_star.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_rating_star.Visible = false;
-            this.dgItemList_rating_star.Width = 40;
-            // 
-            // dgItemList_cmt_count
-            // 
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgItemList_cmt_count.DefaultCellStyle = dataGridViewCellStyle23;
-            this.dgItemList_cmt_count.HeaderText = "리뷰";
-            this.dgItemList_cmt_count.MinimumWidth = 6;
-            this.dgItemList_cmt_count.Name = "dgItemList_cmt_count";
-            this.dgItemList_cmt_count.ReadOnly = true;
-            this.dgItemList_cmt_count.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_cmt_count.Visible = false;
-            this.dgItemList_cmt_count.Width = 40;
-            // 
-            // dgItemList_sales
-            // 
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgItemList_sales.DefaultCellStyle = dataGridViewCellStyle24;
-            this.dgItemList_sales.HeaderText = "판매";
-            this.dgItemList_sales.MinimumWidth = 6;
-            this.dgItemList_sales.Name = "dgItemList_sales";
-            this.dgItemList_sales.ReadOnly = true;
-            this.dgItemList_sales.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_sales.Visible = false;
-            this.dgItemList_sales.Width = 40;
-            // 
-            // dgItemList_views
-            // 
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle25.Format = "N0";
-            dataGridViewCellStyle25.NullValue = null;
-            this.dgItemList_views.DefaultCellStyle = dataGridViewCellStyle25;
-            this.dgItemList_views.HeaderText = "조회";
-            this.dgItemList_views.MinimumWidth = 6;
-            this.dgItemList_views.Name = "dgItemList_views";
-            this.dgItemList_views.ReadOnly = true;
-            this.dgItemList_views.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_views.Width = 40;
-            // 
-            // dgItemList_likes
-            // 
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgItemList_likes.DefaultCellStyle = dataGridViewCellStyle26;
-            this.dgItemList_likes.HeaderText = "좋아요";
-            this.dgItemList_likes.MinimumWidth = 6;
-            this.dgItemList_likes.Name = "dgItemList_likes";
-            this.dgItemList_likes.ReadOnly = true;
-            this.dgItemList_likes.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_likes.Visible = false;
-            this.dgItemList_likes.Width = 50;
-            // 
-            // dgItemList_package_length
-            // 
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgItemList_package_length.DefaultCellStyle = dataGridViewCellStyle27;
-            this.dgItemList_package_length.HeaderText = "길이";
-            this.dgItemList_package_length.MinimumWidth = 6;
-            this.dgItemList_package_length.Name = "dgItemList_package_length";
-            this.dgItemList_package_length.ReadOnly = true;
-            this.dgItemList_package_length.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_package_length.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgItemList_package_length.Visible = false;
-            this.dgItemList_package_length.Width = 40;
-            // 
-            // dgItemList_package_width
-            // 
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgItemList_package_width.DefaultCellStyle = dataGridViewCellStyle28;
-            this.dgItemList_package_width.HeaderText = "폭";
-            this.dgItemList_package_width.MinimumWidth = 6;
-            this.dgItemList_package_width.Name = "dgItemList_package_width";
-            this.dgItemList_package_width.ReadOnly = true;
-            this.dgItemList_package_width.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_package_width.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgItemList_package_width.Visible = false;
-            this.dgItemList_package_width.Width = 40;
-            // 
-            // dgItemList_package_height
-            // 
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgItemList_package_height.DefaultCellStyle = dataGridViewCellStyle29;
-            this.dgItemList_package_height.HeaderText = "높이";
-            this.dgItemList_package_height.MinimumWidth = 6;
-            this.dgItemList_package_height.Name = "dgItemList_package_height";
-            this.dgItemList_package_height.ReadOnly = true;
-            this.dgItemList_package_height.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_package_height.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgItemList_package_height.Visible = false;
-            this.dgItemList_package_height.Width = 40;
-            // 
-            // dgItemList_days_to_ship
-            // 
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgItemList_days_to_ship.DefaultCellStyle = dataGridViewCellStyle30;
-            this.dgItemList_days_to_ship.HeaderText = "DTS";
-            this.dgItemList_days_to_ship.MinimumWidth = 6;
-            this.dgItemList_days_to_ship.Name = "dgItemList_days_to_ship";
-            this.dgItemList_days_to_ship.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_days_to_ship.ToolTipText = "상품의 Pre-Order기간으로 예약 발송 기능입니다. 쇼피의 경우 기본2일이내 집하센터로 배송하여야 하며, 설정 시 5-10일까지 설정이 가능합" +
-    "니다.";
-            this.dgItemList_days_to_ship.Width = 30;
-            // 
-            // dgItemList_size_chart
-            // 
-            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgItemList_size_chart.DefaultCellStyle = dataGridViewCellStyle31;
-            this.dgItemList_size_chart.HeaderText = "Size Chart";
-            this.dgItemList_size_chart.MinimumWidth = 6;
-            this.dgItemList_size_chart.Name = "dgItemList_size_chart";
-            this.dgItemList_size_chart.ReadOnly = true;
-            this.dgItemList_size_chart.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_size_chart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgItemList_size_chart.Visible = false;
-            this.dgItemList_size_chart.Width = 125;
-            // 
-            // dgItemList_condition
-            // 
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgItemList_condition.DefaultCellStyle = dataGridViewCellStyle32;
-            this.dgItemList_condition.HeaderText = "Condition";
-            this.dgItemList_condition.MinimumWidth = 6;
-            this.dgItemList_condition.Name = "dgItemList_condition";
-            this.dgItemList_condition.ReadOnly = true;
-            this.dgItemList_condition.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_condition.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgItemList_condition.Visible = false;
-            this.dgItemList_condition.Width = 70;
-            // 
-            // dgItemList_discount_id
-            // 
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgItemList_discount_id.DefaultCellStyle = dataGridViewCellStyle33;
-            this.dgItemList_discount_id.HeaderText = "할인ID";
-            this.dgItemList_discount_id.MinimumWidth = 6;
-            this.dgItemList_discount_id.Name = "dgItemList_discount_id";
-            this.dgItemList_discount_id.ReadOnly = true;
-            this.dgItemList_discount_id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_discount_id.Visible = false;
-            this.dgItemList_discount_id.Width = 77;
-            // 
-            // dgItemList_discount_name
-            // 
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgItemList_discount_name.DefaultCellStyle = dataGridViewCellStyle34;
-            this.dgItemList_discount_name.HeaderText = "할인명";
-            this.dgItemList_discount_name.MinimumWidth = 6;
-            this.dgItemList_discount_name.Name = "dgItemList_discount_name";
-            this.dgItemList_discount_name.ToolTipText = "해당 상품의 할인 이벤트 명을 나타냅니다. 상품정보에서 할인금액을 설정할 수 없으며, 할인 이벤트 생성후 이벤트에 추가하여 할인을 설정할 수 있습" +
-    "니다.";
-            this.dgItemList_discount_name.Width = 125;
-            // 
-            // dgItemList_is_2tier_item
-            // 
-            this.dgItemList_is_2tier_item.HeaderText = "2Tier";
-            this.dgItemList_is_2tier_item.MinimumWidth = 6;
-            this.dgItemList_is_2tier_item.Name = "dgItemList_is_2tier_item";
-            this.dgItemList_is_2tier_item.ReadOnly = true;
-            this.dgItemList_is_2tier_item.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgItemList_is_2tier_item.Visible = false;
-            this.dgItemList_is_2tier_item.Width = 40;
-            // 
-            // dgItemList_images
-            // 
-            this.dgItemList_images.HeaderText = "images";
-            this.dgItemList_images.MinimumWidth = 6;
-            this.dgItemList_images.Name = "dgItemList_images";
-            this.dgItemList_images.ReadOnly = true;
-            this.dgItemList_images.Visible = false;
-            this.dgItemList_images.Width = 125;
-            // 
-            // dgItemList_Result
-            // 
-            dataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgItemList_Result.DefaultCellStyle = dataGridViewCellStyle35;
-            this.dgItemList_Result.HeaderText = "업데이트 결과";
-            this.dgItemList_Result.MinimumWidth = 6;
-            this.dgItemList_Result.Name = "dgItemList_Result";
-            this.dgItemList_Result.Width = 125;
-            // 
             // FormProductManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
-            this.ClientSize = new System.Drawing.Size(1919, 943);
+            this.ClientSize = new System.Drawing.Size(2065, 1080);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.tabMain);
             this.Controls.Add(this.groupBox8);
@@ -2486,7 +2485,6 @@
             this.Controls.Add(this.dg_site_id);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormProductManage";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FormProductManage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgItemList)).EndInit();

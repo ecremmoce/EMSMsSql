@@ -6727,7 +6727,7 @@
             this.Name = "FromAddProduct";
             this.Resizable = false;
             this.ShadowType = MetroFramework.Forms.MetroFormShadowType.None;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.WindowState = System.Windows.Forms.FormWindowState.Normal;
             this.Activated += new System.EventHandler(this.FromAddProduct_Activated);
             this.Load += new System.EventHandler(this.FromAddProduct_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FromAddProduct_DragDrop);

@@ -710,7 +710,7 @@
             this.MinimizeBox = false;
             this.Name = "FormImageTool";
             this.Resizable = false;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.WindowState = System.Windows.Forms.FormWindowState.Normal;
             this.Load += new System.EventHandler(this.FormImageTool_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -3295,7 +3295,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1940, 1001);
+            this.ClientSize = new System.Drawing.Size(2065, 1080);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.BtnSearchProduct);
             this.Controls.Add(this.TxtSearchProduct);
@@ -3322,7 +3322,7 @@
             this.MinimizeBox = false;
             this.Name = "FormProductMapper2";
             this.Resizable = false;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.WindowState = System.Windows.Forms.FormWindowState.Normal;
             this.Load += new System.EventHandler(this.FormProductMapper_Load);
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dg_site_id)).EndInit();

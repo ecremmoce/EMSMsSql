@@ -334,7 +334,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1842, 955);
+            this.ClientSize = new System.Drawing.Size(2065, 1080);
             this.Controls.Add(this.BtnViewOriginal);
             this.Controls.Add(this.TxtTarCountry);
             this.Controls.Add(this.TxtSrcCountry);

@@ -106,9 +106,7 @@ namespace ShopeeManagement
         private void FormStart_Load(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-
-            client.LogoutAsync();
-
+            //client.LogoutAsync();
             set_double_buffer();
             if (ApplicationDeployment.IsNetworkDeployed)
             {
