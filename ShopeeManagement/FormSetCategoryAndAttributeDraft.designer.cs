@@ -134,7 +134,6 @@
             this.BtnViewOriginal.Text = "원본보기";
             this.BtnViewOriginal.UseCustomBackColor = true;
             this.BtnViewOriginal.UseSelectable = true;
-            this.BtnViewOriginal.Visible = false;
             this.BtnViewOriginal.Click += new System.EventHandler(this.BtnViewOriginal_Click);
             // 
             // BtnTranslate
@@ -614,7 +613,6 @@
             this.BtnViewTranslated.Text = "번역보기";
             this.BtnViewTranslated.UseCustomBackColor = true;
             this.BtnViewTranslated.UseSelectable = true;
-            this.BtnViewTranslated.Visible = false;
             this.BtnViewTranslated.Click += new System.EventHandler(this.BtnViewTranslated_Click);
             // 
             // metroLabel31

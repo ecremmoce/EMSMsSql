@@ -252,7 +252,6 @@ namespace ShopeeManagement
                 dv = dgItemList2;
             }
 
-
             dv.Rows.Clear();
 
             if (dg_site_id.SelectedRows.Count > 0)
@@ -300,12 +299,8 @@ namespace ShopeeManagement
                     countryCode = "VND";
                 }
 
-
-
-
                 //환율을 가지고 온다.
                 rateSrc = txt_src_currency_rate.Value;
-                
 
                 using (AppDbContext context = new AppDbContext())
                 {
@@ -318,8 +313,8 @@ namespace ShopeeManagement
                             if (long.TryParse(keyword, out ItemId))
                             {
                                 productList = context.ItemInfoes
-                                .Where(b => b.shopeeAccount == shopeeId &&
-                                b.item_id.ToString().Contains(ItemId.ToString())
+                                .Where(b => b.shopeeAccount == shopeeId 
+                                && b.item_id.ToString().Contains(ItemId.ToString())
                                 && b.UserId == global_var.userId)
                                 .OrderBy(x => x.update_time).ToList();
                             }
@@ -330,8 +325,8 @@ namespace ShopeeManagement
                         if (keyword != string.Empty)
                         {
                             productList = context.ItemInfoes
-                                .Where(b => b.shopeeAccount == shopeeId &&
-                                b.item_sku.ToUpper().Contains(keyword)
+                                .Where(b => b.shopeeAccount == shopeeId 
+                                && b.item_sku.ToUpper().Contains(keyword)
                                 && b.UserId == global_var.userId)
                                 .OrderBy(x => x.update_time).ToList();
                         }
@@ -341,8 +336,8 @@ namespace ShopeeManagement
                         if (keyword != string.Empty)
                         {
                             productList = context.ItemInfoes
-                                .Where(b => b.shopeeAccount == shopeeId &&
-                                b.name.ToUpper().Contains(keyword)
+                                .Where(b => b.shopeeAccount == shopeeId 
+                                && b.name.ToUpper().Contains(keyword)
                                 && b.UserId == global_var.userId)
                                 .OrderBy(x => x.update_time).ToList();
                         }
@@ -361,6 +356,7 @@ namespace ShopeeManagement
                         progressBar.Maximum = productList.Count;
 
                         tabMain.TabPages[0].Text = "상품 목록 : [ " + string.Format("{0:n0}", productList.Count) + " ]";
+
                         for (int i = 0; i < productList.Count; i++)
                         {
                             string strImage = productList[i].images;
@@ -375,7 +371,7 @@ namespace ShopeeManagement
                             }
 
                             decimal SrcPrice = productList[i].price;
-                            System.Drawing.Image img = null;
+                            Image img = null;
                             dv.Rows.Add(
                                 i + 1,
                                 false,
@@ -386,7 +382,7 @@ namespace ShopeeManagement
                                 productList[i].status,
                                 productList[i].name,
                                 productList[i].currency,
-                                (bool)productList[i].has_variation,
+                                productList[i].has_variation,
                                 string.Format("{0:n0}", productList[i].supply_price),
                                 string.Format("{0:n0}", productList[i].margin),
                                 "",
@@ -526,8 +522,8 @@ namespace ShopeeManagement
                 string src_api_key = dg_site_id.SelectedRows[0].Cells["dg_site_id_secret_key"].Value.ToString();
 
                 
-                Dictionary<long, long> dicDate = new Dictionary<long, long>();
-                Dictionary<DateTime, DateTime> dicDate2 = new Dictionary<DateTime, DateTime>();
+                var dicDate = new Dictionary<long, long>();
+                var dicDate2 = new Dictionary<DateTime, DateTime>();
 
                 //Dictionary<DateTime, DateTime> dicDate2 = new Dictionary<DateTime, DateTime>();
                 //유닉스 시간은 9시간 차이가 난다.
@@ -557,12 +553,14 @@ namespace ShopeeManagement
                     dicDate.Add(ToUnixTime(startDate), ToUnixTime(endDate));
                 }
 
-                Dictionary<long, string> dicDiscount = new Dictionary<long, string>();
+                var dicDiscount = new Dictionary<long, string>();
+
                 for (int i = 0; i < dg_shopee_discount.Rows.Count; i++)
                 {
                     dicDiscount.Add(Convert.ToInt64(dg_shopee_discount.Rows[i].Cells["dg_shopee_discount_discount_id"].Value.ToString()),
                         dg_shopee_discount.Rows[i].Cells["dg_shopee_discount_discount_name"].Value.ToString());
                 }
+
                 string shopeeId = dg_site_id.SelectedRows[0].Cells["dg_site_id_id"].Value.ToString();
                 getSrcItem(src_partner_id, src_shop_id, src_api_key, dicDate, shopeeId, dicDiscount);
             }   

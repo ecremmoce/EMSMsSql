@@ -193,7 +193,6 @@ namespace ShopeeManagement
                             rebate = 4;
                         }
 
-
                         pgFee = Math.Round((supplyPrice + rebate) * (PgFeeRate / 100) * 100) / 100;
                         shopeeFee = ((supplyPrice + shippingFee + pgFee) * (ShopeeRate / 100) * 100) / 100;
                         targetSellPrice = Math.Round((supplyPrice + shippingFee + pgFee + shopeeFee) * 100) / 100;
@@ -247,7 +246,7 @@ namespace ShopeeManagement
 
                     if (rateList.Count > 0)
                     {
-                        shippingFee = (rateList[0].ShippingFeeAvg / CurrencyRate) - 55;
+                        shippingFee = rateList[0].ShippingFeeAvg - 55;
                         supplyPrice = (SourcePrice + Margin) / CurrencyRate;
 
                         pgFee = (supplyPrice + shippingFee) * (PgFeeRate / 100) * 100 / 100;

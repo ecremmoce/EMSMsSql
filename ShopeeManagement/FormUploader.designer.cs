@@ -640,7 +640,6 @@
             this.dgSrcItemList.Size = new System.Drawing.Size(1888, 683);
             this.dgSrcItemList.TabIndex = 1;
             this.dgSrcItemList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgSrcItemList_CellClick);
-            this.dgSrcItemList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgSrcItemList_CellContentClick);
             this.dgSrcItemList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgSrcItemList_CellDoubleClick);
             this.dgSrcItemList.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgSrcItemList_CellEndEdit);
             this.dgSrcItemList.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgSrcItemList_CellValidating);
@@ -2025,7 +2024,6 @@
             this.dg_shopee_logistics.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dg_shopee_logistics.Size = new System.Drawing.Size(186, 50);
             this.dg_shopee_logistics.TabIndex = 116;
-            this.dg_shopee_logistics.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_shopee_logistics_CellDoubleClick);
             // 
             // dg_shopee_logistics_no
             // 

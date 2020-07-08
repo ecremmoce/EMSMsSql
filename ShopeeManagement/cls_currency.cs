@@ -42,11 +42,11 @@ namespace ShopeeManagement
                     || x.cr_name.Contains("TWD")
                     || x.cr_name.Contains("PHP"))
                     && x.UserId == global_var.userId)
-                    .OrderBy(x => x.cr_name).ToList();
+                    .OrderBy(x => x.cr_code).ToList();
+
                 for (int i = 0; i < currencyList.Count; i++)
                 {
-                    dic_currency.Add(currencyList[i].cr_name.ToString(),
-                        currencyList[i].cr_exchange);
+                    dic_currency.Add(currencyList[i].cr_name.ToString(), currencyList[i].cr_exchange);
                 }
             }
             

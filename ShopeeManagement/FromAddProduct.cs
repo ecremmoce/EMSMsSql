@@ -409,8 +409,8 @@ namespace ShopeeManagement
             getFavKeywordList();
             getFavKeywordOtherList();
 
-            
-            //GetCategory();
+
+            //GetCategory(); // GetCategoryAPI로 사용
             CboProductCondition.SelectedIndex = 0;
             pGuid = Guid.NewGuid();
             ImagePath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\ShopeeManagement\ItemImages\{pGuid}\";
@@ -790,30 +790,6 @@ namespace ShopeeManagement
             //DgSaveAttribute.Columns[8].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
         }
-        private void GetCategory(string tarCountry)
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            dgCategoryList.Rows.Clear();
-            using (AppDbContext context = new AppDbContext())
-            {
-                var lstCategory = context.ShopeeCategorOnlys.Where(x => x.Country == tarCountry)
-                        .OrderBy(x => x.CatLevel1)
-                        .ThenBy(x => x.CatLevel2)
-                        .ThenBy(x => x.CatLevel3)
-                        .ThenBy(x => x.CatLevel4)
-                        .ThenBy(x => x.CatLevel5).ToList();
-
-                for (int i = 0; i < lstCategory.Count; i++)
-                {
-                    dgCategoryList.Rows.Add(i + 1, lstCategory[i].CatLevel1, lstCategory[i].CatLevel2, lstCategory[i].CatLevel3,
-                        lstCategory[i].CatId);
-                }
-            }
-
-            Cursor.Current = Cursors.Default;
-
-            dgCategoryList.ClearSelection();
-        }
 
         private void dgCategoryList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -830,8 +806,8 @@ namespace ShopeeManagement
         {
             DgAttribute.Rows.Clear();
 
-            string endPoint = "https://shopeecategory.azurewebsites.net/api/ShopeeAttribute?CategoryId=" + categoryID + "&CountryCode=" + tarCountry;
-            var request = new RestRequest("", RestSharp.Method.GET);
+            string endPoint = $"https://shopeecategory.azurewebsites.net/api/ShopeeAttribute?CategoryId={categoryID}&CountryCode={tarCountry}";
+            var request = new RestRequest("", Method.GET);
             request.Method = Method.GET;
             var client = new RestClient(endPoint);
             IRestResponse response = client.Execute(request);
@@ -840,15 +816,9 @@ namespace ShopeeManagement
 
             for (int i = 0; i < result.Count; i++)
             {
-                Dictionary<string, string> dicCombo = new Dictionary<string, string>();
-                DataGridViewComboBoxCell NewComboCell = new DataGridViewComboBoxCell();
+                var dicCombo = new Dictionary<string, string>();
+                var NewComboCell = new DataGridViewComboBoxCell();
                 NewComboCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
-
-
-                List<string> lstOptionsKor = new List<string>();
-                List<string> lstOptionsSrc = new List<string>();
-
-
 
                 if (result[i].InputType.ToString() == "COMBO_BOX" || result[i].InputType.ToString() == "DROP_DOWN")
                 {
@@ -858,45 +828,37 @@ namespace ShopeeManagement
                     {
                         dicCombo.Add(options[j].ToString(), options[j].ToString());
                     }
+
+                    if (dicCombo.Count > 0)
+                    {
+                        NewComboCell.DataSource = new BindingSource(dicCombo, null);
+                        NewComboCell.DisplayMember = "Key";
+                        NewComboCell.ValueMember = "Value";
+                    }
                 }
                 else if (result[i].InputType.ToString() == "TEXT_FILED")
                 {
-
                 }
                 else
                 {
-
                 }
 
-                if (dicCombo.Count > 0)
-                {
-                    NewComboCell.DataSource = new BindingSource(dicCombo, null);
-                    NewComboCell.DisplayMember = "Key";
-                    NewComboCell.ValueMember = "Value";
-                }
-                DgAttribute.Rows.Add(i + 1,
-                            result[i].AttributeName.ToString(),
-                            result[i].InputType.ToString(),
-                            result[i].AttributeId.ToString(),
-                            result[i].AttributeType.ToString(),
-                            (bool)result[i].isMandatory,
-                            null,
-                            false,
-                            "",
-                            result[i].AttributeName.ToString());
+                DgAttribute.Rows.Add(i + 1, // DgTarAttrivute_no, No
+                    result[i].AttributeName.ToString(), // DgAttribute_attribute_name, 속성명
+                    result[i].InputType.ToString(), // DgAttribute_input_type, 입력타입
+                    result[i].AttributeId.ToString(), // DgAttribute_attribute_id, 속성ID
+                    result[i].AttributeType.ToString(), // DgAttribute_attribute_type, 속성타입
+                    (bool)result[i].isMandatory, // chkTarMandatory
+                    null, // choTarOption
+                    false, // DgAttribute_is_complete, 완료여부
+                           //result[i].AttributeName.ToString()); // DgAttribute_attribute_value
+                    string.Empty); // DgAttribute_attribute_value
                 DgAttribute.Rows[DgAttribute.Rows.Count - 1].Cells[6] = NewComboCell;
             }
-
-            //DgAttribute.Sort(DgAttribute.Columns[5], ListSortDirection.Descending);
-            //for (int i = 0; i < DgAttribute.Rows.Count; i++)
-            //{
-            //    DgAttribute.Rows[i].Cells[0].Value = i + 1;
-            //}
 
             //수정 필요
             if (dg_productTitle.Rows.Count > 0 && dg_productTitle.SelectedRows.Count > 0)
             {
-
                 string brandName = dg_productTitle.SelectedRows[0].Cells["dg_productTitle_title"].Value.ToString().Trim();
 
                 var pattern = @"\[(.*?)\]";
@@ -912,8 +874,9 @@ namespace ShopeeManagement
                     for (int i = 0; i < DgAttribute.Rows.Count; i++)
                     {
                         if (DgAttribute.Rows[i].Cells["DgAttribute_attribute_name"].Value.ToString() == "브랜드" ||
-                                DgAttribute.Rows[i].Cells["DgAttribute_attribute_name"].Value.ToString() == "상표" ||
-                                DgAttribute.Rows[i].Cells["DgAttribute_attribute_name"].Value.ToString() == "Brand")
+                            DgAttribute.Rows[i].Cells["DgAttribute_attribute_name"].Value.ToString() == "상표" ||
+                            DgAttribute.Rows[i].Cells["DgAttribute_attribute_name"].Value.ToString() == "Brand" ||
+                            DgAttribute.Rows[i].Cells["DgAttribute_attribute_name"].Value.ToString() == "Merek")
                         {
                             DgAttribute.Rows[i].Cells["DgAttribute_attribute_value"].Value = brandName;
                         }
@@ -1083,13 +1046,17 @@ namespace ShopeeManagement
 
         private void DgAttribute_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            if (DgAttribute.CurrentCell.ColumnIndex == 6 && e.Control is ComboBox)
+            DataGridView control = sender as DataGridView;
+
+            if (control.CurrentCell.ColumnIndex == 6 && e.Control is ComboBox)
             {
+                //control.CurrentRow.Selected = true;
                 ComboBox comboBox = e.Control as ComboBox;
                 comboBox.SelectedIndexChanged -= LastColumnComboSelectionChanged;
                 comboBox.SelectedIndexChanged += LastColumnComboSelectionChanged;
             }
         }
+
         private void LastColumnComboSelectionChanged(object sender, EventArgs e)
         {
             var currentcell = DgAttribute.CurrentCellAddress;
@@ -1331,28 +1298,35 @@ namespace ShopeeManagement
         {
             Cursor.Current = Cursors.WaitCursor;
             string tarCountry = dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_country"].Value.ToString();
-            dgCategoryList.Rows.Clear();
             string keyWord = TxtCategorySearchText.Text.Trim().ToUpper();
 
-            using (AppDbContext context = new AppDbContext())
-            {
-                List<ShopeeCategoryOnly> categoryList = new List<ShopeeCategoryOnly>();
-                categoryList = context.ShopeeCategorOnlys
-                    .Where(s =>
-                    (s.CatLevel1.ToString().ToUpper().Contains(keyWord) ||
-                    s.CatLevel2.ToString().ToUpper().Contains(keyWord) ||
-                    s.CatLevel3.ToString().ToUpper().Contains(keyWord) ||
-                    s.CatLevel4.ToString().ToUpper().Contains(keyWord) ||
-                    s.CatLevel5.ToString().ToUpper().Contains(keyWord)) &&
-                    s.Country == tarCountry)
-                    .OrderBy(x => x.CatLevel1).ThenBy(x => x.CatLevel2).ThenBy(x => x.CatLevel3).ThenBy(x => x.CatLevel4).ThenBy(x => x.CatLevel5).ToList();
+            string endPoint = $"https://shopeecategory.azurewebsites.net/api/ShopeeCategory?CountryCode={tarCountry}";
+            var request = new RestRequest("", Method.GET);
+            request.Method = Method.GET;
+            var client = new RestClient(endPoint);
+            IRestResponse response = client.Execute(request);
+            List<APIShopeeCategory> lstShopeeCategory = new List<APIShopeeCategory>();
+            var result = JsonConvert.DeserializeObject<List<APIShopeeCategory>>(response.Content);
 
-                for (int i = 0; i < categoryList.Count; i++)
-                {
-                    dgCategoryList.Rows.Add(i + 1, categoryList[i].CatLevel1, categoryList[i].CatLevel2, categoryList[i].CatLevel3,
-                        categoryList[i].CatId);
-                }
+            List<APIShopeeCategory> query = (from shopeeCategory in result
+                                            where (shopeeCategory.Category1Name ?? string.Empty).ToUpper().Contains(keyWord)
+                                            || (shopeeCategory.Category2Name ?? string.Empty).ToUpper().Contains(keyWord)
+                                            || (shopeeCategory.Category3Name ?? string.Empty).ToUpper().Contains(keyWord)
+                                            select shopeeCategory).ToList();
+
+            dgCategoryList.Rows.Clear();
+
+            for (int i = 0; i < query.Count(); i++)
+            {
+                dgCategoryList.Rows.Add(i + 1,
+                    query[i].Category1Name,
+                    query[i].Category2Name,
+                    query[i].Category3Name,
+                    query[i].LastCategoryId);
             }
+
+            dgCategoryList.ClearSelection();
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -8374,7 +8348,6 @@ namespace ShopeeManagement
             DgAttribute.Rows.Clear();
             string tarCountry = dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_country"].Value.ToString();
             getFavCategoryList(dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_id"].Value.ToString());
-            //GetCategory(tarCountry);
             GetCategoryAPI(tarCountry);
 
             string category_id = dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_set_category_id"].Value?.ToString();
@@ -8394,70 +8367,6 @@ namespace ShopeeManagement
                 {
                     DataGridViewCellEventArgs et = new DataGridViewCellEventArgs(0, dgCategoryList.SelectedRows[0].Index);
                     dgCategoryList_CellClick(null, et);
-                }
-            }
-        }
-
-        private void BtnSaveAttributeAndCategory_Click(object sender, EventArgs e)
-        {
-            string shopeeId = dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_id"].Value.ToString();
-            //넣기전에 기존 데이터는 모두 지운다.
-            if (DgSaveAttribute.Rows.Count > 0)
-            {
-                for (int j = DgSaveAttribute.Rows.Count - 1; j >= 0; j--)
-                {
-                    if (DgSaveAttribute.Rows[j].Cells["DgSaveAttribute_shopee_id"].Value.ToString() ==
-                        shopeeId)
-                    {
-                        DgSaveAttribute.Rows.RemoveAt(j);
-                    }
-                }
-            }
-
-
-
-            for (int i = 0; i < DgAttribute.Rows.Count; i++)
-            {
-                if(DgAttribute.Rows[i].Cells["DgAttribute_attribute_value"].Value != null &&
-                    DgAttribute.Rows[i].Cells["DgAttribute_attribute_value"].Value.ToString().Trim() != string.Empty)
-                {
-                    DgSaveAttribute.Rows.Add(DgSaveAttribute.Rows.Count + 1,
-                        false,
-                        dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_id"].Value.ToString(),
-                        DgAttribute.Rows[i].Cells["DgAttribute_attribute_name"].Value.ToString().Trim(),
-                        DgAttribute.Rows[i].Cells["DgAttribute_attribute_id"].Value.ToString().Trim(),
-                        (bool)DgAttribute.Rows[i].Cells["DgTarAttribute_is_mandatory"].Value,
-                        DgAttribute.Rows[i].Cells["DgAttribute_attribute_value"].Value.ToString().Trim());
-
-
-
-
-
-                    //넣기 전에 존재 확인한다.
-                    //bool isExist = false;
-                    //for (int j = 0; j < DgSaveAttribute.Rows.Count; j++)
-                    //{
-                    //    if(DgSaveAttribute.Rows[j].Cells["DgSaveAttribute_id"].Value.ToString() == 
-                    //        DgAttribute.Rows[i].Cells["DgAttribute_attribute_id"].Value.ToString().Trim())
-                    //    {
-                    //        isExist = true;
-                    //        //값만 업데이트 한다.
-                    //        DgSaveAttribute.Rows[j].Cells["DgSaveAttribute_value"].Value = DgAttribute.Rows[i].Cells["DgAttribute_attribute_value"].Value.ToString().Trim();
-                    //        break;
-                    //    }
-
-                    //}
-
-                    //if(!isExist)
-                    //{
-                    //    DgSaveAttribute.Rows.Add(DgSaveAttribute.Rows.Count + 1,
-                    //    false,
-                    //    dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_id"].Value.ToString(),
-                    //    DgAttribute.Rows[i].Cells["DgAttribute_attribute_name"].Value.ToString().Trim(),
-                    //    DgAttribute.Rows[i].Cells["DgAttribute_attribute_id"].Value.ToString().Trim(),
-                    //    (bool)DgAttribute.Rows[i].Cells["DgTarAttribute_is_mandatory"].Value,
-                    //    DgAttribute.Rows[i].Cells["DgAttribute_attribute_value"].Value.ToString().Trim());
-                    //}
                 }
             }
         }
@@ -9236,13 +9145,36 @@ namespace ShopeeManagement
         private void DgAttribute_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if(DgAttribute.Rows[e.RowIndex].Cells["DgAttribute_attribute_value"].Value != null &&
-                DgAttribute.Rows[e.RowIndex].Cells["DgAttribute_attribute_value"].Value.ToString().Trim() != string.Empty)
+               DgAttribute.Rows[e.RowIndex].Cells["DgAttribute_attribute_value"].Value.ToString().Trim() != string.Empty)
             {
-                BtnSaveAttributeAndCategory_Click(null, null);
-                //다음줄로 옮긴다.
-                if(e.RowIndex != DgAttribute.Rows.Count - 1)
+                DataGridViewRow dgvrow = null;
+
+                if (DgSaveAttribute.Rows.Count > 0)
                 {
-                    DgAttribute.Rows[e.RowIndex + 1].Selected = true;
+                    dgvrow = DgSaveAttribute.Rows
+                        .Cast<DataGridViewRow>()
+                        .Where(
+                        r => r.Cells["DgSaveAttribute_id"].Value.ToString().Equals(DgAttribute.Rows[DgAttribute.SelectedRows[0].Index].Cells["DgAttribute_attribute_id"].Value.ToString())
+                        && r.Cells["DgSaveAttribute_shopee_id"].Value.ToString().Equals(dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_id"].Value.ToString()))
+                        .FirstOrDefault();
+                }
+
+                if (dgvrow is null)
+                {
+                    DgSaveAttribute.Rows.Add(DgSaveAttribute.Rows.Count + 1, // DgSaveAttribute_no, visible true
+                    false, // DgSaveAttribute_chk, visible false
+                    dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_id"].Value.ToString(), // DgSaveAttribute_shopee_id, visible true
+                    DgAttribute.Rows[DgAttribute.SelectedRows[0].Index].Cells["DgAttribute_attribute_name"].Value.ToString().Trim(), // DgSaveAttribute_name, visible true
+                    DgAttribute.Rows[DgAttribute.SelectedRows[0].Index].Cells["DgAttribute_attribute_id"].Value.ToString().Trim(), // DgSaveAttribute_id, visible true
+                    (bool)DgAttribute.Rows[DgAttribute.SelectedRows[0].Index].Cells["DgTarAttribute_is_mandatory"].Value, // DgSaveAttribute_is_mandatory, visible true
+                    DgAttribute.Rows[DgAttribute.SelectedRows[0].Index].Cells["DgAttribute_attribute_value"].Value.ToString().Trim()); // DgSaveAttribute_value, visible true
+                }
+                else
+                {
+                    int selectedIndex = dgvrow.Index;
+
+                    DataGridViewRow selectedRow = DgSaveAttribute.Rows[selectedIndex];
+                    selectedRow.Cells["DgSaveAttribute_value"].Value = DgAttribute.Rows[DgAttribute.SelectedRows[0].Index].Cells["DgAttribute_attribute_value"].Value.ToString().Trim();
                 }
             }
         }

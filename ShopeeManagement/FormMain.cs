@@ -358,6 +358,7 @@ namespace ShopeeManagement
         private void Tile_New_Product_Click(object sender, EventArgs e)
         {
             Tile_current_display.Text = "신상품 등록";
+
             if (Search_frm("FromAddProduct"))
             {
                 FromAddProduct child_diff = new FromAddProduct();
@@ -386,7 +387,7 @@ namespace ShopeeManagement
                 //Settings의 
                 //Allowed Callback URLs : https://shopeesls.auth0.com/mobile
                 //Allowed Logout URLs : https://shopeesls.auth0.com/mobile
-                Auth0.OidcClient.Auth0Client client = new Auth0.OidcClient.Auth0Client(new Auth0ClientOptions
+                Auth0Client client = new Auth0Client(new Auth0ClientOptions
                 {
                     Domain = "gov1-ecremmoce.auth0.com",
                     ClientId = "mDlzQg67jgRqnYMPdjirezyNLzJrA2Fh",

@@ -381,7 +381,6 @@
             this.BtnSelectImageFile = new MetroFramework.Controls.MetroButton();
             this.TabMain_Category_Attribute = new System.Windows.Forms.TabPage();
             this.btnManageAttributeData = new MetroFramework.Controls.MetroButton();
-            this.BtnSaveAttributeAndCategory = new MetroFramework.Controls.MetroButton();
             this.BtnViewAttributeOriginal = new MetroFramework.Controls.MetroButton();
             this.BtnAttributeTranslate = new MetroFramework.Controls.MetroButton();
             this.DgAttribute = new System.Windows.Forms.DataGridView();
@@ -3418,7 +3417,6 @@
             // 
             this.TabMain_Category_Attribute.BackColor = System.Drawing.Color.White;
             this.TabMain_Category_Attribute.Controls.Add(this.btnManageAttributeData);
-            this.TabMain_Category_Attribute.Controls.Add(this.BtnSaveAttributeAndCategory);
             this.TabMain_Category_Attribute.Controls.Add(this.BtnViewAttributeOriginal);
             this.TabMain_Category_Attribute.Controls.Add(this.BtnAttributeTranslate);
             this.TabMain_Category_Attribute.Controls.Add(this.DgAttribute);
@@ -3457,17 +3455,6 @@
             this.btnManageAttributeData.UseCustomBackColor = true;
             this.btnManageAttributeData.UseSelectable = true;
             this.btnManageAttributeData.Click += new System.EventHandler(this.BtnManageAttributeData_Click);
-            // 
-            // BtnSaveAttributeAndCategory
-            // 
-            this.BtnSaveAttributeAndCategory.Location = new System.Drawing.Point(1748, 162);
-            this.BtnSaveAttributeAndCategory.Name = "BtnSaveAttributeAndCategory";
-            this.BtnSaveAttributeAndCategory.Size = new System.Drawing.Size(99, 25);
-            this.BtnSaveAttributeAndCategory.TabIndex = 380;
-            this.BtnSaveAttributeAndCategory.Text = "설정값 저장";
-            this.BtnSaveAttributeAndCategory.UseCustomBackColor = true;
-            this.BtnSaveAttributeAndCategory.UseSelectable = true;
-            this.BtnSaveAttributeAndCategory.Click += new System.EventHandler(this.BtnSaveAttributeAndCategory_Click);
             // 
             // BtnViewAttributeOriginal
             // 
@@ -6727,7 +6714,6 @@
             this.Name = "FromAddProduct";
             this.Resizable = false;
             this.ShadowType = MetroFramework.Forms.MetroFormShadowType.None;
-            this.WindowState = System.Windows.Forms.FormWindowState.Normal;
             this.Activated += new System.EventHandler(this.FromAddProduct_Activated);
             this.Load += new System.EventHandler(this.FromAddProduct_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FromAddProduct_DragDrop);
@@ -7071,7 +7057,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dg_shopee_logistics_logistics_id_has_cod;
         private System.Windows.Forms.DataGridViewTextBoxColumn dg_shopee_logistics_logistics_fee_type;
         private System.Windows.Forms.DataGridView DgSaveAttribute;
-        private MetroFramework.Controls.MetroButton BtnSaveAttributeAndCategory;
         private System.Windows.Forms.DataGridViewTextBoxColumn DgSaveAttribute_no;
         private System.Windows.Forms.DataGridViewCheckBoxColumn DgSaveAttribute_chk;
         private System.Windows.Forms.DataGridViewTextBoxColumn DgSaveAttribute_shopee_id;

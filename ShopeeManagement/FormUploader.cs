@@ -69,11 +69,13 @@ namespace ShopeeManagement
                 }
             }
         }
+
         private void Fill_from_Currency_Names()
         {
-            cls_currency cc = new cls_currency();
-            Dictionary<string, decimal> dic_currency = new Dictionary<string, decimal>();
+            var cc = new cls_currency();
+            var dic_currency = new Dictionary<string, decimal>();
             dic_currency = cc.get_currency();
+
             if(dic_currency.Count > 0)
             {
                 cbo_currency_From.DataSource = new BindingSource(dic_currency, null);
@@ -81,6 +83,7 @@ namespace ShopeeManagement
                 cbo_currency_From.ValueMember = "Value";
             }
         }
+
         private void getShopeeAccount()
         {
             dg_site_id.Rows.Clear();
@@ -5170,30 +5173,31 @@ namespace ShopeeManagement
                 {
                     srcCountry = "ID";
                 }
-                if (dgSrcItemList.SelectedRows[0].Cells["dgItemList_currency"].Value.ToString() == "SGD")
+                else if (dgSrcItemList.SelectedRows[0].Cells["dgItemList_currency"].Value.ToString() == "SGD")
                 {
                     srcCountry = "SG";
                 }
-                if (dgSrcItemList.SelectedRows[0].Cells["dgItemList_currency"].Value.ToString() == "MYR")
+                else if (dgSrcItemList.SelectedRows[0].Cells["dgItemList_currency"].Value.ToString() == "MYR")
                 {
                     srcCountry = "MY";
                 }
-                if (dgSrcItemList.SelectedRows[0].Cells["dgItemList_currency"].Value.ToString() == "THB")
+                else if (dgSrcItemList.SelectedRows[0].Cells["dgItemList_currency"].Value.ToString() == "THB")
                 {
                     srcCountry = "TH";
                 }
-                if (dgSrcItemList.SelectedRows[0].Cells["dgItemList_currency"].Value.ToString() == "TWD")
+                else if (dgSrcItemList.SelectedRows[0].Cells["dgItemList_currency"].Value.ToString() == "TWD")
                 {
                     srcCountry = "TW";
                 }
-                if (dgSrcItemList.SelectedRows[0].Cells["dgItemList_currency"].Value.ToString() == "PHP")
+                else if (dgSrcItemList.SelectedRows[0].Cells["dgItemList_currency"].Value.ToString() == "PHP")
                 {
                     srcCountry = "PH";
                 }
-                if (dgSrcItemList.SelectedRows[0].Cells["dgItemList_currency"].Value.ToString() == "VND")
+                else if (dgSrcItemList.SelectedRows[0].Cells["dgItemList_currency"].Value.ToString() == "VND")
                 {
                     srcCountry = "VN";
                 }
+
                 string tarCountry = dg_site_id.SelectedRows[0].Cells["dg_site_id_country"].Value.ToString();
                 long productId = Convert.ToInt64(dgSrcItemList.SelectedRows[0].Cells["dgItemList_item_id"].Value.ToString().Trim());
                 long src_shop_id = Convert.ToInt64(dgSrcItemList.SelectedRows[0].Cells["dgItemList_shopid"].Value.ToString().Trim());
@@ -5592,7 +5596,7 @@ namespace ShopeeManagement
                         }
                     }
                 }
-                else if((e.ColumnIndex == 12 || e.ColumnIndex == 13 || e.ColumnIndex == 22) && e.RowIndex > -1)
+                else if((e.ColumnIndex == 12 || e.ColumnIndex == 13 || e.ColumnIndex == 22) && e.RowIndex > -1) // 12: 상품원가(원), 13: 마진(원), 22: 무게(Kg)
                 {
                     if(!isChanging)
                     {
@@ -5965,15 +5969,19 @@ namespace ShopeeManagement
 
                 //속성을 검증하기 위해서는 각 카테고리별로 대상의 필수속성의 개수를 기록하고 
                 //이 개수와 저장된 개수를 비교하여 검증한다.
-                Dictionary<long, int> dicCategory = new Dictionary<long, int>();
+                var dicCategory = new Dictionary<long, int>();
+
                 for (int i = 0; i < dgSrcItemList.SelectedRows.Count; i++)
                 {
                     long tarCategoryId = 0;
                     //화면에 보이는 값이 아닌 DB에서 값을 가지고 온다.
-                    using (AppDbContext context = new AppDbContext())
+                    using (var context = new AppDbContext())
                     {
-                        var selectedItem = context.ItemInfoDrafts.FirstOrDefault(x => x.tar_shopeeAccount == tarShopeeId &&
-                                x.src_item_id == ItemId && x.UserId == global_var.userId);
+                        var selectedItem = context.ItemInfoDrafts.FirstOrDefault(
+                            x => x.tar_shopeeAccount == tarShopeeId 
+                            && x.src_item_id == ItemId 
+                            && x.UserId == global_var.userId);
+
                         if(selectedItem != null)
                         {
                             tarCategoryId = selectedItem.category_id_tar;
@@ -5999,12 +6007,12 @@ namespace ShopeeManagement
                 for (int i = 0; i < dicCategory.Count; i++)
                 {
                     //먼저 DB를 뒤진다
-                    using (AppDbContext context = new AppDbContext())
+                    using (var context = new AppDbContext())
                     {
                         long tarCategoryId = dicCategory.Keys.ToList()[i];
                         CategoryVariationMandatoryCount result = context.CategoryVariationMandatoryCounts.SingleOrDefault(
-                            b => b.tarCountry == tarCountry &&
-                            b.tarCategoryId == tarCategoryId
+                            b => b.tarCountry == tarCountry 
+                            && b.tarCategoryId == tarCategoryId
                             && b.UserId == global_var.userId);
 
                         if (result == null)
@@ -6039,8 +6047,8 @@ namespace ShopeeManagement
                         using (AppDbContext context = new AppDbContext())
                         {
                             List<ItemAttributeDraftTar> attributeList = context.ItemAttributeDraftTars
-                                            .Where(b => b.src_item_id == srcItemId &&
-                                            b.ItemInfoDraftId == ItemInfoDraftId
+                                            .Where(b => b.src_item_id == srcItemId 
+                                            && b.ItemInfoDraftId == ItemInfoDraftId
                                             && b.UserId == global_var.userId)
                                             .OrderBy(x => x.is_mandatory).ToList();
 
@@ -6058,15 +6066,18 @@ namespace ShopeeManagement
                                 }
                             }
 
-                            if (dicCategory[tarCategoryId] == cntDb)
+                            if (dicCategory.Count > 0)
                             {
-                                dgSrcItemList.SelectedRows[i].Cells["dgItemList_attribute"].Value = true;
-                                dgSrcItemList.SelectedRows[i].Cells["dgItemList_attribute"].Style.BackColor = Color.GreenYellow;
-                            }
-                            else
-                            {
-                                dgSrcItemList.SelectedRows[i].Cells["dgItemList_attribute"].Value = false;
-                                dgSrcItemList.SelectedRows[i].Cells["dgItemList_attribute"].Style.BackColor = Color.Orange;
+                                if (dicCategory[tarCategoryId] == cntDb)
+                                {
+                                    dgSrcItemList.SelectedRows[i].Cells["dgItemList_attribute"].Value = true;
+                                    dgSrcItemList.SelectedRows[i].Cells["dgItemList_attribute"].Style.BackColor = Color.GreenYellow;
+                                }
+                                else
+                                {
+                                    dgSrcItemList.SelectedRows[i].Cells["dgItemList_attribute"].Value = false;
+                                    dgSrcItemList.SelectedRows[i].Cells["dgItemList_attribute"].Style.BackColor = Color.Orange;
+                                }
                             }
                         }
                     }
@@ -6116,7 +6127,8 @@ namespace ShopeeManagement
 
             if (dgSrcItemList.Rows.Count > 0)
             {
-                DialogResult dlg_Result = MessageBox.Show("체크한 상품을 등록하시겠습니까?", "쇼피 상품 등록", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult dlg_Result = MessageBox.Show("설정하신 판매가격으로 체크상품을 업데이트 하시겠습니까?", "쇼피 상품 등록", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
                 if (dlg_Result == DialogResult.Yes)
                 {
                     Cursor.Current = Cursors.WaitCursor;
@@ -6156,27 +6168,27 @@ namespace ShopeeManagement
                                 {
                                     srcCountry = "ID";
                                 }
-                                if (dgSrcItemList.Rows[i].Cells["dgItemList_currency"].Value.ToString() == "SGD")
+                                else if (dgSrcItemList.Rows[i].Cells["dgItemList_currency"].Value.ToString() == "SGD")
                                 {
                                     srcCountry = "SG";
                                 }
-                                if (dgSrcItemList.Rows[i].Cells["dgItemList_currency"].Value.ToString() == "MYR")
+                                else if (dgSrcItemList.Rows[i].Cells["dgItemList_currency"].Value.ToString() == "MYR")
                                 {
                                     srcCountry = "MY";
                                 }
-                                if (dgSrcItemList.Rows[i].Cells["dgItemList_currency"].Value.ToString() == "THB")
+                                else if (dgSrcItemList.Rows[i].Cells["dgItemList_currency"].Value.ToString() == "THB")
                                 {
                                     srcCountry = "TH";
                                 }
-                                if (dgSrcItemList.Rows[i].Cells["dgItemList_currency"].Value.ToString() == "TWD")
+                                else if (dgSrcItemList.Rows[i].Cells["dgItemList_currency"].Value.ToString() == "TWD")
                                 {
                                     srcCountry = "TW";
                                 }
-                                if (dgSrcItemList.Rows[i].Cells["dgItemList_currency"].Value.ToString() == "PHP")
+                                else if (dgSrcItemList.Rows[i].Cells["dgItemList_currency"].Value.ToString() == "PHP")
                                 {
                                     srcCountry = "PH";
                                 }
-                                if (dgSrcItemList.Rows[i].Cells["dgItemList_currency"].Value.ToString() == "VND")
+                                else if (dgSrcItemList.Rows[i].Cells["dgItemList_currency"].Value.ToString() == "VND")
                                 {
                                     srcCountry = "VN";
                                 }
@@ -6408,7 +6420,7 @@ namespace ShopeeManagement
 
                                         int dts = Convert.ToInt32(dgSrcItemList.Rows[i].Cells["dgItemList_days_to_ship"].Value.ToString());
 
-                                        var request = new RestRequest("", RestSharp.Method.POST);
+                                        var request = new RestRequest("", Method.POST);
                                         request.Method = Method.POST;
                                         request.AddHeader("Accept", "application/json");
 
@@ -6427,7 +6439,7 @@ namespace ShopeeManagement
 
                                         bool is_int = int.TryParse(convert_price, out int_val);
 
-                                        Dictionary<string, object> dic_json = new Dictionary<string, object>();
+                                        var dic_json = new Dictionary<string, object>();
                                         dic_json.Add("category_id", Convert.ToInt32(tarCategoryId));
                                         dic_json.Add("name", sell_title);
                                         dic_json.Add("description", sbNewDesc.ToString());
@@ -6459,6 +6471,7 @@ namespace ShopeeManagement
                                         dic_json.Add("partner_id", partner_id);
                                         dic_json.Add("shopid", shop_id);
                                         dic_json.Add("timestamp", long_time_stamp);
+
                                         if (shopee_set_preorder != true && dts > 6)
                                         {
                                             request.AddJsonBody(JsonConvert.SerializeObject(dic_json));
@@ -6672,10 +6685,10 @@ namespace ShopeeManagement
 
                                                 //맵핑하여 준다.
                                                 ProductLink resultMapping = context.ProductLinks.SingleOrDefault(
-                                                b => b.SourceCountry == srcCountry &&
-                                                b.TargetCountry == tarCountry &&
-                                                b.SourceProductId == srcProductId
-                                                && b.UserId == global_var.userId);
+                                                    b => b.SourceCountry == srcCountry 
+                                                    && b.TargetCountry == tarCountry 
+                                                    && b.SourceProductId == srcProductId
+                                                    && b.UserId == global_var.userId);
 
                                                 //만약 있는 경우라면 옮기는 것이므로 기존꺼는 흰색으로 새로 연결한 놈은 녹색으로
                                                 if (result == null)
@@ -6694,6 +6707,17 @@ namespace ShopeeManagement
                                                     context.ProductLinks.Add(newProductLink);
                                                     context.SaveChanges();
                                                 }
+
+                                                MessageBox.Show("체크한 상품을 모두 등록 하였습니다. \r\n등록된 상품은 등록기에서 상품 관리로 이관 됩니다.", "등록완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                            }
+                                            else if (result.msg.ToString().Contains("Contains invalid attribute value"))
+                                            {
+                                                // 실패상황
+                                                dgSrcItemList.Rows[i].Cells["dgItemList_Result"].Value = "실패";
+                                                dgSrcItemList.Rows[i].Cells["dgItemList_Result"].Style.BackColor = Color.Orange;
+                                                dgSrcItemList.Rows[i].Cells["dgItemList_Result_message"].Value = result.msg;
+                                                Application.DoEvents();
+                                                MessageBox.Show($"체크한 상품 등록이 실패했습니다.\r\n쇼피 등록 실패메세지: {result.msg}\r\n셀러센터에 등록된 매칭되는 브랜드가 존재하지 않습니다.\r\nNo Brand로 다시 올려주세요.", "등록실패", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                             }
                                             else
                                             {
@@ -6702,10 +6726,10 @@ namespace ShopeeManagement
                                                 dgSrcItemList.Rows[i].Cells["dgItemList_Result"].Style.BackColor = Color.Orange;
                                                 dgSrcItemList.Rows[i].Cells["dgItemList_Result_message"].Value = result.msg;
                                                 Application.DoEvents();
+                                                MessageBox.Show($"체크한 상품 등록이 실패했습니다.\r\n쇼피 등록 실패메세지: {result.msg}", "등록실패", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                             }
 
                                         }
-
                                         catch (Exception ex)
                                         {
                                             //실패상황
@@ -6720,7 +6744,6 @@ namespace ShopeeManagement
                         }
                     }
 
-                    MessageBox.Show("체크한 상품을 모두 등록 하였습니다. \r\n등록된 상품은 등록기에서 상품 관리로 이관 됩니다.", "등록완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Cursor.Current = Cursors.Default;
                 }   
             }
@@ -7404,16 +7427,6 @@ namespace ShopeeManagement
                     // the input is numeric 
                 }
             }
-        }
-
-        private void dgSrcItemList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void dg_shopee_logistics_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
         }
 
         private void dg_shopee_discount_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -8135,73 +8148,53 @@ namespace ShopeeManagement
         private void BtnSaveCurrencyRate_Click(object sender, EventArgs e)
         {
             DialogResult dlg_Result = MessageBox.Show("환율을 저장 하시겠습니까?", "환율 저장", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            string Code = string.Empty;
+
             if (dlg_Result == DialogResult.Yes)
             {
-                using (AppDbContext context = new AppDbContext())
+                if (cbo_currency_From.Text.Contains("PHP"))
                 {
-                    if (cbo_currency_From.Text.Contains("PHP"))
-                    {
-                        var res = context.CurrencyRates.FirstOrDefault(x => x.cr_code.Contains("PHP") && x.UserId == global_var.userId);
+                    Code = "PHP";
+                }
+                else if (cbo_currency_From.Text.Contains("IDR"))
+                {
+                    Code = "IDR";
+                }
+                else if (cbo_currency_From.Text.Contains("SGD"))
+                {
+                    Code = "SGD";
+                }
+                else if (cbo_currency_From.Text.Contains("MYR"))
+                {
+                    Code = "MYR";
+                }
+                else if (cbo_currency_From.Text.Contains("THB"))
+                {
+                    Code = "THB";
+                }
+                else if (cbo_currency_From.Text.Contains("TWD"))
+                {
+                    Code = "TWD";
+                }
+                else if (cbo_currency_From.Text.Contains("VND"))
+                {
+                    Code = "VND";
+                }
 
-                        if (res != null)
-                        {
-                            res.cr_exchange = txt_src_currency_rate.Value;
-                            context.SaveChanges();
-                        }
-                    }
-                    else if (cbo_currency_From.Text.Contains("IDR"))
-                    {
-                        var res = context.CurrencyRates.FirstOrDefault(x => x.cr_code.Contains("IDR") && x.UserId == global_var.userId);
+                using (var context = new AppDbContext())
+                {
+                    var res = context.CurrencyRates.FirstOrDefault(x => x.cr_code == Code && x.UserId == global_var.userId);
 
-                        if (res != null)
-                        {
-                            res.cr_exchange = txt_src_currency_rate.Value;
-                            context.SaveChanges();
-                        }
-                    }
-                    else if (cbo_currency_From.Text.Contains("SGD"))
+                    if (res != null)
                     {
-                        var res = context.CurrencyRates.FirstOrDefault(x => x.cr_code.Contains("SGD") && x.UserId == global_var.userId);
-
-                        if (res != null)
-                        {
-                            res.cr_exchange = txt_src_currency_rate.Value;
-                            context.SaveChanges();
-                        }
-                    }
-                    else if (cbo_currency_From.Text.Contains("MYR"))
-                    {
-                        var res = context.CurrencyRates.FirstOrDefault(x => x.cr_code.Contains("MYR") && x.UserId == global_var.userId);
-
-                        if (res != null)
-                        {
-                            res.cr_exchange = txt_src_currency_rate.Value;
-                            context.SaveChanges();
-                        }
-                    }
-                    else if (cbo_currency_From.Text.Contains("THB"))
-                    {
-                        var res = context.CurrencyRates.FirstOrDefault(x => x.cr_code.Contains("THB") && x.UserId == global_var.userId);
-
-                        if (res != null)
-                        {
-                            res.cr_exchange = txt_src_currency_rate.Value;
-                            context.SaveChanges();
-                        }
-                    }
-                    else if (cbo_currency_From.Text.Contains("TWD"))
-                    {
-                        var res = context.CurrencyRates.FirstOrDefault(x => x.cr_code.Contains("TWD") && x.UserId == global_var.userId);
-
-                        if (res != null)
-                        {
-                            res.cr_exchange = txt_src_currency_rate.Value;
-                            context.SaveChanges();
-                        }
+                        res.cr_exchange = txt_src_currency_rate.Value;
+                        context.SaveChanges();
                     }
 
                     Fill_from_Currency_Names();
                 }
+
+                cbo_currency_From.SelectedIndex = dg_site_id.Rows.IndexOf(dg_site_id.SelectedRows[0]);
             }
         }
     }

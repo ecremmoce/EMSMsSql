@@ -1,5 +1,6 @@
 ﻿using MetroFramework.Forms;
 using Newtonsoft.Json;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -179,8 +180,8 @@ namespace ShopeeManagement
             using (AppDbContext context = new AppDbContext())
             {
                 List<ItemAttributeDraft> attributeList = context.ItemAttributeDrafts
-                                .Where(b => b.src_item_id == srcItemId &&
-                                b.tar_shopeeAccount == tarShopeeId
+                                .Where(b => b.src_item_id == srcItemId 
+                                && b.tar_shopeeAccount == tarShopeeId
                                 && b.UserId == global_var.userId)
                                 .OrderByDescending(x => x.is_mandatory).ToList();
 
@@ -236,7 +237,6 @@ namespace ShopeeManagement
             DgSrcAttribute.Columns.Add(cboOption);
             DgSrcAttribute.Columns.Add("DgSrcAttribute_is_complete", "완료여부");
             DgSrcAttribute.Columns.Add("DgSrcAttribute_attribute_value", "설정된 값");
-            
 
             DgSrcAttribute.Columns[0].Width = 28;
             DgSrcAttribute.Columns[1].Width = 250;
@@ -247,7 +247,6 @@ namespace ShopeeManagement
             DgSrcAttribute.Columns[6].Width = 250;
             DgSrcAttribute.Columns[7].Width = 80;
             DgSrcAttribute.Columns[8].Width = 250;
-            
 
             DgSrcAttribute.Columns[0].ReadOnly = true;
             DgSrcAttribute.Columns[1].ReadOnly = true;
@@ -258,7 +257,6 @@ namespace ShopeeManagement
             DgSrcAttribute.Columns[6].ReadOnly = false;
             DgSrcAttribute.Columns[7].ReadOnly = true;
             DgSrcAttribute.Columns[8].ReadOnly = false;
-            
 
             DgSrcAttribute.Columns[2].Visible = false;
             DgSrcAttribute.Columns[4].Visible = false;
@@ -324,7 +322,6 @@ namespace ShopeeManagement
             DgTarAttribute.Columns[8].ReadOnly = true;
             DgTarAttribute.Columns[9].ReadOnly = false;
             DgTarAttribute.Columns[10].ReadOnly = true;
-
 
             DgTarAttribute.Columns[2].Visible = false;
             DgTarAttribute.Columns[4].Visible = false;
@@ -435,35 +432,37 @@ namespace ShopeeManagement
         {
             DgTarAttribute.Rows.Clear();
 
-            string endPoint = "https://shopeecategory.azurewebsites.net/api/ShopeeAttribute?CategoryId=" + categoryID + "&CountryCode=" + tarCountry;
-            var request = new RestRequest("", RestSharp.Method.GET);
-            request.Method = Method.GET;
+            string endPoint = $"https://shopeecategory.azurewebsites.net/api/ShopeeAttribute?CategoryId={categoryID}&CountryCode={tarCountry}";
+            var request = new RestRequest("", Method.GET)
+            {
+                Method = Method.GET
+            };
             var client = new RestClient(endPoint);
             IRestResponse response = client.Execute(request);
-            List<APIShopeeCategory> lstShopeeCategory = new List<APIShopeeCategory>();
             var result = JsonConvert.DeserializeObject<dynamic>(response.Content);
 
             for (int i = 0; i < result.Count; i++)
             {
-                Dictionary<string, string> dicCombo = new Dictionary<string, string>();
-                DataGridViewComboBoxCell NewComboCell = new DataGridViewComboBoxCell();
+                var dicCombo = new Dictionary<string, string>();
+                var liComboKo = new List<string>();
+                var NewComboCell = new DataGridViewComboBoxCell();
+                var NewComboCell2 = new DataGridViewComboBoxCell();
                 NewComboCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
-
-                DataGridViewComboBoxCell NewComboCell2 = new DataGridViewComboBoxCell();
                 NewComboCell2.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
-
-                List<string> lstOptionsKor = new List<string>();
-                List<string> lstOptionsSrc = new List<string>();
-
-
 
                 if (result[i].InputType.ToString() == "COMBO_BOX" || result[i].InputType.ToString() == "DROP_DOWN")
                 {
                     var options = JsonConvert.DeserializeObject<dynamic>(result[i].Options.Value.ToString());
+                    var optionsKo = JsonConvert.DeserializeObject<dynamic>(result[i].OptionsKo.Value.ToString());
 
                     for (int j = 0; j < options.Count; j++)
                     {
                         dicCombo.Add(options[j].ToString(), options[j].ToString());
+                    }
+
+                    for (int j = 0; j < optionsKo.Count; j++)
+                    {
+                        liComboKo.Add(optionsKo[j].ToString());
                     }
                 }
                 else if (result[i].InputType.ToString() == "TEXT_FILED")
@@ -481,25 +480,40 @@ namespace ShopeeManagement
                     NewComboCell.DisplayMember = "Key";
                     NewComboCell.ValueMember = "Value";
                 }
-                DgTarAttribute.Rows.Add(i + 1,
-                            result[i].AttributeName.ToString(),
-                            result[i].InputType.ToString(),
-                            result[i].AttributeId.ToString(),
-                            result[i].AttributeType.ToString(),
-                            (bool)result[i].isMandatory,
-                            null,
-                            false,
-                            "",
-                            "");
+                if (liComboKo.Count > 0)
+                {
+                    NewComboCell2.DataSource = new BindingSource(liComboKo, null);
+                    //NewComboCell2.DisplayMember = "Name";
+                    //NewComboCell2.ValueMember = "Name";
+                }
+
+                string attributeName = "";
+
+                if (isTranslated)
+                {
+                    attributeName = result[i].AttributeNameKo.ToString();
+                }
+                else
+                {
+                    attributeName = result[i].AttributeName.ToString();
+                }
+
+                DgTarAttribute.Rows.Add(i + 1, // No
+                    attributeName, // DgSrcAttribute_attribute_name
+                    result[i].InputType.ToString(), // DgSrcAttribute_input_type, visible false
+                    result[i].AttributeId.ToString(), // DgSrcAttribute_attribute_id
+                    result[i].AttributeType.ToString(), //DgSrcAttribute_attribute_type, visible false
+                    (bool)result[i].isMandatory, // DgTarAttribute_is_mandatory
+                    null, // DgTarAttribute_option
+                    null, // DgTarAttribute_option2
+                    false, // DgSrcAttribute_is_complete, visible false
+                    string.Empty, // DgSrcAttribute_attribute_value
+                    result[i].AttributeName.ToString()); // DgTarAttribute_attribute_name_src, visible false
                 DgTarAttribute.Rows[DgTarAttribute.Rows.Count - 1].Cells[6] = NewComboCell;
                 DgTarAttribute.Rows[DgTarAttribute.Rows.Count - 1].Cells[7] = NewComboCell2;
             }
 
-
-            //수정 필요
-
             string brandName = txtSrcTitle.Text.Trim();
-
             var pattern = @"\[(.*?)\]";
             var matches = Regex.Matches(brandName, pattern);
 
@@ -512,129 +526,29 @@ namespace ShopeeManagement
             {
                 for (int i = 0; i < DgSrcAttribute.Rows.Count; i++)
                 {
+                    // 상표 자동 매칭이므로 국가마다 상표를 나타내는 단어가 생기면 계속? 추가해야 한다.
                     if (DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_name"].Value.ToString() == "브랜드" ||
                             DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_name"].Value.ToString() == "상표" ||
-                            DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_name"].Value.ToString() == "Brand")
+                            DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_name"].Value.ToString() == "Brand" ||
+                            DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_name"].Value.ToString() == "Merek")
                     {
                         DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_value"].Value = brandName;
                     }
                 }
             }
         }
+
         private void dgSrcItemList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
             string strCategoryId = dgSrcItemList.SelectedRows[0].Cells["dgSrcItemList_Src_cat3_id"].Value.ToString();
             TxtSrcCategoryId.Text = strCategoryId;
 
-            GetTarAttributeDataAPI(Convert.ToInt32(strCategoryId), true, tarCountry);            
+            GetTarAttributeDataAPI(Convert.ToInt32(strCategoryId), false, tarCountry);            
 
             GetTarAttributeValue();
             
             Cursor.Current = Cursors.Default;
-        }
-
-        private void GetTarAttributeData(int categoryID, bool isTranslated)
-        {
-            validateAttributeList();
-            DgTarAttribute.Rows.Clear();
-
-            using (AppDbContext context = new AppDbContext())
-            {
-                List<AllAttributeList> savedAttrList = context.AllAttributeLists
-                    .Where(b => b.category_id == categoryID &&
-                                b.country == tarCountry)
-                                .OrderByDescending(x => x.is_mandatory).ToList();
-
-                if (savedAttrList != null && savedAttrList.Count > 0)
-                {
-                    for (int i = 0; i < savedAttrList.Count; i++)
-                    {
-                        DataGridViewComboBoxCell NewComboCell = new DataGridViewComboBoxCell();
-                        NewComboCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
-
-                        DataGridViewComboBoxCell NewComboCell2 = new DataGridViewComboBoxCell();
-                        NewComboCell2.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
-
-                        List<string> lstOptionsKor = new List<string>();
-                        List<string> lstOptionsSrc = new List<string>();
-
-                        lstOptionsKor = savedAttrList[i].options_kor.ToString().Split('^').ToList();
-                        lstOptionsSrc = savedAttrList[i].options.ToString().Split('^').ToList();
-
-
-                        Dictionary<string, string> dicCombo = new Dictionary<string, string>();
-                        Dictionary<string, string> dicCombo2 = new Dictionary<string, string>();
-
-
-                        for (int j = 0; j < lstOptionsSrc.Count; j++)
-                        {
-                            try
-                            {
-                                dicCombo.Add(lstOptionsSrc[j], lstOptionsSrc[j]);
-                            }
-                            catch
-                            {
-
-                            }
-                        }
-
-                        for (int j = 0; j < lstOptionsSrc.Count; j++)
-                        {
-                            try
-                            {
-                                
-                                dicCombo2.Add(lstOptionsKor[j], lstOptionsSrc[j]);
-                            }
-                            catch
-                            {
-
-                            }
-                        }
-
-                        
-
-
-                        if (dicCombo.Count > 0)
-                        {
-                            NewComboCell.DataSource = new BindingSource(dicCombo, null);
-                            NewComboCell.DisplayMember = "Key";
-                            NewComboCell.ValueMember = "Value";
-
-                            NewComboCell2.DataSource = new BindingSource(dicCombo2, null);
-                            NewComboCell2.DisplayMember = "Key";
-                            NewComboCell2.ValueMember = "Value";
-                        }
-
-                        string attributeName = "";
-                        if (isTranslated)
-                        {
-                            attributeName = savedAttrList[i].attribute_name_kor.ToString();
-                        }
-                        else
-                        {
-                            attributeName = savedAttrList[i].attribute_name.ToString();
-                        }
-
-                        DgTarAttribute.Rows.Add(i + 1,
-                            attributeName,
-                            savedAttrList[i].input_type.ToString(),
-                            savedAttrList[i].attribute_id.ToString(),
-                            savedAttrList[i].attribute_type.ToString(),
-                            (bool)savedAttrList[i].is_mandatory,
-                            null,
-                            null,
-                            false,
-                            "",
-                            "");
-
-                        DgTarAttribute.Rows[DgTarAttribute.Rows.Count - 1].Cells[6] = NewComboCell;
-                        DgTarAttribute.Rows[DgTarAttribute.Rows.Count - 1].Cells[7] = NewComboCell2;
-                    }
-
-                    DgTarAttribute.Sort(DgTarAttribute.Columns[5], ListSortDirection.Descending);
-                }
-            }
         }
 
         private void BtnTranslate_Click(object sender, EventArgs e)
@@ -673,7 +587,6 @@ namespace ShopeeManagement
                 src_lang = "vi";
             }
 
-
             if (tarCountry == "ID")
             {
                 tar_lang = "id";
@@ -702,8 +615,6 @@ namespace ShopeeManagement
             {
                 tar_lang = "vi";
             }
-
-
 
             string translate_lang = "ko";
             //원본 번역
@@ -863,7 +774,7 @@ namespace ShopeeManagement
         {
             Cursor.Current = Cursors.WaitCursor;
             string strCategoryId = dgSrcItemList.SelectedRows[0].Cells["dgSrcItemList_Src_cat3_id"].Value.ToString();
-            GetTarAttributeData(Convert.ToInt32(strCategoryId), false);
+            GetTarAttributeDataAPI(Convert.ToInt32(strCategoryId), false, tarCountry);
 
             GetTarAttributeValue();
             Cursor.Current = Cursors.Default;
@@ -873,22 +784,20 @@ namespace ShopeeManagement
         {
             if (ItemId != 0 && categoryId != 0)
             {
-                if (ItemId != 0 && categoryId != 0)
+                using (var context = new AppDbContext())
                 {
-                    using (AppDbContext context = new AppDbContext())
+                    ItemInfoDraft result = context.ItemInfoDrafts.SingleOrDefault(
+                        b => b.src_item_id == ItemId
+                        && b.tar_shopeeAccount == tarShopeeId
+                        && b.UserId == global_var.userId);
+
+                    if (result != null)
                     {
-                        ItemInfoDraft result = context.ItemInfoDrafts.SingleOrDefault(
-                                b => b.src_item_id == ItemId && b.tar_shopeeAccount == tarShopeeId
-                                && b.UserId == global_var.userId);
+                        result.category_id_tar = categoryId;
+                        result.isChanged = true;
+                        context.SaveChanges();
 
-                        if (result != null)
-                        {
-                            result.category_id_tar = categoryId;
-                            result.isChanged = true;
-                            context.SaveChanges();
-
-                            fp.TempCategoryId = categoryId.ToString();
-                        }
+                        fp.TempCategoryId = categoryId.ToString();
                     }
                 }
             }
@@ -919,10 +828,11 @@ namespace ShopeeManagement
             int newCategoryId = Convert.ToInt32(TxtSrcCategoryId.Text.Trim());
 
             //대상과 연결된 상품의 번호일치하는 속성을 모두 삭제한다.
-            using (AppDbContext context = new AppDbContext())
+            using (var context = new AppDbContext())
             {
                 List<ItemAttributeDraftTar> attList = context.ItemAttributeDraftTars
-                    .Where(b => b.src_item_id == ItemId && b.tar_shopeeAccount == tarShopeeId
+                    .Where(b => b.src_item_id == ItemId 
+                    && b.tar_shopeeAccount == tarShopeeId
                     && b.UserId == global_var.userId)
                     .OrderBy(x => x.attribute_id).ToList();
 
@@ -942,6 +852,7 @@ namespace ShopeeManagement
                 string tarAttributeValue = "";
 
                 bool isMandatory = (bool)DgTarAttribute.Rows[i].Cells[5].Value;
+
                 if (DgTarAttribute.Rows[i].Cells["DgTarAttribute_attribute_value"].Value == null)
                 {
                     tarAttributeValue = "";
@@ -955,9 +866,9 @@ namespace ShopeeManagement
 
                 if (tarAttributeValue != string.Empty)
                 {
-                    using (AppDbContext context = new AppDbContext())
+                    using (var context = new AppDbContext())
                     {
-                        ItemAttributeDraftTar newData = new ItemAttributeDraftTar
+                        var newData = new ItemAttributeDraftTar
                         {
                             attribute_id = tarAttributeId,
                             attribute_name = tarAttributeName,
@@ -1085,12 +996,13 @@ namespace ShopeeManagement
         {
             //닫기 전에 필수 입력값이 빠진것이 있는지 검증해 준다.
             bool Validate = true;
+
             for (int i = 0; i < DgTarAttribute.Rows.Count; i++)
             {
                 if((bool)DgTarAttribute.Rows[i].Cells["DgTarAttribute_is_mandatory"].Value)
                 {
                     if(DgTarAttribute.Rows[i].Cells["DgTarAttribute_attribute_value"].Value == null ||
-                        DgTarAttribute.Rows[i].Cells["DgTarAttribute_attribute_value"].Value.ToString().Trim() == string.Empty)
+                       DgTarAttribute.Rows[i].Cells["DgTarAttribute_attribute_value"].Value.ToString().Trim() == string.Empty)
                     {
                         Validate = false;
                         break;
@@ -1099,6 +1011,7 @@ namespace ShopeeManagement
             }
 
             Validate = true;
+
             if (Validate)
             {
                 this.Close();
@@ -1107,8 +1020,6 @@ namespace ShopeeManagement
             {
                 MessageBox.Show("입력되지 않은 필수 데이터가 있습니다.", "미입력 필수값", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
         }
 
         private void DgSrcAttribute_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -1290,15 +1201,10 @@ namespace ShopeeManagement
             using (AppDbContext context = new AppDbContext())
             {
                 List<ItemAttributeDraftTar> attributeList = context.ItemAttributeDraftTars
-                                .Where(b => b.src_item_id == srcItemId &&
-                                b.tar_shopeeAccount == tarShopeeId
+                                .Where(b => b.src_item_id == srcItemId 
+                                && b.tar_shopeeAccount == tarShopeeId
                                 && b.UserId == global_var.userId)
                                 .OrderByDescending(x => x.is_mandatory).ToList();
-
-                //List<ItemAttributeDraftTar> attributeList = context.ItemAttributeDraftTars
-                //                .Where(b => b.src_item_id == srcItemId                               
-                //                && b.UserId == global_var.userId).ToList();
-                //.OrderByDescending(x => x.is_mandatory).ToList();
 
                 if (attributeList.Count > 0)
                 {
@@ -1325,46 +1231,36 @@ namespace ShopeeManagement
                         {
                             string srcAttrName = DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_name"].Value.ToString().Trim().ToUpper();
 
-                            AttributeNameMap mapData = null;                            
+                            AttributeNameMap mapData = null;
                             //원본이 인도네시아인 경우
                             if (srcCountry == "ID")
                             {
-                                mapData = context.AttributeNameMaps.SingleOrDefault
-                            (b => b.ID.ToUpper() == srcAttrName.ToUpper());
+                                mapData = context.AttributeNameMaps.SingleOrDefault(b => b.ID.ToUpper() == srcAttrName.ToUpper());
                             }
                             else if (srcCountry == "SG")
                             {
-                                mapData = context.AttributeNameMaps.SingleOrDefault
-                            (b => b.SG.ToUpper() == srcAttrName.ToUpper());
+                                mapData = context.AttributeNameMaps.SingleOrDefault(b => b.SG.ToUpper() == srcAttrName.ToUpper());
                             }
                             else if (srcCountry == "MY")
                             {
-                                mapData = context.AttributeNameMaps.SingleOrDefault
-                            (b => b.MY.ToUpper() == srcAttrName.ToUpper());
+                                mapData = context.AttributeNameMaps.SingleOrDefault(b => b.MY.ToUpper() == srcAttrName.ToUpper());
                             }
                             else if (srcCountry == "TH")
                             {
-                                mapData = context.AttributeNameMaps.SingleOrDefault
-                            (b => b.TH.ToUpper() == srcAttrName.ToUpper());
+                                mapData = context.AttributeNameMaps.SingleOrDefault(b => b.TH.ToUpper() == srcAttrName.ToUpper());
                             }
                             else if (srcCountry == "TW")
                             {
-                                mapData = context.AttributeNameMaps.SingleOrDefault
-                            (b => b.TW.ToUpper() == srcAttrName.ToUpper());
+                                mapData = context.AttributeNameMaps.SingleOrDefault(b => b.TW.ToUpper() == srcAttrName.ToUpper());
                             }
                             else if (srcCountry == "VN")
                             {
-                                mapData = context.AttributeNameMaps.SingleOrDefault
-                            (b => b.VN.ToUpper() == srcAttrName.ToUpper());
+                                mapData = context.AttributeNameMaps.SingleOrDefault(b => b.VN.ToUpper() == srcAttrName.ToUpper());
                             }
                             else if (srcCountry == "PH")
                             {
-                                mapData = context.AttributeNameMaps.SingleOrDefault
-                            (b => b.PH.ToUpper() == srcAttrName.ToUpper());
+                                mapData = context.AttributeNameMaps.SingleOrDefault(b => b.PH.ToUpper() == srcAttrName.ToUpper());
                             }
-
-                            
-
 
                             if (mapData != null)
                             {
@@ -1414,7 +1310,6 @@ namespace ShopeeManagement
                                                 DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_value"].Value.ToString().Trim();
                                                 break;
                                             }
-
                                         }
                                     }
                                 }
@@ -1879,7 +1774,7 @@ namespace ShopeeManagement
         {
             Cursor.Current = Cursors.WaitCursor;
             string strCategoryId = dgSrcItemList.SelectedRows[0].Cells["dgSrcItemList_Src_cat3_id"].Value.ToString();
-            GetTarAttributeData(Convert.ToInt32(strCategoryId), true);
+            GetTarAttributeDataAPI(Convert.ToInt32(strCategoryId), true, tarCountry);
 
             GetTarAttributeValue();
             Cursor.Current = Cursors.Default;
@@ -2093,11 +1988,11 @@ namespace ShopeeManagement
         private void DgCategoryList_fav_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgCategoryList_fav.Rows.Count > 0 &&
-                dgCategoryList_fav.SelectedRows.Count > 0      )
+                dgCategoryList_fav.SelectedRows.Count > 0)
             {
                 Cursor.Current = Cursors.WaitCursor;
                 string strCategoryId = dgCategoryList_fav.SelectedRows[0].Cells["dgCategoryList_fav_cat3_id"].Value.ToString();
-                GetTarAttributeData(Convert.ToInt32(strCategoryId), true);
+                GetTarAttributeDataAPI(Convert.ToInt32(strCategoryId), true, tarCountry);
                 GetTarAttributeValueFav();
 
                 Cursor.Current = Cursors.Default;
