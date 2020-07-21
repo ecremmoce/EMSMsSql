@@ -5877,7 +5877,7 @@ namespace ShopeeManagement
                 using (AppDbContext context = new AppDbContext())
                 {
                     int tarCategoryId = dicCategory.Keys.ToList()[i];
-                    CategoryVariationMandatoryCount result = context.CategoryVariationMandatoryCounts.SingleOrDefault(
+                    CategoryVariationMandatoryCount result = context.CategoryVariationMandatoryCounts.FirstOrDefault(
                         b => b.tarCountry == tarCountry &&
                         b.tarCategoryId == tarCategoryId
                         && b.UserId == global_var.userId);
@@ -5887,7 +5887,7 @@ namespace ShopeeManagement
                         int cnt = getAttributeCountByCategory(tarCategoryId, partner_id, shop_id, api_key);
                         dicCategory[dicCategory.Keys.ToList()[i]] = cnt;
 
-                        CategoryVariationMandatoryCount newData = new CategoryVariationMandatoryCount
+                        var newData = new CategoryVariationMandatoryCount
                         {
                             tarCountry = tarCountry,
                             tarCategoryId = tarCategoryId,
@@ -6010,7 +6010,7 @@ namespace ShopeeManagement
                     using (var context = new AppDbContext())
                     {
                         long tarCategoryId = dicCategory.Keys.ToList()[i];
-                        CategoryVariationMandatoryCount result = context.CategoryVariationMandatoryCounts.SingleOrDefault(
+                        CategoryVariationMandatoryCount result = context.CategoryVariationMandatoryCounts.FirstOrDefault(
                             b => b.tarCountry == tarCountry 
                             && b.tarCategoryId == tarCategoryId
                             && b.UserId == global_var.userId);
@@ -6138,6 +6138,7 @@ namespace ShopeeManagement
                     string end_point = "https://partner.shopeemobile.com/api/v1/item/add";
                     string shopeeId = dg_site_id.SelectedRows[0].Cells["dg_site_id_id"].Value.ToString();
                     string tarCountry = dg_site_id.SelectedRows[0].Cells["dg_site_id_country"].Value.ToString();
+
                     if (shopeeId == string.Empty)
                     {
                         return;
@@ -6386,7 +6387,7 @@ namespace ShopeeManagement
                                             }
                                         }
 
-                                        List<shopee_attribute> lst_attr = new List<shopee_attribute>();
+                                        var lst_attr = new List<shopee_attribute>();
                                         //설정한 속성값을 가지고 온다
                                         List<ItemAttributeDraftTar> attributeList = context.ItemAttributeDraftTars
                                             .Where(x => x.src_item_id == srcProductId
@@ -6398,16 +6399,30 @@ namespace ShopeeManagement
                                         {
                                             for (int j = 0; j < attributeList.Count; j++)
                                             {
-                                                shopee_attribute att = new shopee_attribute
+                                                var att = new shopee_attribute
                                                 {
-                                                    attributes_id = attributeList[j].attribute_id,
-                                                    value = attributeList[j].attribute_value
+                                                    attributes_id = attributeList[j].attribute_id
                                                 };
+                                                var restClient = new RestClient($"https://shopeecategory.azurewebsites.net/api/CategoryDictionary/FindOriginalText?CountryCode={tarCountry}&TranslationText={attributeList[j].attribute_value}");
+                                                var restRequest = new RestRequest
+                                                {
+                                                    Method = Method.GET
+                                                };
+                                                IRestResponse transResponse = restClient.Execute(restRequest);
+
+                                                if (transResponse.StatusCode == HttpStatusCode.OK)
+                                                {
+                                                    dynamic ContentString = JsonConvert.DeserializeObject(transResponse.Content);
+                                                    att.value = ContentString.OriginalText;
+                                                }
+                                                else
+                                                {
+                                                    att.value = attributeList[j].attribute_value;
+                                                }
 
                                                 lst_attr.Add(att);
                                             }
                                         }
-
 
                                         List<shopee_logi> lst_logi = new List<shopee_logi>();
                                         shopee_logi sh = new shopee_logi { logistic_id = logisticCode, enabled = true, shipping_fee = 0 };
@@ -6489,6 +6504,7 @@ namespace ShopeeManagement
                                         var client = new RestClient(end_point);
                                         IRestResponse response = client.Execute(request);
                                         var content = response.Content;
+
                                         try
                                         {
                                             //등록에 성공하였을 경우

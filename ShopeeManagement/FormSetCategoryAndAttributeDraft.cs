@@ -192,6 +192,7 @@ namespace ShopeeManagement
                         DataGridViewComboBoxCell NewComboCell = new DataGridViewComboBoxCell();
                         NewComboCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
                         dynamic option = null;
+
                         if(option != null)
                         {
                             for (int j = 0; j < option.Count; j++)
@@ -202,13 +203,13 @@ namespace ShopeeManagement
 
                         DgSrcAttribute.Rows.Add(i + 1,
                             attributeList[i].attribute_name.ToString(),
-                        attributeList[i].attribute_type,
-                        attributeList[i].attribute_id.ToString(),
-                        attributeList[i].attribute_type.ToString(),
-                        (bool)attributeList[i].is_mandatory,
-                        null,
-                        false,
-                        attributeList[i].attribute_value);
+                            attributeList[i].attribute_type,
+                            attributeList[i].attribute_id.ToString(),
+                            attributeList[i].attribute_type.ToString(),
+                            attributeList[i].is_mandatory,
+                            null,
+                            false,
+                            attributeList[i].attribute_value);
                         DgSrcAttribute.Rows[DgSrcAttribute.Rows.Count - 1].Cells[6] = NewComboCell;
                     }
                 }
@@ -298,6 +299,7 @@ namespace ShopeeManagement
             DgTarAttribute.Columns.Add("DgTarAttribute_is_complete", "완료여부");
             DgTarAttribute.Columns.Add("DgTarAttribute_attribute_value", "설정된 값");
             DgTarAttribute.Columns.Add("DgTarAttribute_attribute_name_src", "속성명_원본");
+            DgTarAttribute.Columns.Add("DgTarAttribute_attribute_value_src", "설정된 원본값");
 
             DgTarAttribute.Columns[0].Width = 28;
             DgTarAttribute.Columns[1].Width = 140;
@@ -310,6 +312,7 @@ namespace ShopeeManagement
             DgTarAttribute.Columns[8].Width = 80;
             DgTarAttribute.Columns[9].Width = 250;
             DgTarAttribute.Columns[10].Width = 250;
+            DgTarAttribute.Columns[11].Width = 250;
 
             DgTarAttribute.Columns[0].ReadOnly = true;
             DgTarAttribute.Columns[1].ReadOnly = true;
@@ -322,11 +325,13 @@ namespace ShopeeManagement
             DgTarAttribute.Columns[8].ReadOnly = true;
             DgTarAttribute.Columns[9].ReadOnly = false;
             DgTarAttribute.Columns[10].ReadOnly = true;
+            DgTarAttribute.Columns[11].ReadOnly = true;
 
             DgTarAttribute.Columns[2].Visible = false;
             DgTarAttribute.Columns[4].Visible = false;
             DgTarAttribute.Columns[8].Visible = false;
             DgTarAttribute.Columns[10].Visible = false;
+            DgTarAttribute.Columns[11].Visible = false;
 
             DgTarAttribute.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             DgTarAttribute.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -338,6 +343,8 @@ namespace ShopeeManagement
             DgTarAttribute.Columns[7].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             DgTarAttribute.Columns[8].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             DgTarAttribute.Columns[9].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DgTarAttribute.Columns[10].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DgTarAttribute.Columns[11].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             DgTarAttribute.Columns[5].SortMode = DataGridViewColumnSortMode.Automatic;
         }
@@ -480,6 +487,7 @@ namespace ShopeeManagement
                     NewComboCell.DisplayMember = "Key";
                     NewComboCell.ValueMember = "Value";
                 }
+
                 if (liComboKo.Count > 0)
                 {
                     NewComboCell2.DataSource = new BindingSource(liComboKo, null);
@@ -508,7 +516,8 @@ namespace ShopeeManagement
                     null, // DgTarAttribute_option2
                     false, // DgSrcAttribute_is_complete, visible false
                     string.Empty, // DgSrcAttribute_attribute_value
-                    result[i].AttributeName.ToString()); // DgTarAttribute_attribute_name_src, visible false
+                    result[i].AttributeName.ToString(),
+                    string.Empty); // DgTarAttribute_attribute_name_src, visible false
                 DgTarAttribute.Rows[DgTarAttribute.Rows.Count - 1].Cells[6] = NewComboCell;
                 DgTarAttribute.Rows[DgTarAttribute.Rows.Count - 1].Cells[7] = NewComboCell2;
             }
@@ -517,9 +526,16 @@ namespace ShopeeManagement
             var pattern = @"\[(.*?)\]";
             var matches = Regex.Matches(brandName, pattern);
 
-            foreach (Match m in matches)
+            if (matches.Count == 0)
             {
-                brandName = m.Groups[1].ToString();
+                brandName = "No Brand";
+            }
+            else 
+            {
+                foreach (Match m in matches)
+                {
+                    brandName = m.Groups[1].ToString();
+                }
             }
 
             if (brandName != string.Empty)
@@ -528,9 +544,9 @@ namespace ShopeeManagement
                 {
                     // 상표 자동 매칭이므로 국가마다 상표를 나타내는 단어가 생기면 계속? 추가해야 한다.
                     if (DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_name"].Value.ToString() == "브랜드" ||
-                            DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_name"].Value.ToString() == "상표" ||
-                            DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_name"].Value.ToString() == "Brand" ||
-                            DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_name"].Value.ToString() == "Merek")
+                        DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_name"].Value.ToString() == "상표" ||
+                        DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_name"].Value.ToString() == "Brand" ||
+                        DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_name"].Value.ToString() == "Merek")
                     {
                         DgSrcAttribute.Rows[i].Cells["DgSrcAttribute_attribute_value"].Value = brandName;
                     }
@@ -752,6 +768,10 @@ namespace ShopeeManagement
         {
             var currentcell = DgTarAttribute.CurrentCellAddress;
             var sendingCB = sender as DataGridViewComboBoxEditingControl;
+
+
+
+
             if (sendingCB.SelectedItem != null)
             {
                 var typeName = sendingCB.SelectedItem.GetType().Name.ToString();
@@ -849,13 +869,13 @@ namespace ShopeeManagement
             {
                 int tarAttributeId = Convert.ToInt32(DgTarAttribute.Rows[i].Cells["DgTarAttribute_attribute_id"].Value.ToString());
                 string tarAttributeName = DgTarAttribute.Rows[i].Cells["DgTarAttribute_attribute_name"].Value.ToString();
-                string tarAttributeValue = "";
+                string tarAttributeValue = string.Empty;
 
                 bool isMandatory = (bool)DgTarAttribute.Rows[i].Cells[5].Value;
 
                 if (DgTarAttribute.Rows[i].Cells["DgTarAttribute_attribute_value"].Value == null)
                 {
-                    tarAttributeValue = "";
+                    tarAttributeValue = string.Empty;
                 }
                 else
                 {
@@ -1196,6 +1216,7 @@ namespace ShopeeManagement
                 }
             }
         }
+
         private void GetTarAttributeValue()
         {
             using (AppDbContext context = new AppDbContext())
@@ -1266,7 +1287,8 @@ namespace ShopeeManagement
                             {
                                 //자료가 있으면 일단 찾아본다.
                                 //무조건 1개만 있어야 함
-                                string tarAttrName = "";
+                                string tarAttrName = string.Empty;
+
                                 if (tarCountry == "ID")
                                 {
                                     tarAttrName = mapData.ID;
