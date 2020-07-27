@@ -9,6 +9,7 @@ using System.Data;
 using System.Deployment.Application;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -164,33 +165,69 @@ namespace ShopeeManagement
         {
             //인증창 길게 나올때 해결 방법
             //Auth0의 Universal 로그인으로 가서 인증창 html에서 스크립트 버전을 변경해 준다.
-            //src="https://cdn.auth0.com/js/lock/11.15/lock.min.js">  ->길게 나옴
+            //src="https://cdn.auth0.com/js/lock/11.15/lock.min.js"> -> 길게 나옴
             //src="https://cdn.auth0.com/js/lock/11.3/lock.min.js" -> 알맞게 나옴
             Cursor.Current = Cursors.WaitCursor;
 
-            LoginResult loginResult = await client.LoginAsync();
+            string myMACaddr = NetworkInterface.GetAllNetworkInterfaces()[0].GetPhysicalAddress().ToString().Replace("-", string.Empty);
 
-            if (!loginResult.IsError)
+            using (var DbContext = new AppDbContext())
             {
-                if (loginResult.IdentityToken.ToString() != string.Empty)
+                Auth0ErrorLoginMAC data = DbContext.Auth0ErrorLoginMAC.Where(MAC => MAC.MAC.Equals(myMACaddr)).FirstOrDefault();
+
+                if (data != null)
                 {
-                    global_var.auth0_accessToken = loginResult.IdentityToken;
-                    global_var.auth0_expire_date = loginResult.AccessTokenExpiration;
-                    FormMain fm = new FormMain(lang);
-                    fm.StyleManager = StyleManager;
-                    fm.Theme = Theme;
-                    var userInfo = loginResult.User.Claims.ToList();
-                    fm.txt_loginId.Text = userInfo[1].Value.ToString();
-                    global_var.userId = userInfo[1].Value.ToString();
-                    Hide();
-                    fm.Show();
+                    using (var LoginForm = new FormSubLogin())
+                    {
+                        LoginForm.StartPosition = FormStartPosition.CenterParent;
+                        LoginForm.TopMost = true;
+
+                        if (LoginForm.ShowDialog() == DialogResult.OK)
+                        {
+                            var fm = new FormMain(lang)
+                            {
+                                StyleManager = StyleManager,
+                                Theme = Theme
+                            };
+                            global_var.userId = LoginForm.LoginId;
+                            fm.txt_loginId.Text = global_var.userId;
+                            fm.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("로그인에 실패하였습니다.", "로그인 실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
-            }
-            else
-            {
-                //MessageBox.Show("인증에 실패하였습니다.", "인증실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //Dispose();
-                //Application.Exit();
+                else
+                {
+                    LoginResult loginResult = await client.LoginAsync();
+
+                    if (!loginResult.IsError)
+                    {
+                        if (loginResult.IdentityToken.ToString() != string.Empty)
+                        {
+                            global_var.auth0_accessToken = loginResult.IdentityToken;
+                            global_var.auth0_expire_date = loginResult.AccessTokenExpiration;
+                            var fm = new FormMain(lang)
+                            {
+                                StyleManager = StyleManager,
+                                Theme = Theme
+                            };
+                            var userInfo = loginResult.User.Claims.ToList();
+                            global_var.userId = userInfo[1].Value.ToString();
+                            fm.txt_loginId.Text = global_var.userId;
+                            Hide();
+                            fm.Show();
+                        }
+                    }
+                    else
+                    {
+                        //MessageBox.Show("인증에 실패하였습니다.", "인증실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //Dispose();
+                        //Application.Exit();
+                    }
+                }
             }
 
             Cursor.Current = Cursors.Default;
