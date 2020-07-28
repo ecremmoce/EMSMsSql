@@ -169,13 +169,13 @@ namespace ShopeeManagement
             //src="https://cdn.auth0.com/js/lock/11.3/lock.min.js" -> 알맞게 나옴
             Cursor.Current = Cursors.WaitCursor;
 
-            string myMACaddr = NetworkInterface.GetAllNetworkInterfaces()[0].GetPhysicalAddress().ToString().Replace("-", string.Empty);
+            string myMACaddr = NetworkInterface.GetAllNetworkInterfaces()[0].GetPhysicalAddress().ToString();
 
             using (var DbContext = new AppDbContext())
             {
-                Auth0ErrorLoginMAC data = DbContext.Auth0ErrorLoginMAC.Where(MAC => MAC.MAC.Equals(myMACaddr)).FirstOrDefault();
+                bool result = DbContext.Auth0ErrorLoginMAC.Where(MAC => MAC.MAC.Equals(myMACaddr)).Any(); // DB에 MAC 주소 입력할 때 하이픈 제거하고 입력해야 함.
 
-                if (data != null)
+                if (result is true)
                 {
                     using (var LoginForm = new FormSubLogin())
                     {
