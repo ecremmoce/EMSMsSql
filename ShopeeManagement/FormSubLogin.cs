@@ -32,6 +32,7 @@ namespace ShopeeManagement
                 {
                     if (data.LoginPW.Equals(PW))
                     {
+                        LoginId = ID;
                         DialogResult = DialogResult.OK;
                     }
                     else

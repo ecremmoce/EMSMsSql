@@ -392,19 +392,6 @@ namespace ShopeeManagement
             TxtShopId.Text = "";
             TxtSecretKey.Text = "";
         }
-
-        
-
-        
-
-        
-
-        
-        
-
-        
-        
-        
         
         public static DataTable ConvertCSVtoDataTable(string strFilePath)
         {
