@@ -3724,6 +3724,63 @@ namespace ShopeeManagement
 
                 var bodyHtmlUrl = $"https://m.coupang.com/vm/products/{productId}/brand-sdp/items/{itemId}/?vendorItemId={vendoritemId}&style=MOBILE_BROWSER&isFashion=true&invalidSdpFromBrowser=false&deliveryType=VENDOR_DELIVERY&loyaltyMember=false";
                 var bodyHtml = GetBodyHtml(bodyHtmlUrl);
+
+                //var aa = WebUtility.HtmlEncode(bodyHtml);
+                //var aaa = WebUtility.HtmlDecode(aa);
+
+                //var bb = Encoding.Convert(Encoding.Unicode, Encoding.ASCII, Encoding.Unicode.GetBytes(bodyHtml));
+                //var bbb = Encoding.ASCII.GetString(bb);
+
+                //var cc = Encoding.Convert(Encoding.Unicode, Encoding.UTF8, Encoding.Unicode.GetBytes(bodyHtml));
+                //var ccc = Encoding.UTF8.GetString(cc);
+
+                //var dd = Encoding.Convert(Encoding.Unicode, Encoding.Default, Encoding.Unicode.GetBytes(bodyHtml));
+                //var ddd = Encoding.Default.GetString(dd);
+
+                //var ee = Encoding.Convert(Encoding.Unicode, Encoding.BigEndianUnicode, Encoding.Unicode.GetBytes(bodyHtml));
+                //var eee = Encoding.BigEndianUnicode.GetString(ee);
+
+                //var ff = Encoding.Convert(Encoding.Unicode, Encoding.UTF32, Encoding.Unicode.GetBytes(bodyHtml));
+                //var fff = Encoding.UTF32.GetString(ff);
+
+                //var gg = Encoding.Convert(Encoding.Unicode, Encoding.UTF32, Encoding.Unicode.GetBytes(bodyHtml));
+                //var ggg = Encoding.UTF32.GetString(gg);
+
+                //var hh = Encoding.Convert(Encoding.Unicode, Encoding.UTF7, Encoding.Unicode.GetBytes(bodyHtml));
+                //var hhh = Encoding.UTF7.GetString(hh);
+
+                //var ii = Encoding.Convert(Encoding.ASCII, Encoding.Unicode, Encoding.ASCII.GetBytes(bodyHtml));
+                //var iii = Encoding.Unicode.GetString(ii);
+
+                //var jj = Encoding.Convert(Encoding.ASCII, Encoding.UTF8, Encoding.ASCII.GetBytes(bodyHtml));
+                //var jjj = Encoding.UTF8.GetString(jj);
+
+                //var kk = Encoding.Convert(Encoding.UTF8, Encoding.Unicode, Encoding.UTF8.GetBytes(bodyHtml));
+                //var kkk = Encoding.Unicode.GetString(kk);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 var listDetail = Get_Detail_req_images(bodyHtml).ToList();
                 for (int i = 0; i < listDetail.Count; i++)
                 {
