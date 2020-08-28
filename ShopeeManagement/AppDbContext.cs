@@ -92,13 +92,5 @@ namespace ShopeeManagement
         public DbSet<FavKeywordOther> FavKeywordOthers { get; set; }
 
         public DbSet<TemplateVersion> TemplateVersions { get; set; }
-        /// <summary>
-        /// Auth0 로그인이 불가능한 업체의 ID, PW
-        /// </summary>
-        public DbSet<Auth0ErrorLogin> Auth0ErrorLogin { get; set; }
-        /// <summary>
-        /// Auth0 로그인 불가 MAC 주소
-        /// </summary>
-        public DbSet<Auth0ErrorLoginMAC> Auth0ErrorLoginMAC { get; set; }
     }
 }

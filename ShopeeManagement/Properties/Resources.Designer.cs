@@ -111,6 +111,33 @@ namespace ShopeeManagement.Properties {
         }
         
         /// <summary>
+        ///   {
+        ///  &quot;Ids&quot; : [
+        ///    {
+        ///      &quot;ID&quot; : &quot;kikass80@nate.com&quot;,
+        ///      &quot;PW&quot; : &quot;Tltm12!@&quot;
+        ///    }
+        ///  ]
+        ///}과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Auth0ErrorLoginIds {
+            get {
+                return ResourceManager.GetString("Auth0ErrorLoginIds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   [
+        ///  &quot;08626680F1D3&quot;
+        ///]과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Auth0ErrorLoginMAC {
+            get {
+                return ResourceManager.GetString("Auth0ErrorLoginMAC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
         internal static System.Drawing.Bitmap available_updates_24 {

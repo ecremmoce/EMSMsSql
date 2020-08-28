@@ -758,7 +758,8 @@ namespace ShopeeManagement
 
             //판매국가의 환율
             decimal rateSrc = txt_src_currency_rate.Value;
-            if (sourcePrice > 0 && margin > 0 && productWeight > 0)
+
+            if (sourcePrice > 0 && margin >= 0 && productWeight > 0)
             {
                 PriceCalculator pCalc = new PriceCalculator();
                 pCalc.CountryCode = TarCountry;

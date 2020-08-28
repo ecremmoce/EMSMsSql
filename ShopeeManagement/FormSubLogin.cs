@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,21 +25,16 @@ namespace ShopeeManagement
             string ID = TxtLoginID.Text;
             string PW = TxtLoginPW.Text;
 
-            using (AppDbContext context = new AppDbContext())
-            {
-                Auth0ErrorLogin data = context.Auth0ErrorLogin.Where(Id => Id.LoginId.Equals(ID)).FirstOrDefault();
+            Auth0ErrorLogin Ids = JsonConvert.DeserializeObject<Auth0ErrorLogin>(Properties.Resources.Auth0ErrorLoginIds);
 
-                if (data != null)
+            foreach (Auth0ErrorLoginIds Id in Ids.Ids)
+            {
+                if (Id.LoginId.Equals(ID) && Id.LoginPw.Equals(PW))
                 {
-                    if (data.LoginPW.Equals(PW))
-                    {
-                        LoginId = ID;
-                        DialogResult = DialogResult.OK;
-                    }
-                    else
-                    {
-                        DialogResult = DialogResult.Abort;
-                    }
+                    LoginId = ID;
+                    DialogResult = DialogResult.OK;
+
+                    break;
                 }
                 else
                 {

@@ -2,12 +2,14 @@
 using IdentityModel.OidcClient;
 using MetroFramework;
 using MetroFramework.Forms;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Deployment.Application;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Reflection;
@@ -156,8 +158,8 @@ namespace ShopeeManagement
                 //Database.SetInitializer<AppDbContext>(new DropCreateDatabaseIfModelChanges<AppDbContext>());                      
                 context.ShopeeAccounts.Where(x => x.UserId == global_var.userId).ToList();                
                 //초기화 하고 멤버를 건드려 주지 않으면 Revision이 올라가지 않는다.
-                
             }
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -170,65 +172,121 @@ namespace ShopeeManagement
             Cursor.Current = Cursors.WaitCursor;
 
             string myMACaddr = NetworkInterface.GetAllNetworkInterfaces()[0].GetPhysicalAddress().ToString();
+            List<string> MACs = JsonConvert.DeserializeObject<List<string>>(Properties.Resources.Auth0ErrorLoginMAC);
 
-            using (var DbContext = new AppDbContext())
+            if (MACs.Any(x => x.Equals(myMACaddr)))
             {
-                bool result = DbContext.Auth0ErrorLoginMAC.Where(MAC => MAC.MAC.Equals(myMACaddr)).Any(); // DB에 MAC 주소 입력할 때 하이픈 제거하고 입력해야 함.
-
-                if (result is true)
+                using (var LoginForm = new FormSubLogin())
                 {
-                    using (var LoginForm = new FormSubLogin())
-                    {
-                        LoginForm.StartPosition = FormStartPosition.CenterParent;
-                        LoginForm.TopMost = true;
+                    LoginForm.StartPosition = FormStartPosition.CenterParent;
+                    LoginForm.TopMost = true;
 
-                        if (LoginForm.ShowDialog() == DialogResult.OK)
+                    if (LoginForm.ShowDialog() == DialogResult.OK)
+                    {
+                        var fm = new FormMain(lang)
                         {
-                            var fm = new FormMain(lang)
-                            {
-                                StyleManager = StyleManager,
-                                Theme = Theme
-                            };
-                            global_var.userId = LoginForm.LoginId;
-                            fm.txt_loginId.Text = global_var.userId;
-                            fm.Show();
-                        }
-                        else
+                            StyleManager = StyleManager,
+                            Theme = Theme
+                        };
+                        global_var.userId = LoginForm.LoginId;
+                        fm.txt_loginId.Text = global_var.userId;
+                        fm.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("로그인에 실패하였습니다.", "로그인 실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                LoginResult loginResult = await client.LoginAsync();
+
+                if (!loginResult.IsError)
+                {
+                    if (loginResult.IdentityToken.ToString() != string.Empty)
+                    {
+                        global_var.auth0_accessToken = loginResult.IdentityToken;
+                        global_var.auth0_expire_date = loginResult.AccessTokenExpiration;
+                        var fm = new FormMain(lang)
                         {
-                            MessageBox.Show("로그인에 실패하였습니다.", "로그인 실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                            StyleManager = StyleManager,
+                            Theme = Theme
+                        };
+                        var userInfo = loginResult.User.Claims.ToList();
+                        global_var.userId = userInfo[1].Value.ToString();
+                        fm.txt_loginId.Text = global_var.userId;
+                        Hide();
+                        fm.Show();
                     }
                 }
                 else
                 {
-                    LoginResult loginResult = await client.LoginAsync();
-
-                    if (!loginResult.IsError)
-                    {
-                        if (loginResult.IdentityToken.ToString() != string.Empty)
-                        {
-                            global_var.auth0_accessToken = loginResult.IdentityToken;
-                            global_var.auth0_expire_date = loginResult.AccessTokenExpiration;
-                            var fm = new FormMain(lang)
-                            {
-                                StyleManager = StyleManager,
-                                Theme = Theme
-                            };
-                            var userInfo = loginResult.User.Claims.ToList();
-                            global_var.userId = userInfo[1].Value.ToString();
-                            fm.txt_loginId.Text = global_var.userId;
-                            Hide();
-                            fm.Show();
-                        }
-                    }
-                    else
-                    {
-                        //MessageBox.Show("인증에 실패하였습니다.", "인증실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //Dispose();
-                        //Application.Exit();
-                    }
+                    //MessageBox.Show("인증에 실패하였습니다.", "인증실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //Dispose();
+                    //Application.Exit();
                 }
             }
+
+
+            //using (var DbContext = new AppDbContext())
+            //{
+            //    bool result = DbContext.Auth0ErrorLoginMAC.Where(MAC => MAC.MAC.Equals(myMACaddr)).Any(); // DB에 MAC 주소 입력할 때 하이픈 제거하고 입력해야 함.
+
+            //    if (result is true)
+            //    {
+            //        using (var LoginForm = new FormSubLogin())
+            //        {
+            //            LoginForm.StartPosition = FormStartPosition.CenterParent;
+            //            LoginForm.TopMost = true;
+
+            //            if (LoginForm.ShowDialog() == DialogResult.OK)
+            //            {
+            //                var fm = new FormMain(lang)
+            //                {
+            //                    StyleManager = StyleManager,
+            //                    Theme = Theme
+            //                };
+            //                global_var.userId = LoginForm.LoginId;
+            //                fm.txt_loginId.Text = global_var.userId;
+            //                fm.Show();
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("로그인에 실패하였습니다.", "로그인 실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        LoginResult loginResult = await client.LoginAsync();
+
+            //        if (!loginResult.IsError)
+            //        {
+            //            if (loginResult.IdentityToken.ToString() != string.Empty)
+            //            {
+            //                global_var.auth0_accessToken = loginResult.IdentityToken;
+            //                global_var.auth0_expire_date = loginResult.AccessTokenExpiration;
+            //                var fm = new FormMain(lang)
+            //                {
+            //                    StyleManager = StyleManager,
+            //                    Theme = Theme
+            //                };
+            //                var userInfo = loginResult.User.Claims.ToList();
+            //                global_var.userId = userInfo[1].Value.ToString();
+            //                fm.txt_loginId.Text = global_var.userId;
+            //                Hide();
+            //                fm.Show();
+            //            }
+            //        }
+            //        else
+            //        {
+            //            //MessageBox.Show("인증에 실패하였습니다.", "인증실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            //Dispose();
+            //            //Application.Exit();
+            //        }
+            //    }
+            //}
 
             Cursor.Current = Cursors.Default;
         }
