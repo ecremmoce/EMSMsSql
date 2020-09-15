@@ -736,7 +736,7 @@ namespace ShopeeManagement
 
             decimal margin = Convert.ToDecimal(dgSrcItemList.Rows[rowId].Cells["dgItemList_margin"].Value.ToString().Replace(",", ""));
 
-            if (margin > 0)
+            if (margin >= 0)
             {
                 dgSrcItemList.Rows[rowId].Cells["dgItemList_margin"].Style.BackColor = Color.GreenYellow;
             }

@@ -5577,7 +5577,7 @@ namespace ShopeeManagement
             }
 
             
-            if (sourcePrice > 0 && margin > 0 && productWeight > 0 && rateSrc > 0)
+            if (sourcePrice > 0 && margin >= 0 && productWeight > 0 && rateSrc > 0)
             {
                 PriceCalculator pCalc = new PriceCalculator();
                 pCalc.CountryCode = tarCountry;
@@ -5680,7 +5680,7 @@ namespace ShopeeManagement
             }
 
             Dictionary<string, decimal> calcResult = new Dictionary<string, decimal>();
-            if (sourcePrice > 0 && margin > 0 && weight > 0)
+            if (sourcePrice > 0 && margin >= 0 && weight > 0)
             {
                 PriceCalculator pCalc = new PriceCalculator();
                 pCalc.CountryCode = tarCountry;
@@ -6981,7 +6981,7 @@ namespace ShopeeManagement
                     }
 
 
-                    if (sourcePrice > 0 && margin > 0 && weight > 0)
+                    if (sourcePrice > 0 && margin >= 0 && weight > 0)
                     {
                         dicPrice = calcRowPrice(sourcePrice, margin, weight, tarCountry);
 

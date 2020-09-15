@@ -1935,7 +1935,7 @@ namespace ShopeeManagement
         }
 
         private void DgSrcItemList_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-            {
+        {
             if (dg_site_id.Rows.Count > 0)
             {
                 long ItemInfoItemId = Convert.ToInt64(dgItemList.Rows[e.RowIndex].Cells["dgItemList_item_id"].Value.ToString());
@@ -2856,7 +2856,7 @@ namespace ShopeeManagement
 
             decimal margin = Convert.ToDecimal(dgItemList.Rows[rowId].Cells["dgItemList_margin"].Value.ToString().Replace(",", ""));
 
-            if (margin > 0)
+            if (margin >= 0)
             {
                 dgItemList.Rows[rowId].Cells["dgItemList_margin"].Style.BackColor = Color.GreenYellow;
             }
@@ -2878,7 +2878,7 @@ namespace ShopeeManagement
 
             //판매국가의 환율
             decimal rateSrc = txt_src_currency_rate.Value;
-            if (sourcePrice > 0 && margin > 0 && productWeight > 0)
+            if (sourcePrice > 0 && margin >= 0 && productWeight > 0)
             {
                 PriceCalculator pCalc = new PriceCalculator();
                 pCalc.CountryCode = TarCountry;
