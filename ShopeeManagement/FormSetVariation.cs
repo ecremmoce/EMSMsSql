@@ -665,7 +665,7 @@ namespace ShopeeManagement
 
                 int margin = Convert.ToInt32(DgSrcVariation.Rows[rowId].Cells["DgSrcVariation_margin"].Value.ToString().Replace(",", ""));
 
-                if (margin > 0)
+                if (margin >= 0)
                 {
                     DgSrcVariation.Rows[rowId].Cells["DgSrcVariation_margin"].Style.BackColor = Color.GreenYellow;
                 }
@@ -687,7 +687,7 @@ namespace ShopeeManagement
 
                 //판매국가의 환율
                 decimal rateSrc = txt_src_currency_rate.Value;
-                if (sourcePrice > 0 && margin > 0 && productWeight > 0)
+                if (sourcePrice > 0 && margin >= 0 && productWeight > 0)
                 {
                     PriceCalculator pCalc = new PriceCalculator();
                     pCalc.CountryCode = country;
