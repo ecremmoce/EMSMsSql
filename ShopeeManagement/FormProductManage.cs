@@ -501,6 +501,7 @@ namespace ShopeeManagement
             }
 
             DialogResult dlg_Result = MessageBox.Show("쇼피셀러센터로 부터 상품 데이터를 저장하시겠습니까?\r\n이미 내려받은 자료는 업데이트 하지 않습니다. 업데이트가 필요 할 경우 삭제 후 내려받아 주세요.", "상품 데이터 저장", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
             if (dlg_Result == DialogResult.Yes)
             {
                 Application.UseWaitCursor = true;
@@ -3324,37 +3325,6 @@ namespace ShopeeManagement
         private void MainMenu_Update_Click(object sender, EventArgs e)
         {
             BtnUpdateProduct_Click(null, null);
-        }
-
-        private void MetroButton1_Click(object sender, EventArgs e)
-        {
-            ShopeeApi shopeeApi = new ShopeeApi();
-            string shopeeId = dg_site_id.SelectedRows[0].Cells["dg_site_id_id"].Value.ToString();
-            long partner_id = Convert.ToInt64(dg_site_id.SelectedRows[0].Cells["dg_site_id_partner_id"].Value.ToString());
-            long shop_id = Convert.ToInt64(dg_site_id.SelectedRows[0].Cells["dg_site_id_shop_id"].Value.ToString());
-            string secretKey = dg_site_id.SelectedRows[0].Cells["dg_site_id_secret_key"].Value.ToString();
-            long itemId = Convert.ToInt64(dgItemList.SelectedRows[0].Cells["dgItemList_item_id"].Value.ToString());
-
-            bool hasVar = false;
-            //while(!hasVar)
-            //{
-                dynamic ItemUpdatedData = shopeeApi.GetItemDetail(itemId, partner_id, shop_id, secretKey);
-            //    if(ItemUpdatedData.item.variations.Count > 0)
-            //    {
-            //        hasVar = true;
-            //    }
-            //    else
-            //    {
-            //        Thread.Sleep(1000);
-            //    }
-            //}
-
-            //MessageBox.Show("상태변경");
-            //shopeeApi.GetTierVariations(itemId, partner_id, shop_id, secretKey);
-
-
-            //상품의 2티어 정보를 가지고 온다.
-            dynamic result_tier_info2 = shopeeApi.GetTierVariations(itemId, partner_id, shop_id, secretKey);
         }
 
         private void UdShopeeFee_ValueChanged(object sender, EventArgs e)

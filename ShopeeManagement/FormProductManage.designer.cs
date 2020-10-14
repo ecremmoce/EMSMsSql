@@ -228,7 +228,6 @@
             this.toolTipAccountRefresh = new System.Windows.Forms.ToolTip(this.components);
             this.BtnUpdateProduct = new MetroFramework.Controls.MetroButton();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
             this.toolTipUpdate = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipCommon = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -1754,7 +1753,7 @@
             // 
             // BtnUpdateProduct
             // 
-            this.BtnUpdateProduct.Location = new System.Drawing.Point(7, 98);
+            this.BtnUpdateProduct.Location = new System.Drawing.Point(6, 19);
             this.BtnUpdateProduct.Name = "BtnUpdateProduct";
             this.BtnUpdateProduct.Size = new System.Drawing.Size(106, 37);
             this.BtnUpdateProduct.TabIndex = 151;
@@ -1765,26 +1764,13 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.metroButton1);
             this.groupBox6.Controls.Add(this.BtnUpdateProduct);
             this.groupBox6.Location = new System.Drawing.Point(1642, 9);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(120, 146);
+            this.groupBox6.Size = new System.Drawing.Size(120, 63);
             this.groupBox6.TabIndex = 152;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "관리 기능";
-            // 
-            // metroButton1
-            // 
-            this.metroButton1.Location = new System.Drawing.Point(7, 55);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(106, 37);
-            this.metroButton1.TabIndex = 152;
-            this.metroButton1.Text = "Test";
-            this.metroButton1.UseCustomBackColor = true;
-            this.metroButton1.UseSelectable = true;
-            this.metroButton1.Visible = false;
-            this.metroButton1.Click += new System.EventHandler(this.MetroButton1_Click);
             // 
             // toolTipUpdate
             // 
@@ -2640,7 +2626,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn dgItemList2_is_2tier_item;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgItemList2_images;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgItemList2_Result;
-        private MetroFramework.Controls.MetroButton metroButton1;
         private MetroFramework.Controls.MetroButton BtnAddDiscountEvent;
         private MetroFramework.Controls.MetroButton BtnDeleteDiscountEvent;
         private MetroFramework.Controls.MetroButton btnGetDiscountList;
