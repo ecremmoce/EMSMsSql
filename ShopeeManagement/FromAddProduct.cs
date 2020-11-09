@@ -24,6 +24,14 @@ using Microsoft.Win32;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using AngleSharp.Html.Parser;
+using ArtboxModel.Extensions;
+using ArtboxModel.Models;
+using HtmlAgilityPack;
+using ShopeeManagement.CrawlingModel;
+using System.Dynamic;
+using ShopeeManagement.DTOs.Req;
+using ShopeeManagement.DTOs.Res;
+using ShopeeManagement.APIs;
 
 namespace ShopeeManagement
 {
@@ -1191,7 +1199,6 @@ namespace ShopeeManagement
                     {
                         var responseBytes = webClient.UploadValues(GoogleTranslateApiUrl, "POST", data);
                         var json = Encoding.UTF8.GetString(responseBytes);
-                        //var result = JsonConvert.DeserializeObject<dynamic>(json);
                         var result = JsonConvert.DeserializeObject<dynamic>(json);
                         var translation = result.data.translations[0].translatedText.Value;
                         rtn = translation;
@@ -2496,6 +2503,8 @@ namespace ShopeeManagement
             lblDescLen.Text = TxtProductDesc.Text.Length + "자";
             refreshPreView();
         }
+
+
         private void refreshPreView()
         {
             StringBuilder sb_preview = new StringBuilder();
@@ -3005,9 +3014,10 @@ namespace ShopeeManagement
                 int startIdx = Html.IndexOf("model = ") + 8;
                 //int endIdx = Html.IndexOf("model.isLimitDc");
                 int endIdx = Html.IndexOf("/* 구매하기후 에러처리");
-                string temp = Html.Substring(startIdx, endIdx - startIdx);
-                string strOptionJson = Html.Substring(startIdx, endIdx - startIdx).Replace(";\n            ", "");
-                dynamic jOption = JsonConvert.DeserializeObject(strOptionJson);
+                string temp = Html.Substring(startIdx, endIdx - startIdx).Trim();
+                int lastSemiColonIdx = temp.LastIndexOf(';');
+                string temp2 = temp.Substring(0, lastSemiColonIdx);
+                dynamic jOption = JsonConvert.DeserializeObject(temp2);
                 var onlyOption = jOption.products;
 
                 if(onlyOption.Count > 0)
@@ -3025,28 +3035,31 @@ namespace ShopeeManagement
                 {
                     string country = DgPrice.Rows[j].Cells["DgPrice_tar_country"].Value.ToString();
                     string shopeeid = DgPrice.Rows[j].Cells["DgPrice_shopee_id"].Value.ToString();
+
                     for (int i = 0; i < onlyOption.Count; i++)
                     {
                         var priceObj = Convert.ToInt32(onlyOption[i].availablePrices[0].finalOnlinePrice.Value.ToString());
+
                         DgVariation.Rows.Add(DgVariation.Rows.Count + 1,
                             country,
-                            shopeeid, false,
-                        "상태",
-                        "",
-                        "",
-                        jOption.products[i].prodName.Value.ToString(),
-                        "",
-                        string.Format("{0:n0}", priceObj),
-                        string.Format("{0:n0}", UdMargin.Value),
-                        "", //무게는 생각하면서 넣자 //string.Format("{0:n0}", UdWeight.Value),
-                        "",
-                        "",
-                        "",
-                        "",
-                        string.Format("{0:n0}", UdQty.Value),
-                        "",
-                        "",
-                        "");
+                            shopeeid, 
+                            false,
+                            "상태",
+                            "",
+                            "",
+                            jOption.products[i].prodName.Value.ToString(), // 옵션값(수집명)
+                            "",
+                            string.Format("{0:n0}", priceObj), // 상품원가(원)
+                            string.Format("{0:n0}", UdMargin.Value),
+                            "", //무게는 생각하면서 넣자 //string.Format("{0:n0}", UdWeight.Value),
+                            "",
+                            "",
+                            "",
+                            "",
+                            string.Format("{0:n0}", UdQty.Value),
+                            "",
+                            "",
+                            "");
                     }
                     
                 }
@@ -3206,6 +3219,27 @@ namespace ShopeeManagement
             }
         }
 
+        private bool HasProperty(dynamic @object, string propertyName)
+        {
+            Type objType = @object.GetType();
+
+            if (objType == typeof(ExpandoObject))
+            {
+                return ((IDictionary<string, object>)@object).ContainsKey(Name);
+            }
+            else if (objType == typeof(JObject))
+            {
+                List<JProperty> props = ((JObject)@object).Properties().ToList();
+                
+                if (props.Any(p => p.Name.Equals(propertyName)))
+                {
+                    return true;
+                }
+            }
+
+            return objType.GetProperty(Name) != null;
+        }
+
         private void ScrapSmartStore(string ProductUrl)
         {
             if (ProductUrl.Contains("smartstore.naver.com"))
@@ -3222,53 +3256,68 @@ namespace ShopeeManagement
                 var dom = new HtmlParser().ParseDocument(Html);
 
                 //상품 제목
-                var title = dom.QuerySelector("._easy_purchase_hide_area .prd_name").TextContent.Trim();
+                var title = myDoc.DocumentNode.SelectSingleNode("//h3[@class='_3oDjSvLwq9 _copyable']").InnerText;
+
                 if (title != string.Empty)
                 {
                     TxtProductNameKor.Text = title;
                 }
 
-                var deliveryPrice = dom.QuerySelector("._deliveryBaseFeeAreaValue").TextContent;
+                // 배송비
+                var deliveryPrice = myDoc.DocumentNode.SelectSingleNode("//span[@class='Y-_Vd4O6dS']").InnerText;
+                
+                // 옵션
+                string temp = myDoc.DocumentNode.SelectNodes("//script").FirstOrDefault(x => x.InnerText.Contains("window.__PRELOADED_STATE__")).InnerText;
+                IEnumerable<dynamic> options = JsonConvert.DeserializeObject<dynamic>(temp.Replace("window.__PRELOADED_STATE__=", string.Empty)).product.A.optionCombinations; // option이 저장된 Json object
+                var option2Ds = new List<Option2D>();
 
-                var regex = new Regex(@"(?<=""aCombinationOption""\s*:\s*)(.*)(?=,)");
-                var match = regex.Match(Html);
-                if (!match.Success) throw new Exception("Not matched regular expression");
+                foreach (dynamic option in options)
+                {
+                    string optionName1 = string.Empty;
+                    string optionName2 = string.Empty;
+                    string optionName3 = string.Empty;
+                    string optionName4 = string.Empty;
+                    string optionName5 = string.Empty;
+                    decimal price1 = default;
 
-                dynamic optionJsonArray = JArray.Parse(match.Value);
+                    if (HasProperty(option, "optionName1"))
+                    {
+                        optionName1 = option.optionName1.ToString();
+                    }
 
-                var option2Ds =
-                    ((IEnumerable<dynamic>)optionJsonArray)
-                    .Where(o => o.stockQuantity != 0)
-                    .Select(o =>
-                        (Option2D)ToOption2Ds(
-                            o.optionName1.ToString(),
-                            o.optionName2.ToString(),
-                            o.optionName3.ToString(),
-                            o.optionName4.ToString(),
-                            o.optionName5.ToString(),
-                            (decimal)o.price))
-                    .ToList();
+                    if (HasProperty(option, "optionName2"))
+                    {
+                        optionName2 = option.optionName2.ToString();
+                    }
 
-                //상품 가격
-                //var price = ""; //dom.QuerySelector(".price .fc_point .thm").TextContent;
-                var price = dom.QuerySelector(".price").TextContent.Replace(",","");
+                    if (HasProperty(option, "optionName3"))
+                    {
+                        optionName3 = option.optionName3.ToString();
+                    }
+
+                    if (HasProperty(option, "optionName4"))
+                    {
+                        optionName4 = option.optionName4.ToString();
+                    }
+
+                    if (HasProperty(option, "optionName5"))
+                    {
+                        optionName5 = option.optionName5.ToString();
+                    }
+
+                    if (HasProperty(option, "price"))
+                    {
+                        price1 = (decimal)option.price;
+                    }
+
+                    option2Ds.Add(ToOption2Ds(optionName1, optionName2, optionName3, optionName4, optionName5, price1));
+                }
+
+                //할인 가격
+                string price = myDoc.DocumentNode.SelectSingleNode("//strong[@class='aICRqgP9zw']/span[@class='_1LY7DqCnwR']").InnerText;
 
                 var thumnailUrls = new List<string>();
-
-                if (dom.QuerySelectorAll("._thumbnail_area.thmb_lst img").Any())
-                {
-                    var thumb = dom.QuerySelectorAll("._thumbnail_area.thmb_lst img");
-                    for (int i = 0; i < thumb.Count(); i++)
-                    {
-                        var thumnailUrl = thumb[i].GetAttribute("src").Split('?')[0];
-                        thumnailUrls.Add(thumnailUrl);
-                    }
-                }
-                else
-                {
-                    var thumnailUrl = dom.QuerySelector(".bimg .img_va img").GetAttribute("src");
-                    thumnailUrls.Add(thumnailUrl);
-                }
+                thumnailUrls.Add(myDoc.DocumentNode.SelectSingleNode("//meta[@name='twitter:image']").Attributes["content"].Value);
 
                 if (thumnailUrls != null)
                 {
@@ -3337,50 +3386,61 @@ namespace ShopeeManagement
                 }
                 else
                 {
-                    //기본형
-                    req_images = new HtmlParser().ParseDocument(Html).QuerySelectorAll("._target_content_area img")
-                    .Select(img => img.GetAttribute("src"))
-                    .Select((imageUrl, index) => new req_image
-                    {
-                        src_addr = imageUrl,
-                        save_file_name = $"detail_{index + 1:000}"
-                    }).ToList();
+                    string id = JsonConvert.DeserializeObject<dynamic>(temp.Replace("window.__PRELOADED_STATE__=", string.Empty)).product.A.id.ToString();
+                    string productNo = JsonConvert.DeserializeObject<dynamic>(temp.Replace("window.__PRELOADED_STATE__=", string.Empty)).product.A.productNo.ToString();
 
-                    if (req_images.Count == 0)
-                    {
-                        //pchtml형태로 되어 있을 경우
-                        tempHtml = Html.Replace(@"\", "");
-                        HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-                        doc.LoadHtml(tempHtml);
-                        var arrayScript = doc.DocumentNode.Descendants("script").ToArray();
-                        for (int i = 0; i < arrayScript.Count(); i++)
-                        {
-                            if (arrayScript[i].InnerText.Contains("pcHtml :"))
-                            {
-                                string pattern = @"<img.*?src=""(?<url>.*?)"".*?>";
-                                Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
-                                MatchCollection matches = rgx.Matches(arrayScript[i].InnerText);
-                                List<string> lstImages = new List<string>();
-                                for (int k = 0, l = matches.Count; k < l; k++)
-                                {
-                                    lstImages.Add(matches[k].Groups[1].Value);
-                                }
+                    var getimageapi = new NaverSmartStoreGetBodyImage();
+                    ResNaverSmartStoreGetBodyImage rtn = getimageapi.CallApi(ProductUrl, id, productNo);
+                    int count = default;
 
-                                req_images = lstImages
-                                    .Select((imageUrl, index) => new req_image
-                                    {
-                                        src_addr = imageUrl,
-                                        save_file_name = $"detail_{index + 1:000}"
-                                    }).ToList();
-                                break;
-                            }
-                        }
+                    foreach (Uri uri in rtn.SnapImages)
+                    {
+                        req_images.Add(new req_image { src_addr = uri.ToString(), save_file_name = $"detail_{count + 1:000}" });
+                        count++;
                     }
+
+                    //기본형
+                    //req_images = new HtmlParser().ParseDocument(Html)
+                    //    .QuerySelectorAll("._target_content_area img")
+                    //    .Select(img => img.GetAttribute("src"))
+                    //    .Select((imageUrl, index) => new req_image
+                    //    {
+                    //        src_addr = imageUrl,
+                    //        save_file_name = $"detail_{index + 1:000}"
+                    //    }).ToList();
+
+                    //if (req_images.Count == 0)
+                    //{
+                    //    //pchtml형태로 되어 있을 경우
+                    //    tempHtml = Html.Replace(@"\", "");
+                    //    HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                    //    doc.LoadHtml(tempHtml);
+                    //    var arrayScript = doc.DocumentNode.Descendants("script").ToArray();
+
+                    //    for (int i = 0; i < arrayScript.Count(); i++)
+                    //    {
+                    //        if (arrayScript[i].InnerText.Contains("pcHtml :"))
+                    //        {
+                    //            string pattern = @"<img.*?src=""(?<url>.*?)"".*?>";
+                    //            Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+                    //            MatchCollection matches = rgx.Matches(arrayScript[i].InnerText);
+                    //            List<string> lstImages = new List<string>();
+                    //            for (int k = 0, l = matches.Count; k < l; k++)
+                    //            {
+                    //                lstImages.Add(matches[k].Groups[1].Value);
+                    //            }
+
+                    //            req_images = lstImages
+                    //                .Select((imageUrl, index) => new req_image
+                    //                {
+                    //                    src_addr = imageUrl,
+                    //                    save_file_name = $"detail_{index + 1:000}"
+                    //                }).ToList();
+                    //            break;
+                    //        }
+                    //    }
+                    //}
                 }
-
-
-
-
 
                 for (int i = 0; i < req_images.Count; i++)
                 {
@@ -3391,16 +3451,17 @@ namespace ShopeeManagement
                         var dataStream_Detail = response_Detail.GetResponseStream();
                         Bitmap bm_Detail = new Bitmap(dataStream_Detail);
 
-                        DGDetailList.Rows.Add(DGDetailList.Rows.Count + 1, false, bm_Detail,
-                        Path.GetFileName(req_images[i].src_addr.ToString()),
-                        string.Format("{0:n0}", bm_Detail.Width),
-                        string.Format("{0:n0}", bm_Detail.Height));
+                        DGDetailList.Rows.Add(DGDetailList.Rows.Count + 1, 
+                            false, 
+                            bm_Detail,
+                            Path.GetFileName(req_images[i].src_addr.ToString()),
+                            string.Format("{0:n0}", bm_Detail.Width),
+                            string.Format("{0:n0}", bm_Detail.Height));
                     }
                     catch
                     {
 
                     }
-                    
                 }
 
                 for (int i = 0; i < DgPrice.Rows.Count; i++)
@@ -3409,7 +3470,6 @@ namespace ShopeeManagement
                     DgPrice.Rows[i].Cells["DgPrice_margin"].Value = string.Format("{0:n0}", UdMargin.Value);
                     DgPrice.Rows[i].Cells["DgPrice_qty"].Value = string.Format("{0:n0}", UdQty.Value);
                 }
-
 
                 DgVariation.Enabled = true;
                 for (int j = 0; j < DgPrice.Rows.Count; j++)
@@ -3424,23 +3484,23 @@ namespace ShopeeManagement
                             country,
                             shopeeid,
                             false,
-                        "상태",
-                        "",
-                        "",
-                        option2Ds[i].Option1.ToString() + "_" + option2Ds[i].Option2.ToString(),
-                        "",
-                        string.Format("{0:n0}", priceObj),
-                        string.Format("{0:n0}", UdMargin.Value),
-                        "", //무게는 생각하면서 넣자 //string.Format("{0:n0}", UdWeight.Value),
-                        "",
-                        "",
-                        "",
-                        "",
-                        string.Format("{0:n0}", UdQty.Value),
-                        "",
-                        "",
-                        "",
-                        "");
+                            "상태",
+                            "",
+                            "",
+                            option2Ds[i].Option1.ToString() + "_" + option2Ds[i].Option2.ToString(),
+                            "",
+                            string.Format("{0:n0}", priceObj),
+                            string.Format("{0:n0}", UdMargin.Value),
+                            "", //무게는 생각하면서 넣자 //string.Format("{0:n0}", UdWeight.Value),
+                            "",
+                            "",
+                            "",
+                            "",
+                            string.Format("{0:n0}", UdQty.Value),
+                            "",
+                            "",
+                            "",
+                            "");
                     }
                 }
 
@@ -3579,9 +3639,10 @@ namespace ShopeeManagement
                 MessageBox.Show("상품 정보를 수신하였습니다.", "상품정보 수신", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
         private void ScrapCoupang(string ProductUrl)
         {
-            Application.UseWaitCursor = true;
+            ProductUrl = HttpUtility.UrlDecode(ProductUrl);
 
             if (ProductUrl.Contains("coupang.com/vp/products/"))
             {
@@ -3609,6 +3670,7 @@ namespace ShopeeManagement
                 var bulletObj = myDoc.DocumentNode.SelectNodes("//li[@class='prod-attr-item']");
                 StringBuilder sbBullet = new StringBuilder();
                 string tar_lang = "";
+
                 if (cboLang.Text == "인도네시아어")
                 {
                     tar_lang = "id";
@@ -3712,76 +3774,15 @@ namespace ShopeeManagement
                         var dataStream_Thumb = response_Thumb.GetResponseStream();
                         Bitmap bm_Thumb = new Bitmap(dataStream_Thumb);
 
-                        DGSelectedList.Rows.Add(DGSelectedList.Rows.Count + 1, false, bm_Thumb,
-                            $"thumb_{imgIdx:000}.jpg",
-                        string.Format("{0:n0}", bm_Thumb.Width),
-                        string.Format("{0:n0}", bm_Thumb.Height),
-                        ImagePathThumb + $"thumb_{imgIdx:000}.jpg");
+                        DGSelectedList.Rows.Add(DGSelectedList.Rows.Count + 1, false, bm_Thumb, $"thumb_{imgIdx:000}.jpg", string.Format("{0:n0}", bm_Thumb.Width), string.Format("{0:n0}", bm_Thumb.Height), ImagePathThumb + $"thumb_{imgIdx:000}.jpg");
                         bm_Thumb.Save(ImagePathThumb + $@"thumb_{imgIdx:000}.jpg");
                     }
                 }
 
-
-                var bodyHtmlUrl = $"https://m.coupang.com/vm/products/{productId}/brand-sdp/items/{itemId}/?vendorItemId={vendoritemId}&style=MOBILE_BROWSER&isFashion=true&invalidSdpFromBrowser=false&deliveryType=VENDOR_DELIVERY&loyaltyMember=false";
+                var bodyHtmlUrl = $"https://m.coupang.com/vm/products/{productId}/brand-sdp/items/{itemId}/?vendorItemId={vendoritemId}";
                 var bodyHtml = GetBodyHtml(bodyHtmlUrl);
-
-                //var aa = WebUtility.HtmlEncode(bodyHtml);
-                //var aaa = WebUtility.HtmlDecode(aa);
-
-                //var bb = Encoding.Convert(Encoding.Unicode, Encoding.ASCII, Encoding.Unicode.GetBytes(bodyHtml));
-                //var bbb = Encoding.ASCII.GetString(bb);
-
-                //var cc = Encoding.Convert(Encoding.Unicode, Encoding.UTF8, Encoding.Unicode.GetBytes(bodyHtml));
-                //var ccc = Encoding.UTF8.GetString(cc);
-
-                //var dd = Encoding.Convert(Encoding.Unicode, Encoding.Default, Encoding.Unicode.GetBytes(bodyHtml));
-                //var ddd = Encoding.Default.GetString(dd);
-
-                //var ee = Encoding.Convert(Encoding.Unicode, Encoding.BigEndianUnicode, Encoding.Unicode.GetBytes(bodyHtml));
-                //var eee = Encoding.BigEndianUnicode.GetString(ee);
-
-                //var ff = Encoding.Convert(Encoding.Unicode, Encoding.UTF32, Encoding.Unicode.GetBytes(bodyHtml));
-                //var fff = Encoding.UTF32.GetString(ff);
-
-                //var gg = Encoding.Convert(Encoding.Unicode, Encoding.UTF32, Encoding.Unicode.GetBytes(bodyHtml));
-                //var ggg = Encoding.UTF32.GetString(gg);
-
-                //var hh = Encoding.Convert(Encoding.Unicode, Encoding.UTF7, Encoding.Unicode.GetBytes(bodyHtml));
-                //var hhh = Encoding.UTF7.GetString(hh);
-
-                //var ii = Encoding.Convert(Encoding.ASCII, Encoding.Unicode, Encoding.ASCII.GetBytes(bodyHtml));
-                //var iii = Encoding.Unicode.GetString(ii);
-
-                //var jj = Encoding.Convert(Encoding.ASCII, Encoding.UTF8, Encoding.ASCII.GetBytes(bodyHtml));
-                //var jjj = Encoding.UTF8.GetString(jj);
-
-                //var kk = Encoding.Convert(Encoding.UTF8, Encoding.Unicode, Encoding.UTF8.GetBytes(bodyHtml));
-                //var kkk = Encoding.Unicode.GetString(kk);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 var listDetail = Get_Detail_req_images(bodyHtml).ToList();
+
                 for (int i = 0; i < listDetail.Count; i++)
                 {
                     var request_Detail = WebRequest.Create(listDetail[i].src_addr.ToString());
@@ -3800,10 +3801,10 @@ namespace ShopeeManagement
                 decimal dPrice = 0;
                 decimal.TryParse(price, out dPrice);
 
-
                 string option = ToCombinedJsonOptions(productId, itemId, vendoritemId);
                 dynamic optionJsonArray = JArray.Parse(option);
                 List<Option2D> option2Ds = new List<Option2D>();
+
                 if (optionJsonArray.Count == 1)
                 {
                     if (productName == optionJsonArray.First.name.ToString().Trim())
@@ -3973,6 +3974,166 @@ namespace ShopeeManagement
             }
 
             Application.UseWaitCursor = false;
+        }
+
+        private void ScrapArtbox(string ProductUrl)
+        {
+            DGSelectedList.Rows.Clear();
+            DGDetailList.Rows.Clear();
+            DGImageSlicedList.Rows.Clear();
+            DgVariation.Rows.Clear();
+
+            ArtboxProduct item = ArtboxCrawling.GetProductDetail(ProductUrl);
+            string title = item.Title;
+            TxtProductNameKor.Text = title.Substring(0, title.LastIndexOf('(')).Trim();
+            string tar_lang = string.Empty;
+
+            if (cboLang.Text == "인도네시아어")
+            {
+                tar_lang = "id";
+            }
+            else if (cboLang.Text == "영어")
+            {
+                tar_lang = "en";
+            }
+            else if (cboLang.Text == "말레이시아어")
+            {
+                tar_lang = "ms";
+            }
+            else if (cboLang.Text == "태국어")
+            {
+                tar_lang = "th";
+            }
+            else if (cboLang.Text == "중국어 번체")
+            {
+                tar_lang = "zh-TW";
+            }
+            else if (cboLang.Text == "베트남어")
+            {
+                tar_lang = "vi";
+            }
+
+            TxtProductDesc.Text = HttpUtility.HtmlDecode(translate(item.BodyTopBottomContent, "ko", tar_lang));
+            refreshPreView();
+
+            List<string> mainImageUrls = JsonConvert.DeserializeObject<List<string>>(item.MainImageUrls);
+            var request = WebRequest.Create(mainImageUrls[0]);
+            var response = (HttpWebResponse)request.GetResponse();
+            var dataStream = response.GetResponseStream();
+            var bm = new Bitmap(dataStream);
+            int imgIdx = 1;
+
+            if (!Directory.Exists(ImagePath))
+            {
+                Directory.CreateDirectory(ImagePath);
+                Directory.CreateDirectory(ImagePathThumb);
+            }
+            else
+            {
+                //디렉토리를 비운다.
+                DirectoryInfo di = new DirectoryInfo(ImagePath);
+                di.Delete(true);
+
+                Directory.CreateDirectory(ImagePath);
+                Directory.CreateDirectory(ImagePathThumb);
+            }
+
+            string saveFilePath = ImagePathThumb + @"thumb_" + string.Format("{0:D3}", imgIdx) + ".jpg";
+            bm.Save(saveFilePath);
+
+            DGSelectedList.Rows.Add(DGSelectedList.Rows.Count + 1, false, bm,
+                $"thumb_{imgIdx:000}.jpg",
+                string.Format("{0:n0}", bm.Width), string.Format("{0:n0}", bm.Height),
+                ImagePathThumb + $"thumb_{imgIdx:000}.jpg");
+
+            //추가 이미지
+            if (mainImageUrls.Count > 1)
+            {
+                for (int i = 1; i < mainImageUrls.Count; i++)
+                {
+                    imgIdx++;
+                    var request_Thumb = WebRequest.Create(mainImageUrls[i]);
+                    var response_Thumb = (HttpWebResponse)request_Thumb.GetResponse();
+                    var dataStream_Thumb = response_Thumb.GetResponseStream();
+                    Bitmap bm_Thumb = new Bitmap(dataStream_Thumb);
+
+                    DGSelectedList.Rows.Add(DGSelectedList.Rows.Count + 1, 
+                        false, 
+                        bm_Thumb, 
+                        $"thumb_{imgIdx:000}.jpg",
+                        string.Format("{0:n0}", bm_Thumb.Width),
+                        string.Format("{0:n0}", bm_Thumb.Height),
+                        ImagePathThumb + $"thumb_{imgIdx:000}.jpg");
+                        bm_Thumb.Save(ImagePathThumb + $@"thumb_{imgIdx:000}.jpg");
+                }
+            }
+
+            List<string> bodyImageUrls = JsonConvert.DeserializeObject<List<string>>(item.BodyImageUrls);
+
+            for (int i = 0; i < bodyImageUrls.Count; i++)
+            {
+                var request_Detail = WebRequest.Create(bodyImageUrls[i]);
+                var response_Detail = (HttpWebResponse)request_Detail.GetResponse();
+                var dataStream_Detail = response_Detail.GetResponseStream();
+                Bitmap bm_Detail = new Bitmap(dataStream_Detail);
+
+                DGDetailList.Rows.Add(DGDetailList.Rows.Count + 1, 
+                    false, 
+                    bm_Detail,
+                    Path.GetFileName(bodyImageUrls[i]),
+                    string.Format("{0:n0}", bm_Detail.Width),
+                    string.Format("{0:n0}", bm_Detail.Height));
+            }
+
+            List<string> options = JsonConvert.DeserializeObject<List<string>>(item.ProductSkusJson);
+
+            if (options != null)
+            {
+                for (int j = 0; j < DgPrice.Rows.Count; j++)
+                {
+                    string country = DgPrice.Rows[j].Cells["DgPrice_tar_country"].Value.ToString();
+                    string shopeeid = DgPrice.Rows[j].Cells["DgPrice_shopee_id"].Value.ToString();
+
+                    foreach (string option in options)
+                    {
+                        DgVariation.Rows.Add(DgVariation.Rows.Count + 1, // No
+                            country, // 판매국가, visible
+                            shopeeid, // 쇼피ID, visible
+                            false, // V, visible
+                            "상태", // 상태, not visible
+                            "", // Variation Id, not visible
+                            "", // 옵션 SKU, visible
+                            option, // 옵션값(수집명), visible
+                            "", // 옵션값(등록용), visible
+                            "", // 상품원가(원), visible
+                            string.Format("{0:n0}", UdMargin.Value), // 마진(원), visible
+                            "", //무게는 생각하면서 넣자 //string.Format("{0:n0}", UdWeight.Value), // 무게(Kg), visible
+                            "", // PG 수수료, visible
+                            "", // 판매가(원), visible
+                            "", // 판매가
+                            "", // 소비자가
+                            string.Format("{0:n0}", UdQty.Value), // 수량
+                            "", // 생성일시
+                            "", // 수정일시
+                            ""); // 할인명
+                                 // 할인 ID 어디갔지??
+                    }
+                }
+            }
+
+            decimal dPrice = Convert.ToDecimal(item.Price);
+
+            for (int i = 0; i < DgPrice.Rows.Count; i++)
+            {
+                DgPrice.Rows[i].Cells["DgPrice_source_price"].Value = string.Format("{0:n0}", dPrice);
+                DgPrice.Rows[i].Cells["DgPrice_margin"].Value = string.Format("{0:n0}", UdMargin.Value);
+                DgPrice.Rows[i].Cells["DgPrice_qty"].Value = string.Format("{0:n0}", UdQty.Value);
+            }
+
+            lblThumb.Text = "기본 썸네일 [ " + DGSelectedList.Rows.Count + " ]";
+            lblDetail.Text = "상세 이미지 [ " + DGDetailList.Rows.Count + " ]";
+            Application.UseWaitCursor = false;
+            MessageBox.Show("상품 데이터를 수신하였습니다.", "상품 데이터 수집", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private Option2D ToOption2Ds(string optionName1, string optionName2, string optionName3, string optionName4, string optionName5, decimal optionPrice)
@@ -4180,6 +4341,7 @@ namespace ShopeeManagement
                     if(myDoc.DocumentNode.SelectSingleNode("//img[@class='irc_mi']") != null)
                     {
                         var imgObj = myDoc.DocumentNode.SelectSingleNode("//img[@class='irc_mi']").Attributes["src"].Value;
+
                         if (imgObj != null && imgObj != string.Empty)
                         {
                             saveThumbImage(imgObj);
@@ -4190,13 +4352,11 @@ namespace ShopeeManagement
                 {
                     string matchString = Regex.Match(text, "<img.+?src=[\"'](.+?)[\"'].*?>", RegexOptions.IgnoreCase).Groups[1].Value;
                     saveDetailImage(matchString);
-
                 }
                 else if (text.Contains("m.media-amazon.com"))
                 {
                     string matchString = Regex.Match(text, "<img.+?src=[\"'](.+?)[\"'].*?>", RegexOptions.IgnoreCase).Groups[1].Value;
                     saveDetailImage(matchString);
-
                 }
                 else if(text.Contains("image.aladin.co.kr"))
                 {
@@ -4224,7 +4384,7 @@ namespace ShopeeManagement
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
             {
-                text = (string)e.Data.GetData(DataFormats.Text);
+                text = (string)e.Data.GetData(DataFormats.Text); // 드래그 드랍한 URI 주소가 Input 된다.
                 doScrap(text);                
             }
             else if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -4432,6 +4592,7 @@ namespace ShopeeManagement
             Application.UseWaitCursor = false;
         }
 
+        #region Get_Detail_req_images
         private IEnumerable<req_image> Get_Detail_req_images(string Html)
         {
             // 본문 내용의 이미지들을 얻어옴.
@@ -4458,6 +4619,10 @@ namespace ShopeeManagement
                 }).ToList();
             }
 
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            doc.LoadHtml(Html);
+
+            var parse = doc.DocumentNode.SelectNodes("//div[@class='vendor-item-detail__content']");
 
             for (int i = req_images.Count - 1; i >= 0; i--)
             {
@@ -4469,6 +4634,7 @@ namespace ShopeeManagement
             }
             return req_images;
         }
+        #endregion
         public ObservableCollection<string> Proxies { get; set; }
 
         private string GetHtml(string url)
@@ -4504,6 +4670,7 @@ namespace ShopeeManagement
             handler.CookieContainer = new CookieContainer();
 
             handler.CookieContainer.Add(uri, new Cookie("name", "value")); // Adding a Cookie
+            handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate; // 이 플래그를 요청하면 uri 결과가 gzip으로 compression된 경우 자동으로 압축을 해제해준다. (URI 압축기술 관련)
             HttpClient client = new HttpClient(handler);
             client.DefaultRequestHeaders.Add("Connection", "keep-alive");
             client.DefaultRequestHeaders.Add("Upgrade-Insecure-Requests", "1");
@@ -5117,7 +5284,13 @@ namespace ShopeeManagement
                     {
                         ScrapSmartStore(address);
                     }
-
+                    else if (address.Contains("artboxmall.com"))
+                    {
+                        if (global_var.userId.Equals("mina.ecremmoce@gmail.com") || global_var.userId.Equals("sales@fashionjc.com")) // 관리자 계정 또는 아트박스 계정만 가능
+                        {
+                            ScrapArtbox(address);
+                        }
+                    }
                 }
 
                 Cursor.Current = Cursors.Default;
@@ -5899,8 +6072,7 @@ namespace ShopeeManagement
                 if (!validateTitle)
                 {
                     Application.UseWaitCursor = false;
-                    MessageBox.Show("상품명이 입력되지 않았습니다.", "상품명 누락",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("상품명이 입력되지 않았습니다.", "상품명 누락", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     TabMain.SelectedIndex = 0;
                     return;
@@ -5909,8 +6081,7 @@ namespace ShopeeManagement
                 if (DGSelectedList.Rows.Count == 0)
                 {
                     Application.UseWaitCursor = false;
-                    MessageBox.Show("상품이미지가 없습니다.", "상품이미지 누락",
-                       MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("상품이미지가 없습니다.", "상품이미지 누락", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     TabMain.SelectedIndex = 1;
                     return;
                 }
@@ -6094,14 +6265,11 @@ namespace ShopeeManagement
                 if (!isValidateAttribute)
                 {
                     Application.UseWaitCursor = false;
-
-                    MessageBox.Show("필수 속성값이 입력되지 않았습니다.", "필수입력값 누락",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("필수 속성값이 입력되지 않았습니다.", "필수입력값 누락", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     TabMain.SelectedIndex = 2;
+
                     return;
                 }
-
-
 
                 List<shopee_image> lst_img = new List<shopee_image>();
                 string upload_path = global_var.image_root + "/" + pGuid + "/" + "thumb";
@@ -6129,6 +6297,7 @@ namespace ShopeeManagement
                 {
                     maxImageCount = DGSelectedList.Rows.Count;
                 }
+
                 for (int img = 0; img < maxImageCount; img++)
                 {
                     string fileName = DGSelectedList.Rows[img].Cells["DGSelectedList_FileName"].Value.ToString().Trim();
@@ -6230,7 +6399,6 @@ namespace ShopeeManagement
                             return;
                         }
 
-
                         Dictionary<string, decimal> dicVariationPromotionPrice = new Dictionary<string, decimal>();
 
                         List<shopee_variations> lst_vari = new List<shopee_variations>();
@@ -6311,8 +6479,8 @@ namespace ShopeeManagement
                         else
                         {
                             Application.UseWaitCursor = false;
-                            MessageBox.Show("등록 대상의 배송 코드가 선택되지 않았습니다.", "등록 배송 코드 선택",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("등록 대상의 배송 코드가 선택되지 않았습니다.", "등록 배송 코드 선택", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                             return;
                         }
 
@@ -6333,7 +6501,6 @@ namespace ShopeeManagement
 
                         using (AppDbContext context = new AppDbContext())
                         {
-
                             decimal dRetailPrice = 0;
                             decimal calcPrice = 0;
                             string compair_price = "";
@@ -6456,7 +6623,44 @@ namespace ShopeeManagement
                                 shopee_logi sh = new shopee_logi { logistic_id = logisticCode, enabled = true, shipping_fee = 0 };
                                 lst_logi.Add(sh);
 
-                                object[] obj_image = lst_img.ToArray();
+                                var lst_img_buf = new List<shopee_image>();
+                                // 이미지 URI 검증
+                                var uploadImg = new ReqUploadImg
+                                {
+                                    Images = lst_img.Select(x => x.url).ToList(),
+                                    PartnerId = partner_id,
+                                    ShopId = shop_id,
+                                    Timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
+                                };
+                                ResUploadImg uploadImgResult;
+                                int uploadImgRetryCount = default;
+
+                                do
+                                {
+                                    uploadImgResult = uploadImg.CallApi(api_key);
+                                    uploadImgRetryCount++;
+                                } while ((uploadImgResult is null || uploadImgResult.Images is null) && uploadImgRetryCount < 3);
+
+                                if (uploadImgResult != null)
+                                {
+                                    var liUriTrans = new List<shopee_image>();
+
+                                    foreach (ResUploadImgImages image in uploadImgResult.Images)
+                                    {
+                                        if (!string.IsNullOrEmpty(image.ShopeeImageUrl))
+                                        {
+                                            liUriTrans.Add(new shopee_image { url = image.ShopeeImageUrl });
+                                        }
+                                        else // download fail 로 오류가 발생한 경우는 ShopeeImageUrl이 비어있다.
+                                        {
+                                            liUriTrans.Add(new shopee_image { url = image.ImageUrl });
+                                        }
+                                    }
+
+                                    lst_img_buf = liUriTrans; // DTO에 Image SetuploadImgResult.Images
+                                }
+
+                                object[] obj_image = lst_img_buf.ToArray();
                                 object[] obj_attr = lst_attr.ToArray();
                                 object[] obj_logi = lst_logi.ToArray();
                                 object[] obj_vari = lst_vari.ToArray();
@@ -6591,7 +6795,7 @@ namespace ShopeeManagement
                                     dynamic result = JsonConvert.DeserializeObject(content);
 
                                     if (result.msg == "Add item success")
-                                    {                                        
+                                    {
                                         StringBuilder strResultImage = new StringBuilder();
                                         for (int resultImg = 0; resultImg < result.item.images.Count; resultImg++)
                                         {
