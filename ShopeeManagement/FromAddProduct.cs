@@ -4800,13 +4800,13 @@ namespace ShopeeManagement
 
                             string saveFileName = ImagePathSlice + srcFileNameOnly + @"_slice_" + (i + 1).ToString() + ".jpg";
                             _img.Save(saveFileName, ImageFormat.Jpeg);
-                            DGImageSlicedList.Rows.Add(DGImageSlicedList.Rows.Count + 1,
-                                false,
-                                _img,
-                                string.Format(srcFileNameOnly + "_slice_" + "{0:D3}" + ".jpg", i + 1),
-                                string.Format("{0:n0}", _img.Width),
-                            string.Format("{0:n0}", _img.Height),
-                            saveFileName);
+                            DGImageSlicedList.Rows.Add(DGImageSlicedList.Rows.Count + 1, // DGImageSlicedList_no
+                                false, // DGImageSlicedList_chk
+                                _img, // DGImageSlicedList_image
+                                string.Format(srcFileNameOnly + "_slice_" + "{0:D3}" + ".jpg", i + 1), // DGImageSlicedList_file_name
+                                string.Format("{0:n0}", _img.Width), // DGImageSlicedList_width
+                                string.Format("{0:n0}", _img.Height), // DGImageSlicedList_height
+                                saveFileName); // DGImageSlicedList_path
 
 
                             Application.DoEvents();
@@ -5159,10 +5159,10 @@ namespace ShopeeManagement
                     dgvRow = CloneWithValues(DGImageSlicedList.SelectedRows[i]);
                     DGSelectedList.Rows.Add(dgvRow);
 
-                    //파일을 복사해 준다.
+                    // Slice 폴더에서 Thumb 폴더로 복사
                     try
                     {
-                        File.Copy(DGImageSlicedList.Rows[i].Cells["DGImageSlicedList_path"].Value.ToString(),
+                        File.Copy(DGImageSlicedList.SelectedRows[i].Cells["DGImageSlicedList_path"].Value.ToString(),
                         dgvRow.Cells[6].Value.ToString());
                     }
                     catch
