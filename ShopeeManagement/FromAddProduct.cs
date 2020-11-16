@@ -3268,60 +3268,67 @@ namespace ShopeeManagement
                 
                 // 옵션
                 string temp = myDoc.DocumentNode.SelectNodes("//script").FirstOrDefault(x => x.InnerText.Contains("window.__PRELOADED_STATE__")).InnerText;
-                IEnumerable<dynamic> options = JsonConvert.DeserializeObject<dynamic>(temp.Replace("window.__PRELOADED_STATE__=", string.Empty)).product.A.optionCombinations; // option이 저장된 Json object
+                dynamic A = JsonConvert.DeserializeObject<dynamic>(temp.Replace("window.__PRELOADED_STATE__=", string.Empty)).product.A;
+                IEnumerable<dynamic> options = A.optionCombinations; // option이 저장된 Json object
+
                 var option2Ds = new List<Option2D>();
 
-                foreach (dynamic option in options)
+                if (options != null)
                 {
-                    string optionName1 = string.Empty;
-                    string optionName2 = string.Empty;
-                    string optionName3 = string.Empty;
-                    string optionName4 = string.Empty;
-                    string optionName5 = string.Empty;
-                    decimal price1 = default;
-
-                    if (HasProperty(option, "optionName1"))
+                    foreach (dynamic option in options)
                     {
-                        optionName1 = option.optionName1.ToString();
-                    }
+                        string optionName1 = string.Empty;
+                        string optionName2 = string.Empty;
+                        string optionName3 = string.Empty;
+                        string optionName4 = string.Empty;
+                        string optionName5 = string.Empty;
+                        decimal price1 = default;
 
-                    if (HasProperty(option, "optionName2"))
-                    {
-                        optionName2 = option.optionName2.ToString();
-                    }
+                        if (HasProperty(option, "optionName1"))
+                        {
+                            optionName1 = option.optionName1.ToString();
+                        }
 
-                    if (HasProperty(option, "optionName3"))
-                    {
-                        optionName3 = option.optionName3.ToString();
-                    }
+                        if (HasProperty(option, "optionName2"))
+                        {
+                            optionName2 = option.optionName2.ToString();
+                        }
 
-                    if (HasProperty(option, "optionName4"))
-                    {
-                        optionName4 = option.optionName4.ToString();
-                    }
+                        if (HasProperty(option, "optionName3"))
+                        {
+                            optionName3 = option.optionName3.ToString();
+                        }
 
-                    if (HasProperty(option, "optionName5"))
-                    {
-                        optionName5 = option.optionName5.ToString();
-                    }
+                        if (HasProperty(option, "optionName4"))
+                        {
+                            optionName4 = option.optionName4.ToString();
+                        }
 
-                    if (HasProperty(option, "price"))
-                    {
-                        price1 = (decimal)option.price;
-                    }
+                        if (HasProperty(option, "optionName5"))
+                        {
+                            optionName5 = option.optionName5.ToString();
+                        }
 
-                    option2Ds.Add(ToOption2Ds(optionName1, optionName2, optionName3, optionName4, optionName5, price1));
+                        if (HasProperty(option, "price"))
+                        {
+                            price1 = (decimal)option.price;
+                        }
+
+                        option2Ds.Add(ToOption2Ds(optionName1, optionName2, optionName3, optionName4, optionName5, price1));
+                    }
                 }
 
+                // 원가
+                string originPrice = A.salePrice.ToString();
+
                 //할인 가격
-                string price = myDoc.DocumentNode.SelectSingleNode("//strong[@class='aICRqgP9zw']/span[@class='_1LY7DqCnwR']").InnerText;
+                string price = A.discountedSalePrice.ToString();
 
                 var thumnailUrls = new List<string>();
                 thumnailUrls.Add(myDoc.DocumentNode.SelectSingleNode("//meta[@name='twitter:image']").Attributes["content"].Value);
 
                 if (thumnailUrls != null)
                 {
-
                     int imgIdx = 0;
                     //메인이미지 1장
 
@@ -3386,60 +3393,43 @@ namespace ShopeeManagement
                 }
                 else
                 {
-                    string id = JsonConvert.DeserializeObject<dynamic>(temp.Replace("window.__PRELOADED_STATE__=", string.Empty)).product.A.id.ToString();
-                    string productNo = JsonConvert.DeserializeObject<dynamic>(temp.Replace("window.__PRELOADED_STATE__=", string.Empty)).product.A.productNo.ToString();
+                    string id = A.id.ToString();
+                    string productNo = A.productNo.ToString();
 
                     var getimageapi = new NaverSmartStoreGetBodyImage();
                     ResNaverSmartStoreGetBodyImage rtn = getimageapi.CallApi(ProductUrl, id, productNo);
                     int count = default;
 
-                    foreach (Uri uri in rtn.SnapImages)
+                    var renderContent = new HtmlAgilityPack.HtmlDocument();
+                    renderContent.LoadHtml(rtn.RenderContent);
+
+                    HtmlNodeCollection nodes1 = renderContent.DocumentNode.SelectNodes(
+                        @"//div[@class='se-component se-image se-l-default']
+                          /div[@class='se-component-content se-component-content-fit']
+                          /div[@class='se-section se-section-image se-l-default se-section-align-center']
+                          /div[@class='se-module se-module-image']
+                          /a[@class='se-module-image-link __se_image_link __se_link']
+                          /img");
+
+                    if (nodes1 != null)
                     {
-                        req_images.Add(new req_image { src_addr = uri.ToString(), save_file_name = $"detail_{count + 1:000}" });
-                        count++;
+                        foreach (HtmlNode node in nodes1)
+                        {
+                            req_images.Add(new req_image { src_addr = node.Attributes["data-src"].Value, save_file_name = $"detail_{count + 1:000}" });
+                            count++;
+                        }
                     }
 
-                    //기본형
-                    //req_images = new HtmlParser().ParseDocument(Html)
-                    //    .QuerySelectorAll("._target_content_area img")
-                    //    .Select(img => img.GetAttribute("src"))
-                    //    .Select((imageUrl, index) => new req_image
-                    //    {
-                    //        src_addr = imageUrl,
-                    //        save_file_name = $"detail_{index + 1:000}"
-                    //    }).ToList();
+                    HtmlNodeCollection nodes2 = renderContent.DocumentNode.SelectNodes("//center/img");
 
-                    //if (req_images.Count == 0)
-                    //{
-                    //    //pchtml형태로 되어 있을 경우
-                    //    tempHtml = Html.Replace(@"\", "");
-                    //    HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-                    //    doc.LoadHtml(tempHtml);
-                    //    var arrayScript = doc.DocumentNode.Descendants("script").ToArray();
-
-                    //    for (int i = 0; i < arrayScript.Count(); i++)
-                    //    {
-                    //        if (arrayScript[i].InnerText.Contains("pcHtml :"))
-                    //        {
-                    //            string pattern = @"<img.*?src=""(?<url>.*?)"".*?>";
-                    //            Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
-                    //            MatchCollection matches = rgx.Matches(arrayScript[i].InnerText);
-                    //            List<string> lstImages = new List<string>();
-                    //            for (int k = 0, l = matches.Count; k < l; k++)
-                    //            {
-                    //                lstImages.Add(matches[k].Groups[1].Value);
-                    //            }
-
-                    //            req_images = lstImages
-                    //                .Select((imageUrl, index) => new req_image
-                    //                {
-                    //                    src_addr = imageUrl,
-                    //                    save_file_name = $"detail_{index + 1:000}"
-                    //                }).ToList();
-                    //            break;
-                    //        }
-                    //    }
-                    //}
+                    if (nodes2 != null)
+                    {
+                        foreach (HtmlNode node in nodes2)
+                        {
+                            req_images.Add(new req_image { src_addr = node.Attributes["data-src"].Value, save_file_name = $"detail_{count + 1:000}" });
+                            count++;
+                        }
+                    }
                 }
 
                 for (int i = 0; i < req_images.Count; i++)
