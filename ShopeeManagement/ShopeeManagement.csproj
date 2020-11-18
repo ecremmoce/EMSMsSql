@@ -506,7 +506,6 @@
     <Resource Include="Resources\Auth0ErrorLoginIds.json" />
     <Resource Include="Resources\Auth0ErrorLoginMAC.json" />
     <None Include="ShopeeManagement_1_TemporaryKey.pfx" />
-    <None Include="ShopeeManagement_TemporaryKey.pfx" />
     <None Include="인증서백업\ShopeeManagement_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
