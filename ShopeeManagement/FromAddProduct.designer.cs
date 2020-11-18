@@ -5317,7 +5317,6 @@
             this.DgVariation.TabIndex = 308;
             this.DgVariation.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgVariation_CellEndEdit);
             this.DgVariation.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgVariation_CellValueChanged);
-            this.DgVariation.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DgVariation_RowsAdded);
             this.DgVariation.SelectionChanged += new System.EventHandler(this.DgVariation_SelectionChanged);
             // 
             // DgSrcVariation_No

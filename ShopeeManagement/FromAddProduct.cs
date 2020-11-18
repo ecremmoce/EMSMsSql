@@ -4142,6 +4142,7 @@ namespace ShopeeManagement
 
             lblThumb.Text = "기본 썸네일 [ " + DGSelectedList.Rows.Count + " ]";
             lblDetail.Text = "상세 이미지 [ " + DGDetailList.Rows.Count + " ]";
+            DgVariation.Enabled = true;
             Application.UseWaitCursor = false;
             MessageBox.Show("상품 데이터를 수신하였습니다.", "상품 데이터 수집", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -8659,11 +8660,6 @@ namespace ShopeeManagement
         private void Rd_None_Variation1_Click(object sender, EventArgs e)
         {
             DgVariation.Enabled = true;
-        }
-
-        private void DgVariation_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-            
         }
 
         private void BtnAddOption_Click(object sender, EventArgs e)
