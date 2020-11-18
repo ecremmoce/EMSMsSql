@@ -3430,6 +3430,17 @@ namespace ShopeeManagement
                             count++;
                         }
                     }
+
+                    HtmlNodeCollection nodes3 = renderContent.DocumentNode.SelectNodes("//div[@align='center']/img");
+
+                    if (nodes3 != null)
+                    {
+                        foreach (HtmlNode node in nodes3)
+                        {
+                            req_images.Add(new req_image { src_addr = node.Attributes["data-src"].Value, save_file_name = $"detail_{count + 1:000}" });
+                            count++;
+                        }
+                    }
                 }
 
                 for (int i = 0; i < req_images.Count; i++)
@@ -3975,7 +3986,16 @@ namespace ShopeeManagement
 
             ArtboxProduct item = ArtboxCrawling.GetProductDetail(ProductUrl);
             string title = item.Title;
-            TxtProductNameKor.Text = title.Substring(0, title.LastIndexOf('(')).Trim();
+
+            if (title.LastIndexOf('(') > 0)
+            {
+                TxtProductNameKor.Text = title.Substring(0, title.LastIndexOf('(')).Trim();
+            }
+            else
+            {
+                TxtProductNameKor.Text = title.Trim();
+            }
+            
             string tar_lang = string.Empty;
 
             if (cboLang.Text == "인도네시아어")
