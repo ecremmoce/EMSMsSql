@@ -2688,7 +2688,7 @@ namespace ShopeeManagement
                                 {
                                     for (int j = 0; j < result_tier_info2.tier_variation[i].options.Count; j++)
                                     {
-                                        dicVarPair.Add(result_tier_info2.tier_variation[i].options[j].ToString(), 0);
+                                        dicVarPair.Add(result_tier_info2.tier_variation[i].options[j].ToString().Trim(), 0);
                                     }
                                 }
 
