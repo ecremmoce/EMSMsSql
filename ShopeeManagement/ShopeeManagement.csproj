@@ -32,7 +32,7 @@
     <SuiteName>EMS</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>190</ApplicationRevision>
+    <ApplicationRevision>192</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -130,6 +130,8 @@
     <Compile Include="DTOs\ReqBase.cs" />
     <Compile Include="DTOs\Req\ReqUploadImg.cs" />
     <Compile Include="DTOs\Res\ResUploadImg.cs" />
+    <Compile Include="DTOs\Res\ShopeeSearchAttribute.cs" />
+    <Compile Include="DTOs\Res\ShopeeSearchCategory.cs" />
     <Compile Include="ExtBitmap.cs" />
     <Compile Include="FavKeyword.cs" />
     <Compile Include="FavKeywordOther.cs" />

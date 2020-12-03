@@ -802,11 +802,15 @@ namespace ShopeeManagement
         private void dgCategoryList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            string strCategoryId = dgCategoryList.SelectedRows[0].Cells["dgSrcItemList_Src_cat3_id"].Value.ToString();
-            string tarCountry = dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_country"].Value.ToString();
-            dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_set_category_id"].Value = dgCategoryList.SelectedRows[0].Cells["dgSrcItemList_Src_cat3_id"].Value.ToString();
-            //GetTarAttributeData(Convert.ToInt32(strCategoryId), true, tarCountry);
-            GetTarAttributeDataAPI(Convert.ToInt32(strCategoryId), true, tarCountry);
+            if (dgCategoryList.SelectedRows.Count != 0)
+            {
+                string strCategoryId = dgCategoryList.SelectedRows[0].Cells["dgSrcItemList_Src_cat3_id"].Value.ToString();
+                string tarCountry = dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_country"].Value.ToString();
+                dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_set_category_id"].Value = dgCategoryList.SelectedRows[0].Cells["dgSrcItemList_Src_cat3_id"].Value.ToString();
+                //GetTarAttributeData(Convert.ToInt32(strCategoryId), true, tarCountry);
+                GetTarAttributeDataAPI(Convert.ToInt32(strCategoryId), true, tarCountry);
+            }
+            
             Cursor.Current = Cursors.Default;
         }
 
@@ -814,13 +818,12 @@ namespace ShopeeManagement
         {
             DgAttribute.Rows.Clear();
 
-            string endPoint = $"https://shopeecategory.azurewebsites.net/api/ShopeeAttribute?CategoryId={categoryID}&CountryCode={tarCountry}";
-            var request = new RestRequest("", Method.GET);
-            request.Method = Method.GET;
+            //string endPoint = $"https://shopeecategory.azurewebsites.net/api/ShopeeAttribute?CategoryId={categoryID}&CountryCode={tarCountry}";
+            string endPoint = $"https://shopeeapi.azurewebsites.net/api/Category/Attributes?Platform=SHOPEE&Country={tarCountry}&CategoryId={categoryID}";
+            var request = new RestRequest(Method.GET);
             var client = new RestClient(endPoint);
             IRestResponse response = client.Execute(request);
-            List<APIShopeeCategory> lstShopeeCategory = new List<APIShopeeCategory>();
-            var result = JsonConvert.DeserializeObject<dynamic>(response.Content);
+            var result = JsonConvert.DeserializeObject<List<ShopeeSearchAttribute>>(response.Content);
 
             for (int i = 0; i < result.Count; i++)
             {
@@ -828,13 +831,14 @@ namespace ShopeeManagement
                 var NewComboCell = new DataGridViewComboBoxCell();
                 NewComboCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
 
-                if (result[i].InputType.ToString() == "COMBO_BOX" || result[i].InputType.ToString() == "DROP_DOWN")
+                if (result[i].InputType == "COMBO_BOX" || result[i].InputType == "DROP_DOWN")
                 {
-                    var options = JsonConvert.DeserializeObject<dynamic>(result[i].Options.Value.ToString());
-
-                    for (int j = 0; j < options.Count; j++)
+                    for (int j = 0; j < result[i].Options.Count(); j++)
                     {
-                        dicCombo.Add(options[j].ToString(), options[j].ToString());
+                        if (!dicCombo.ContainsKey(result[i].OptionsKo[j]))
+                        {
+                            dicCombo.Add(result[i].OptionsKo[j], result[i].Options[j]);
+                        }
                     }
 
                     if (dicCombo.Count > 0)
@@ -844,19 +848,23 @@ namespace ShopeeManagement
                         NewComboCell.ValueMember = "Value";
                     }
                 }
-                else if (result[i].InputType.ToString() == "TEXT_FILED")
+                else if (result[i].InputType == "TEXT_FILED")
                 {
+                    if (result[i].Options.Count() == 0)
+                    {
+                        dicCombo.Add("직접입력", "직접입력");
+                    }
                 }
                 else
                 {
                 }
 
                 DgAttribute.Rows.Add(i + 1, // DgTarAttrivute_no, No
-                    result[i].AttributeName.ToString(), // DgAttribute_attribute_name, 속성명
-                    result[i].InputType.ToString(), // DgAttribute_input_type, 입력타입
-                    result[i].AttributeId.ToString(), // DgAttribute_attribute_id, 속성ID
-                    result[i].AttributeType.ToString(), // DgAttribute_attribute_type, 속성타입
-                    (bool)result[i].isMandatory, // chkTarMandatory
+                    result[i].AttributeName, // DgAttribute_attribute_name, 속성명
+                    result[i].InputType, // DgAttribute_input_type, 입력타입
+                    result[i].AttributeId, // DgAttribute_attribute_id, 속성ID
+                    result[i].AttributeType, // DgAttribute_attribute_type, 속성타입
+                    result[i].IsMandatory, // chkTarMandatory
                     null, // choTarOption
                     false, // DgAttribute_is_complete, 완료여부
                            //result[i].AttributeName.ToString()); // DgAttribute_attribute_value
@@ -864,7 +872,6 @@ namespace ShopeeManagement
                 DgAttribute.Rows[DgAttribute.Rows.Count - 1].Cells[6] = NewComboCell;
             }
 
-            //수정 필요
             if (dg_productTitle.Rows.Count > 0 && dg_productTitle.SelectedRows.Count > 0)
             {
                 string brandName = dg_productTitle.SelectedRows[0].Cells["dg_productTitle_title"].Value.ToString().Trim();
@@ -1307,32 +1314,47 @@ namespace ShopeeManagement
             string tarCountry = dg_site_id_category.SelectedRows[0].Cells["dg_site_id_category_country"].Value.ToString();
             string keyWord = TxtCategorySearchText.Text.Trim().ToUpper();
 
-            string endPoint = $"https://shopeecategory.azurewebsites.net/api/ShopeeCategory?CountryCode={tarCountry}";
-            var request = new RestRequest("", Method.GET);
-            request.Method = Method.GET;
+            //string endPoint = $"https://shopeecategory.azurewebsites.net/api/ShopeeCategory?CountryCode={tarCountry}";
+            //var request = new RestRequest("", Method.GET);
+            //request.Method = Method.GET;
+            //var client = new RestClient(endPoint);
+            //IRestResponse response = client.Execute(request);
+            //List<APIShopeeCategory> lstShopeeCategory = new List<APIShopeeCategory>();
+            //var result = JsonConvert.DeserializeObject<List<APIShopeeCategory>>(response.Content);
+
+            //List<APIShopeeCategory> query = (from shopeeCategory in result
+            //                                where (shopeeCategory.Category1Name ?? string.Empty).ToUpper().Contains(keyWord)
+            //                                || (shopeeCategory.Category2Name ?? string.Empty).ToUpper().Contains(keyWord)
+            //                                || (shopeeCategory.Category3Name ?? string.Empty).ToUpper().Contains(keyWord)
+            //                                select shopeeCategory).ToList();
+
+            //dgCategoryList.Rows.Clear();
+
+            //for (int i = 0; i < query.Count(); i++)
+            //{
+            //    dgCategoryList.Rows.Add(i + 1,
+            //        query[i].Category1Name,
+            //        query[i].Category2Name,
+            //        query[i].Category3Name,
+            //        query[i].LastCategoryId);
+            //}
+
+            //dgCategoryList.ClearSelection();
+
+            string endPoint = $"https://shopeeapi.azurewebsites.net/api/Category/Summeries?Country={tarCountry}&Name={keyWord}";
+            var request = new RestRequest(Method.GET);
             var client = new RestClient(endPoint);
             IRestResponse response = client.Execute(request);
-            List<APIShopeeCategory> lstShopeeCategory = new List<APIShopeeCategory>();
-            var result = JsonConvert.DeserializeObject<List<APIShopeeCategory>>(response.Content);
-
-            List<APIShopeeCategory> query = (from shopeeCategory in result
-                                            where (shopeeCategory.Category1Name ?? string.Empty).ToUpper().Contains(keyWord)
-                                            || (shopeeCategory.Category2Name ?? string.Empty).ToUpper().Contains(keyWord)
-                                            || (shopeeCategory.Category3Name ?? string.Empty).ToUpper().Contains(keyWord)
-                                            select shopeeCategory).ToList();
-
+            var result = JsonConvert.DeserializeObject<List<ShopeeSearchCategory>>(response.Content);
             dgCategoryList.Rows.Clear();
-
-            for (int i = 0; i < query.Count(); i++)
+            for (int i = 0; i < result.Count(); i++)
             {
                 dgCategoryList.Rows.Add(i + 1,
-                    query[i].Category1Name,
-                    query[i].Category2Name,
-                    query[i].Category3Name,
-                    query[i].LastCategoryId);
+                    result[i].Category1Name,
+                    result[i].Category2Name,
+                    result[i].Category3Name,
+                    result[i].LastCategoryId);
             }
-
-            dgCategoryList.ClearSelection();
 
             Cursor.Current = Cursors.Default;
         }

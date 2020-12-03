@@ -273,15 +273,15 @@ namespace ShopeeManagement
 
                     if (rateList.Count > 0)
                     {
-                        shippingFee = (rateList[0].ShippingFeeAvg / CurrencyRate) * 100;
-                        supplyPrice = ((SourcePrice + Margin) / CurrencyRate) * 100;
+                        shippingFee = rateList[0].ShippingFeeAvg / CurrencyRate;
+                        supplyPrice = (SourcePrice + Margin) / CurrencyRate;
 
-                        pgFee = (supplyPrice + shippingFee) * (PgFeeRate / 100) * 100 / 100;
-                        shopeeFee = (supplyPrice + shippingFee + pgFee) * (ShopeeRate / 100) * 100 / 100;
-                        targetSellPrice = supplyPrice + shippingFee + pgFee + shopeeFee;
+                        pgFee = (supplyPrice + shippingFee) * (PgFeeRate / 100);
+                        shopeeFee = (supplyPrice + shippingFee + pgFee) * (ShopeeRate / 100);
+                        targetSellPrice = (supplyPrice + shippingFee + pgFee + shopeeFee) * 100;
                         targetRetailPrice = targetSellPrice * (RetailPriceRate / 100);
-                        targetSellPriceKRW = Math.Round(targetSellPrice * CurrencyRate);
-                        targetRetailPriceKRW = Math.Round(targetRetailPrice * CurrencyRate);
+                        targetSellPriceKRW = Math.Round(targetSellPrice * CurrencyRate / 100);
+                        targetRetailPriceKRW = Math.Round(targetRetailPrice * CurrencyRate / 100);
                     }
                     else
                     {

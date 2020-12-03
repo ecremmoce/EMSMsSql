@@ -396,8 +396,21 @@ namespace ShopeeManagement
             }
         }
         public delegate void InvokeDelegate();
-        private void getProductList(string area, string keyword)
+        private async void getProductList(string area, string keyword)
         {
+            if (dgSrcItemList.Rows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dgSrcItemList.Rows)
+                {
+                    var ic = row.Cells["dgItemList_Image"] as DataGridViewImageCell;
+
+                    if (ic != null)
+                    {
+                        ic.Dispose();
+                    }
+                }
+            }
+
             dgSrcItemList.Rows.Clear();
             if (dg_site_id.SelectedRows.Count > 0)
             {
@@ -659,11 +672,10 @@ namespace ShopeeManagement
                             }
                         }
 
-
-                        UnLockMaxParallel();
+                        //UnLockMaxParallel(); // 메모리 누수가 생겨서 주석처리. 20201203
                         CancellationTokenSource cts = new CancellationTokenSource();
 
-                        Task.Run(() =>
+                        await Task.Run(() =>
                         {
                             try
                             {
@@ -2950,7 +2962,7 @@ namespace ShopeeManagement
                 }
                 TempCategoryId = "";
                 isChanged = false;
-                FormSetCategoryAndAttributeDraft fcs = new FormSetCategoryAndAttributeDraft();
+                var fcs = new FormSetCategoryAndAttributeDraft();
                 fcs.fp = this;
                 fcs.ItemInfoDraftId = Convert.ToInt32(dgSrcItemList.SelectedRows[0].Cells["dgItemList_ItemInfoDraftId"].Value.ToString());
                 fcs.srcCountry = srcCountry;
@@ -6402,24 +6414,9 @@ namespace ShopeeManagement
                                             {
                                                 var att = new shopee_attribute
                                                 {
-                                                    attributes_id = attributeList[j].attribute_id
+                                                    attributes_id = attributeList[j].attribute_id,
+                                                    value = attributeList[j].attribute_value
                                                 };
-                                                var restClient = new RestClient($"https://shopeecategory.azurewebsites.net/api/CategoryDictionary/FindOriginalText?CountryCode={tarCountry}&TranslationText={attributeList[j].attribute_value}");
-                                                var restRequest = new RestRequest
-                                                {
-                                                    Method = Method.GET
-                                                };
-                                                IRestResponse transResponse = restClient.Execute(restRequest);
-
-                                                if (transResponse.StatusCode == HttpStatusCode.OK)
-                                                {
-                                                    dynamic ContentString = JsonConvert.DeserializeObject(transResponse.Content);
-                                                    att.value = ContentString.OriginalText;
-                                                }
-                                                else
-                                                {
-                                                    att.value = attributeList[j].attribute_value;
-                                                }
 
                                                 lst_attr.Add(att);
                                             }

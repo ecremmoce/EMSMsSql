@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using RestSharp;
+using ShopeeManagement.DTOs.Res;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -329,6 +330,7 @@ namespace ShopeeManagement
 
             DgTarAttribute.Columns[2].Visible = false;
             DgTarAttribute.Columns[4].Visible = false;
+            DgTarAttribute.Columns[6].Visible = false;
             DgTarAttribute.Columns[8].Visible = false;
             DgTarAttribute.Columns[10].Visible = false;
             DgTarAttribute.Columns[11].Visible = false;
@@ -413,13 +415,12 @@ namespace ShopeeManagement
             Cursor.Current = Cursors.WaitCursor;
             dgSrcItemList.Rows.Clear();
 
-            string endPoint = "https://shopeecategory.azurewebsites.net/api/ShopeeCategory?CountryCode=" + tarCountry + "&CategorySearch=" + keyWord;
-            var request = new RestRequest("", RestSharp.Method.GET);
-            request.Method = Method.GET;
+            //string endPoint = $"https://shopeecategory.azurewebsites.net/api/ShopeeCategory?CountryCode=" + tarCountry + "&CategorySearch=" + keyWord;
+            string endPoint = $"https://shopeeapi.azurewebsites.net/api/Category/Summeries?Country={tarCountry}&Name={keyWord}";
+            var request = new RestRequest(Method.GET);
             var client = new RestClient(endPoint);
             IRestResponse response = client.Execute(request);
-            List<APIShopeeCategory> lstShopeeCategory = new List<APIShopeeCategory>();
-            var result = JsonConvert.DeserializeObject<List<APIShopeeCategory>>(response.Content);
+            var result = JsonConvert.DeserializeObject<List<ShopeeSearchCategory>>(response.Content);
 
             for (int i = 0; i < result.Count; i++)
             {
@@ -439,19 +440,17 @@ namespace ShopeeManagement
         {
             DgTarAttribute.Rows.Clear();
 
-            string endPoint = $"https://shopeecategory.azurewebsites.net/api/ShopeeAttribute?CategoryId={categoryID}&CountryCode={tarCountry}";
-            var request = new RestRequest("", Method.GET)
-            {
-                Method = Method.GET
-            };
+            //string endPoint = $"https://shopeecategory.azurewebsites.net/api/ShopeeAttribute?CategoryId={categoryID}&CountryCode={tarCountry}";
+            string endPoint = $"https://shopeeapi.azurewebsites.net/api/Category/Attributes?Platform=SHOPEE&Country={tarCountry}&CategoryId={categoryID}";
+            var request = new RestRequest(Method.GET);
             var client = new RestClient(endPoint);
             IRestResponse response = client.Execute(request);
-            var result = JsonConvert.DeserializeObject<dynamic>(response.Content);
+            var result = JsonConvert.DeserializeObject<List<ShopeeSearchAttribute>>(response.Content);
 
             for (int i = 0; i < result.Count; i++)
             {
                 var dicCombo = new Dictionary<string, string>();
-                var liComboKo = new List<string>();
+                var diComboKo = new Dictionary<string, string>();
                 var NewComboCell = new DataGridViewComboBoxCell();
                 var NewComboCell2 = new DataGridViewComboBoxCell();
                 NewComboCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
@@ -459,22 +458,29 @@ namespace ShopeeManagement
 
                 if (result[i].InputType.ToString() == "COMBO_BOX" || result[i].InputType.ToString() == "DROP_DOWN")
                 {
-                    var options = JsonConvert.DeserializeObject<dynamic>(result[i].Options.Value.ToString());
-                    var optionsKo = JsonConvert.DeserializeObject<dynamic>(result[i].OptionsKo.Value.ToString());
-
-                    for (int j = 0; j < options.Count; j++)
+                    for (int j = 0; j < result[i].Options.Count(); j++)
                     {
-                        dicCombo.Add(options[j].ToString(), options[j].ToString());
+                        if (!dicCombo.ContainsKey(result[i].Options[j]))
+                        {
+                            dicCombo.Add(result[i].Options[j], result[i].Options[j]);
+                        }
                     }
 
-                    for (int j = 0; j < optionsKo.Count; j++)
+                    for (int j = 0; j < result[i].OptionsKo.Count(); j++)
                     {
-                        liComboKo.Add(optionsKo[j].ToString());
+                        if (!diComboKo.ContainsKey(result[i].OptionsKo[j]))
+                        {
+                            diComboKo.Add(result[i].OptionsKo[j], result[i].Options[j]);
+                        }
                     }
                 }
-                else if (result[i].InputType.ToString() == "TEXT_FILED")
+                else if (result[i].InputType == "TEXT_FILED")
                 {
-
+                    if (result[i].Options.Count() == 0)
+                    {
+                        dicCombo.Add("직접입력", "직접입력");
+                        diComboKo.Add("직접입력", "직접입력");
+                    }
                 }
                 else
                 {
@@ -488,11 +494,11 @@ namespace ShopeeManagement
                     NewComboCell.ValueMember = "Value";
                 }
 
-                if (liComboKo.Count > 0)
+                if (diComboKo.Count > 0)
                 {
-                    NewComboCell2.DataSource = new BindingSource(liComboKo, null);
-                    //NewComboCell2.DisplayMember = "Name";
-                    //NewComboCell2.ValueMember = "Name";
+                    NewComboCell2.DataSource = new BindingSource(diComboKo, null);
+                    NewComboCell2.DisplayMember = "Key";
+                    NewComboCell2.ValueMember = "Value";
                 }
 
                 string attributeName = "";
@@ -511,7 +517,7 @@ namespace ShopeeManagement
                     result[i].InputType.ToString(), // DgSrcAttribute_input_type, visible false
                     result[i].AttributeId.ToString(), // DgSrcAttribute_attribute_id
                     result[i].AttributeType.ToString(), //DgSrcAttribute_attribute_type, visible false
-                    (bool)result[i].isMandatory, // DgTarAttribute_is_mandatory
+                    result[i].IsMandatory, // DgTarAttribute_is_mandatory
                     null, // DgTarAttribute_option
                     null, // DgTarAttribute_option2
                     false, // DgSrcAttribute_is_complete, visible false
@@ -764,13 +770,15 @@ namespace ShopeeManagement
             }
         }
 
+        /// <summary>
+        /// DgTarAttribute 에서 콤보박스 옵션 선택시 발생
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LastColumnComboSelectionChanged(object sender, EventArgs e)
         {
             var currentcell = DgTarAttribute.CurrentCellAddress;
             var sendingCB = sender as DataGridViewComboBoxEditingControl;
-
-
-
 
             if (sendingCB.SelectedItem != null)
             {
